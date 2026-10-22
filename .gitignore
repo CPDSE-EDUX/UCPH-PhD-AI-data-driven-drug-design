@@ -1,0 +1,94 @@
+# ──────────────────────────────────────────────────────────────────────────
+# CPDSE course template — sensible defaults for Python, R, Jupyter courses
+# ──────────────────────────────────────────────────────────────────────────
+
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Virtual environments --------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# --- Jupyter ---------------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+# Keep notebook outputs out of version control by clearing before commit;
+# if you prefer to version-control stripped outputs, install nbstripout.
+
+# --- R / RStudio -----------------------------------------------------------
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+*.Rproj.user/
+*.Rcheck/
+.Rproj.user/
+renv/library/
+renv/local/
+renv/staging/
+
+# --- Quarto ----------------------------------------------------------------
+/_site/
+/.quarto/
+*_cache/
+*_files/
+
+# --- Data ------------------------------------------------------------------
+# Large datasets DO NOT belong in Git. Link from data/README.md instead.
+*.csv.gz
+*.parquet.gz
+*.zip
+*.tar.gz
+# Common raw-data folders teachers accidentally commit:
+data/raw/
+data/interim/
+data/processed/
+
+# --- Secrets ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.yml
+
+# --- OS / editor -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-workspace
+
+# --- Build / caches --------------------------------------------------------
+.cache/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/

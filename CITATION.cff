@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use these materials in teaching, research, or derived work, please cite as below."
+title: "[[ Course title ]]"
+abstract: "[[ One-paragraph description of the course and what it teaches. ]]"
+authors:
+  - family-names: "[[ Surname ]]"
+    given-names: "[[ Given name ]]"
+    affiliation: "CPDSE, [[ University of Copenhagen / University of Southern Denmark ]]"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+version: "2026.1"
+date-released: "2026-02-01"
+license: CC-BY-4.0
+url: "https://github.com/[[ your-org ]]/[[ your-repo ]]"
+keywords:
+  - teaching
+  - pharmaceutical data science
+  - CPDSE
+  - "[[ domain keyword e.g. cheminformatics ]]"
+  - "[[ method keyword e.g. machine-learning ]]"
