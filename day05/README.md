@@ -15,7 +15,3 @@ Explore data preparation, molecular features and descriptors, and predictive mac
 | Lecture 15 | Industrial data analysis and case story | Lars Juhl Jensen | ZS discovery |
 | Workshop 5 | Data analysis workshop<br>Using Claude | Arnault-Quentin Vermillet, Jascha Henseler, Jacob Fredegaard Hansen, Lykke Pedersen, David Gloriam | ILF, UCPH |
 | Wrap-up | Wrapping up the course<br>Tips of next-level courses and course evaluation. | David Gloriam | ILF, UCPH |
-
-## Materials
-
-Slides, exercise instructions and any required setup will be added here.

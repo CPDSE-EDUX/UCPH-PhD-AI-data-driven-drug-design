@@ -14,7 +14,3 @@ Learn how visual properties shape the interpretation of data, how to choose grap
 | Lecture 11 | Visualization in popular science | Karen Grubbe | Illustreret videnskab |
 | Lecture 12 | Scripting tools for data visualization<br>Tool tips to get started | Alexander Hauser | ILF, UCPH |
 | Workshop 4 | Data visualization workshop<br>Using Claude | Sarah Mittenentzwei, Javier Lorente,<br>David Gloriam, Jascha Henseler, Jacob Fredegaard Hansen | ILF, UCPH |
-
-## Materials
-
-Slides, exercise instructions and any required setup will be added here.

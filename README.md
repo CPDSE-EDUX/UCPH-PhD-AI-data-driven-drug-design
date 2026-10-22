@@ -36,8 +36,6 @@ The course introduces participants to:
 ```text
 ├── day01/                 # Databases
 ├── day02/                 # Structure-based drug design (small molecules)
-│   ├── README.md          # Day description and detailed workshop plan
-│   └── workshop-outline.docx
 ├── day03/                 # AI/ML tools for peptide and protein design
 ├── day04/                 # Data visualization
 ├── day05/                 # Data analysis using AI/ML
@@ -45,11 +43,11 @@ The course introduces participants to:
 └── README.md             # Course overview
 ```
 
-Each day directory contains a README with its description and program. Slides, exercises and supporting files will be added within the relevant day directory.
+Each day directory contains a README with its description and program.
 
 ## Setup
 
-Consult the relevant day's README for preparation and software requirements. Day 2 uses PyMOL, Maestro with LigPrep and Glide, and a chatbot. Days 4 and 5 include workshops using Claude. Detailed installation and access instructions will be added with the exercise materials.
+Consult the relevant day's README for preparation and software requirements. Day 2 uses PyMOL, Maestro with LigPrep and Glide, and a chatbot. Days 4 and 5 include workshops using Claude.
 
 ## Repository conventions
 

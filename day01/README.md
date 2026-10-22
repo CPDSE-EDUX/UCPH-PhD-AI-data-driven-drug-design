@@ -14,7 +14,3 @@ Explore drug, target and disease databases, then practise finding data for works
 | Lecture 2 | Drug, target and disease databases<br>ClinicalTrials.gov, ChEMBL, DrugBank, DrugCentral, OpenTargets, Pharos, PubChem, Therapeutic targets database, (GPCRdb, GtoPdb, KLIFS), GTEX? | Javier Lorente | ILF, UCPH |
 | Lecture 3 | Industrial talk TBD | TBD | Amass |
 | Workshop 1 | Hunt for drug, target and disease data<br>Find drug, target and disease data – either following a workshop material or related to your own project. | Javier Lorente, Søren Norge Andreasen, Aidan Flynn, David Gloriam | ILF, UCPH |
-
-## Materials
-
-Slides, exercise instructions and any required setup will be added here.

@@ -19,11 +19,7 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 
 **Structure-Based Design of Selective 5-HT2A Ligands**
 
-**Draft workshop plan.** The preparation checklist and teaching decisions below remain to be finalized.
-
-[Download the workshop outline (Word)](workshop-outline.docx)
-
-**Tools:** PyMOL, Maestro with LigPrep and Glide, and access to a chatbot. Structure files, software access and loading instructions will be provided for the workshop.
+**Tools:** PyMOL, Maestro with LigPrep and Glide, and access to a chatbot.
 
 **Central challenge**
 
@@ -209,20 +205,6 @@ Close with a short whole-class discussion. The questions below should make expli
 
 > Key methodological message: Winning the docking competition does not mean that a team designed the highest-affinity ligand. It means that the molecule scored best according to this particular computational model.
 
-### Instructor preparation checklist
-
-- Prepared and cleaned 5-HT2A-LSD structure for all students.
-- Prepared 5-HT2B structure aligned to 5-HT2A for the selectivity exercise.
-- PyMOL session files or clearly defined loading instructions.
-- Short PyMOL cheat sheet covering selections, sticks, surfaces, labels, distances, hydrophobicity and electrostatic visualization.
-- Chatbot access confirmed for students; decide whether any model(s) should be recommended or whether model choice is open.
-- Shared submission form/spreadsheet with fixed fields and unique team/compound IDs.
-- Validated LigPrep workflow and pre-generated Glide grids for both receptors.
-- Test docking on a small set of representative LSD analogues to estimate live runtime.
-- Fallback precomputed docking results in case the live calculation is too slow or fails.
-- A simple script or spreadsheet formula for calculating the selectivity metric and generating the leaderboard.
-- Optional small prizes or symbolic Gold/Silver/Bronze awards.
-
 ### Suggested instructor roles during the session
 
 | Role | Main responsibility |
@@ -232,16 +214,6 @@ Close with a short whole-class discussion. The questions below should make expli
 | Medicinal chemistry support | Challenges design rationales and checks whether proposed modifications are interpretable. |
 | AI / prompting support | Helps students use chatbots productively without turning suggestions into unquestioned answers. |
 | Docking operator | Collects submissions, prepares ligands, runs live Glide docking and produces the leaderboard. |
-
-### Points to agree among teachers before the course
-
-- Exact 5-HT2A and 5-HT2B structures and protonation/state preparation used for the exercise.
-- How much receptor-specific information should be revealed versus discovered by students.
-- Whether students may make any chemical modification or should remain within a defined LSD analogue space.
-- Whether the AI designs must be accepted verbatim or may be rejected/revised after student quality control.
-- Docking protocol and scoring/ranking rules, including handling of multiple protonation states or stereoisomers.
-- Whether medals are awarded separately for affinity and selectivity, or whether an additional overall prize is used.
-- How to communicate docking limitations so the competition remains engaging without implying experimental validation.
 
 ### Core take-home messages
 
