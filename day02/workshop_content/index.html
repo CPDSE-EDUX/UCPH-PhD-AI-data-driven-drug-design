@@ -24,9 +24,28 @@
     font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   header, main { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
-  header { padding-top: 24px; }
-  h1 { font-size: 1.5rem; margin: 0 0 4px; }
-  .sub { color: var(--muted); margin: 0 0 16px; }
+  header { padding-top: 20px; }
+  .banner {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: stretch;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; margin-bottom: 16px;
+  }
+  .banner-text { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .banner-fig { background: #fff; display: flex; align-items: center; justify-content: center; }
+  .banner-fig img { width: 100%; height: 100%; max-height: 320px; object-fit: cover; object-position: 40% 60%; }
+  @media (max-width: 700px) {
+    .banner { grid-template-columns: minmax(0, 1fr); }
+    .banner-fig img { max-height: 200px; }
+  }
+  .brand { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  /* White backing keeps the dark logo text readable in dark mode */
+  .brand img { height: 40px; width: auto; max-width: 100%; background: #fff; padding: 4px 6px; border-radius: 6px; }
+  .course { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 8px 0 0; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; margin: 0; }
+  h1 .h { color: var(--human); }
+  h1 .a { color: var(--ai); }
+  .workshop { font-weight: 600; margin: 0; }
+  .sub { color: var(--muted); margin: 0; }
   nav { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
   nav button {
     background: none; border: 0; padding: 10px 14px; font: inherit; color: var(--muted);
@@ -99,8 +118,20 @@
 </head>
 <body>
 <header>
-  <h1>Human vs AI: 5-HT2A ligand designs</h1>
-  <p class="sub">Day 2 workshop · Submit one molecule at a time: your own designs as <b>Human</b>, chatbot designs as <b>AI</b>.</p>
+  <div class="banner">
+    <div class="banner-text">
+      <div class="brand">
+        <img src="logo_ku.png" alt="University of Copenhagen">
+        <img src="logo_cpdse.png" alt="Center for Pharmaceutical Data Science Education">
+
+      </div>
+      <p class="course">PhD/LLL course · AI &amp; Data Driven Drug Discovery 2026</p>
+      <h1><span class="h">Human</span> vs <span class="a">AI</span>: 5-HT2A ligand design</h1>
+      <p class="workshop">Workshop: Structure-based Drug Discovery (Day 2)</p>
+      <p class="sub">Submit one molecule at a time: your own designs as <b>Human</b>, chatbot designs as <b>AI</b>.</p>
+    </div>
+    <div class="banner-fig"><img src="hero.jpg" alt="Ligand in the binding pocket of a GPCR"></div>
+  </div>
   <nav>
     <button data-tab="submit" class="active">Submit</button>
     <button data-tab="dashboard">Dashboard</button>
