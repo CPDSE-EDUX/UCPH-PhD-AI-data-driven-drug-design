@@ -1,4 +1,4 @@
-# CPDSE Course Repository Template  (Replace with Course Title)
+# AI- & data-driven drug design – An introduction
 
 When creating a new course, please follow the conventions: [https://github.com/CPDSE-EDUX/.github/blob/main/profile/README.md](https://github.com/CPDSE-EDUX/.github/blob/main/profile/README.md)
 
