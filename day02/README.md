@@ -159,7 +159,7 @@ AI quality-control question: "Would I actually dock this molecule? Why or why no
 
 ### 5. Submission and prospective predictions (15:30-15:45)
 
-Teachers collect all designs in a shared form or spreadsheet. The predictions should be locked before any docking result is revealed.
+Teachers collect all designs through the [design submission dashboard](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/) (setup: [workshop_content](workshop_content/README.md)). The predictions should be locked before any docking result is revealed.
 
 | Team | Origin | ID | SMILES / structure | Main hypothesis | Expected effect |
 | --- | --- | --- | --- | --- | --- |
