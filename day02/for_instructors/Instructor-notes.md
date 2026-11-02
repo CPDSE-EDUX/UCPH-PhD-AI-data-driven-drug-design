@@ -28,7 +28,7 @@ These are proposed teaching settings. GUI controls, calculation outputs and turn
 - Check all assigned group numbers exist in the dashboard dropdown (currently Groups 1–13). Explain the definition of Expected effect and how joint human designs should be named.
 - Provide the [Word and Excel worksheets](../workshop_manual/Group-worksheet.md). Groups choose one format for notes and analysis; all six SMILES and their hypotheses are collected through the GitHub Pages web app. The worksheet records returned compound IDs so the notes can be matched to submitted designs.
 - Prepare a separate results spreadsheet with parent ID, origin, group, both scores, state/pose IDs, ΔS, comparison with LSD, pose assessment and eligibility. The current dashboard collects designs; it does not import scores or calculate a docking leaderboard.
-- Publish and check the manual's page links and images in GitHub Wiki. Give participants a single entry URL and have a downloadable/offline copy available.
+- Build and publish the [course website](PUBLISHING.md). Check the workshop links, images, worksheet downloads and embedded SMILES app. Give participants a single course URL and keep local copies of the materials available.
 
 The [dashboard setup guide](Dashboard-setup.md) describes the Google Form / Sheet integration. Because the Sheet is readable for the dashboard, participants should use the agreed display names and enter only workshop content.
 

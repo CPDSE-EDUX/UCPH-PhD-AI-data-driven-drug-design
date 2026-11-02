@@ -68,11 +68,11 @@ Groups choose a Word or Excel worksheet for their observations, predictions and 
 
 The selectivity score proxy is **DockingScore(2B) − DockingScore(2A)**; a positive value favors 2A in this model. Scores are empirical rankings. The analysis guide separates measured Ki ratios from an optional, explicitly hypothetical score-to-Ki calculation. Pose plausibility and experimental follow-up remain central to interpreting any leaderboard.
 
-### GitHub Wiki delivery
+### Website delivery
 
-**GitHub Wiki is a good fit for the participant manual**, with short linked pages and a sidebar. Keep the Markdown in this repository as the reviewed source and publish it to the Wiki for delivery. The Wiki uses a separate Git repository, so source edits need a separate publication step; see [GitHub's Wiki workflow](https://docs.github.com/en/communities/documenting-your-project-with-wikis/adding-or-editing-wiki-pages).
+The whole course is built as a **GitHub Pages website from this repository**. It includes the course overview, full program, all five day pages and the Day 2 workshop guide. Markdown files remain the editable source for the course content.
 
-The student Wiki contains the manual, navigation, screenshots and downloadable worksheets. Instructor preparation, publishing instructions and maintenance scripts are kept in `for_instructors/` and excluded from the student Wiki export. The submission interface runs on GitHub Pages.
+The Day 2 submission page embeds the existing SMILES collection app, which is also available at its original standalone URL. Screenshots and Word/Excel worksheets are included in the site build. Instructor files, archives and temporary files are excluded from the published output.
 
 ### Files and supporting guides
 
@@ -83,15 +83,16 @@ day02/
 │   ├── README.md              Instructor resource index
 │   ├── Instructor-notes.md    Rehearsal, pooled docking and contingencies
 │   ├── Dashboard-setup.md     Submission app configuration
-│   ├── PUBLISHING.md          GitHub Wiki delivery instructions
-│   ├── export_wiki.py         Stage the student Wiki
+│   ├── PUBLISHING.md          GitHub Pages setup and deployment
+│   ├── build_site.py          Build the whole course website
+│   ├── test_site.py           Check pages, links and publication boundaries
+│   ├── site/                 Website template, styles, scripts and workflow
 │   └── build_worksheets.py    Regenerate the editable worksheets
 ├── workshop_manual/
 │   ├── Home.md                Participant landing page and schedule
 │   ├── 01-…md through 18-…md  One page per workflow step
 │   ├── Group-worksheet.md     Worksheet downloads and instructions
 │   ├── References.md          Scientific and software sources
-│   ├── _Sidebar.md            Manual navigation
 │   ├── downloads/             Word and Excel group worksheets
 │   └── assets/                Maestro screenshots
 ├── workshop_content/          Design submission app and student guide
@@ -103,4 +104,4 @@ day02/
 
 ### Instructor resources
 
-[Instructor resource index](for_instructors/README.md) · [Workshop notes](for_instructors/Instructor-notes.md) · [Dashboard setup](for_instructors/Dashboard-setup.md) · [Wiki publishing](for_instructors/PUBLISHING.md)
+[Instructor resource index](for_instructors/README.md) · [Workshop notes](for_instructors/Instructor-notes.md) · [Dashboard setup](for_instructors/Dashboard-setup.md) · [Website publishing](for_instructors/PUBLISHING.md)

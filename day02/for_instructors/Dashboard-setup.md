@@ -11,7 +11,7 @@ The student-facing app is [workshop_content/index.html](../workshop_content/inde
 3. **Get the pre-filled link:** in the Form, open *⋮ → Get pre-filled link* and type each field's key as its answer: `group`, `origin`, `name`, `id`, `smiles`, `hypothesis`, `effect`. Click *Get link → Copy link*.
 4. **Configure the page:** paste that link into `FORM_PREFILL_LINK` at the top of the `<script>` in [index.html](../workshop_content/index.html). The page reads which Form field is which from those answers. Confirm `SHEET_ID` and `SHEET_TAB` point to the intended collection Sheet and response tab.
 5. **Share the Sheet** as *Anyone with the link: Viewer* so the dashboard can read it.
-6. **Turn on GitHub Pages:** in the repository's *Settings → Pages*, deploy from the `main` branch, root folder.
+6. **Configure GitHub Pages:** follow the [website publishing guide](PUBLISHING.md). In *Settings → Pages*, choose **GitHub Actions** as the source. The course-site workflow includes this app at its existing path and embeds it in the course submission page.
 
 ## During the workshop
 

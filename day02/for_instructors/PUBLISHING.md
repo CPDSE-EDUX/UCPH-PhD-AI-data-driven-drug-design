@@ -1,64 +1,70 @@
-# Delivering the workshop through GitHub Wiki
+# Publish the course with GitHub Pages
 
-GitHub Wiki is a good delivery format for this step-by-step manual: participants can open one short page at a time and use a sidebar to follow the exercise. Keep the Markdown and screenshots in this repository as the reviewed source of truth. A wiki has its own Git repository, so updating these files does not automatically update the live wiki. GitHub documents the [local Wiki editing workflow](https://docs.github.com/en/communities/documenting-your-project-with-wikis/adding-or-editing-wiki-pages).
+The course website is built from this repository and deployed through GitHub Actions. The build includes the course overview, full program, five day pages, the complete Day 2 workshop, worksheet downloads and the existing SMILES collection app.
 
-For a larger course site with automated navigation and publishing, GitHub Pages may be a better long-term fit. The existing GitHub Pages submission dashboard can remain the collection interface alongside the Wiki manual.
+**Publication target:** <https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/>
 
-## Review the source
+## Content and site source
 
-Start at the [manual home](../workshop_manual/Home.md). The 18 numbered files are the participant steps. The worksheet download page, references and `_Sidebar.md` support them. Editable Word and Excel worksheets are in `workshop_manual/downloads/`. Relative links, downloads and images work when reading the files in the repository.
+| Edit | Source |
+| --- | --- |
+| Repository course description | [Course README](../../README.md) |
+| Full schedule and teaching staff | [PROGRAM.md](../../PROGRAM.md) |
+| Day descriptions and session tables | Each day's `README.md` |
+| Day 2 workshop steps and worksheets | [Workshop manual](../workshop_manual/Home.md) |
+| Existing SMILES collection interface | [workshop_content/index.html](../workshop_content/index.html) |
+| Homepage copy, learning outcomes, layout and visual style | [page.html](site/page.html), [site.css](site/site.css), [site.js](site/site.js) |
+| Course navigation and content selection | [build_site.py](build_site.py) |
+| Automated checks | [test_site.py](test_site.py) |
 
-Instructor notes, publishing instructions, dashboard setup and maintenance scripts are kept in `for_instructors/`. The Wiki exporter stages only the student pages and their linked screenshots and worksheets; instructor files are excluded.
+The build reads an explicit list of student Markdown pages and resource files. It renders student content from the day READMEs, omitting repository administration sections. Instructor files, archives, temporary files, source scripts and repository metadata are not copied into the published site.
 
-Edit these source files and review them through the normal repository workflow. Make subsequent corrections here and regenerate the Wiki staging output so the two copies stay consistent.
+The home page layout and short course-day summaries are defined in the template and builder. Update those summaries if the course structure changes. Day session tables and workshop instructions are rendered from their Markdown sources.
 
-## Stage the Wiki files locally
+## Build and preview locally
 
-From `day02`, run:
-
-```bash
-python3 for_instructors/export_wiki.py /tmp/day02-wiki-review
-```
-
-Use a new or empty output directory. The script reads only the active manual pages and their linked resources. It copies images and Word/Excel downloads, rewriting internal links to full Wiki page URLs and resources to raw Wiki URLs. It does not commit, push or change a live Wiki. Images and downloads at those URLs become available once the staged files are published.
-
-By default, pages are named `Day02-Home.md`, `Day02-01-Maestro-interface.md`, and so on. Navigation is exported as `Day02-Navigation.md`. This allows the manual to coexist with other days in the course Wiki without replacing its Home or sidebar. Merge the relevant links from `Day02-Navigation.md` into the course's existing `_Sidebar.md` when preparing publication.
-
-For a different repository, pass its Wiki URL:
-
-```bash
-python3 for_instructors/export_wiki.py /tmp/day02-other-wiki-review \
-  --wiki-url https://github.com/OWNER/REPOSITORY/wiki
-```
-
-For a **dedicated workshop-only Wiki**, use `--prefix ''`. This emits `Home.md`, the unprefixed step names and `_Sidebar.md`, which GitHub uses as its custom sidebar. See [GitHub's sidebar documentation](https://docs.github.com/en/communities/documenting-your-project-with-wikis/creating-a-footer-or-sidebar-for-your-wiki). Do not use that option to overwrite a shared course Wiki's landing page.
-
-## Publish the reviewed files
-
-1. Enable Wiki in repository settings if needed. If the Wiki is new, create its first page through GitHub so the Wiki Git repository exists.
-2. Clone the Wiki into a separate working folder:
-
-   ```bash
-   git clone https://github.com/cpdse-edux/UCPH-PhD-AI-data-driven-drug-design.wiki.git /tmp/course-wiki
-   ```
-
-3. Copy the staged Markdown files, `assets/` and `downloads/` into that checkout, preserving the existing course pages and files. Review any filename collisions; do not delete unrelated files. Integrate the Day 2 navigation into the existing sidebar.
-4. Inspect the checkout's Git diff. Commit and push the reviewed Wiki changes when ready to make them public. Ordinary commits to the course repository do not publish the Wiki.
-5. Open `https://github.com/cpdse-edux/UCPH-PhD-AI-data-driven-drug-design/wiki/Day02-Home` and check the landing page, previous/next links, sidebar, both worksheet downloads, external dashboard link and all images in a browser. Confirm readability at the teaching-screen size.
-6. Add the verified live Wiki URL to the course announcement and README. Keep the repository manual link available for offline download and review.
-
-The Wiki must contain the Markdown files and both staged resource directories. Copying only page text will leave screenshot and worksheet links broken.
-
-If an earlier publication included `Day02-Instructor-notes` or `Instructor-notes`, remove that page and its sidebar links when updating the student Wiki. The staging script does not delete pages from an existing Wiki checkout.
-
-## Update the editable worksheets
-
-The Word and Excel files are generated by `build_worksheets.py`. It uses Python's standard library for Word and the `openpyxl` package for Excel. In a Python environment with `openpyxl` installed, run from `day02`:
+From the repository root, create a Python environment and install the small site dependencies:
 
 ```bash
-python for_instructors/build_worksheets.py
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r day02/for_instructors/site/requirements.txt
+python day02/for_instructors/build_site.py
+python day02/for_instructors/test_site.py
+python -m http.server 8000 --directory day02/_site
 ```
 
-Review the generated documents, then regenerate the Wiki staging output. Keep SMILES submission instructions directed to the GitHub Pages web app; the worksheets hold group notes, generated compound IDs and analysis. Excel score formulas recalculate when opened in Excel or another compatible spreadsheet application.
+Open `http://localhost:8000/`. Stop the preview with Ctrl+C. Search loads a JSON index, so use the HTTP preview instead of opening HTML files directly from disk.
 
-[Instructor resources](README.md) · [Manual home](../workshop_manual/Home.md)
+The default generated output is `day02/_site/`, which is ignored by Git. To use another output directory, pass the same `--output` argument to the builder and checks. The builder refuses to overwrite an unrelated non-empty directory.
+
+## Enable GitHub Pages
+
+1. Commit the course content, site source, both Word/Excel worksheet files and `.github/workflows/pages.yml` to this repository.
+2. In **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. If Pages was serving the repository directly, switch it to this source so only the generated student site is published.
+3. Push to `main`, or run **Publish course website** through the Actions tab. Pull requests build and check the site without deploying.
+4. Confirm that the build checks pass and the deployment job succeeds. The workflow publishes only its `_site` artifact through the `github-pages` environment.
+5. Open the deployment URL and verify the course navigation, worksheet downloads, search, workshop progress and SMILES collection interface.
+
+The workflow follows GitHub's [custom Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). No separate Wiki repository is needed. The workflow template is retained at [site/pages.yml](site/pages.yml); update the installed repository-root workflow when changing it.
+
+## SMILES collection
+
+- **Embedded course page:** `/day02/submit/`
+- **Existing standalone app:** `/day02/workshop_content/`
+
+Both use the same app, Google Form and Sheet configuration. The build copies the original app unchanged, preserving its IDs, structure validation, dashboard and `.smi` export. The embedded page also offers an open-in-new-tab link. See [dashboard setup](Dashboard-setup.md) for collection configuration.
+
+The browser must be able to reach the app's existing RDKit CDN and Google collection endpoints. Website search and workshop navigation do not depend on those services. Browser checks should exercise previews and navigation without submitting test molecules into the live collection.
+
+## Word and Excel worksheets
+
+The downloadable files are versioned at `day02/workshop_manual/downloads/`. To regenerate them, use a Python environment with `openpyxl` installed:
+
+```bash
+python day02/for_instructors/build_worksheets.py
+```
+
+Rebuild and check the course site after regenerating the worksheets. Participants submit SMILES through the web app and use either worksheet for observations, returned compound IDs, predictions and analysis.
+
+[Instructor resources](README.md) · [Day 2 overview](../README.md)
