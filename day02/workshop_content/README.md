@@ -2,7 +2,11 @@
 
 [Day 2](../README.md)
 
+[Workshop manual](../workshop_manual/Home.md) · [Participant submission instructions](../workshop_manual/13-Submit-designs.md)
+
 Students submit their human-designed and chatbot-generated molecules one at a time from this page. The page checks each SMILES by drawing it with RDKit and generates the compound ID. It then sends the entry through a Google Form into the course Google Sheet. The Dashboard tab shows all submissions grouped by team and can export a `.smi` file for LigPrep.
+
+The [group worksheet is available in Word and Excel](../workshop_manual/Group-worksheet.md) for observations, predictions, returned compound IDs and docking analysis. Participants submit SMILES and hypotheses through this GitHub Pages web app and record its generated IDs in their worksheet.
 
 **Student link:** <https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/>
 

@@ -17,208 +17,83 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 
 ## Workshop: Human vs AI
 
-**Structure-Based Design of Selective 5-HT2A Ligands**
+**Ligand design and docking evaluation: 5-HT2A over 5-HT2B**
 
-**Tools:** PyMOL, Maestro with LigPrep and Glide, and access to a chatbot.
+Working in **groups of 2–3**, participants use Maestro to inspect LSD-bound 5-HT2A and 5-HT2B structures, propose three human designs and obtain three AI designs, then dock all six compounds to both receptors. Each participant picks or draws one human candidate; pairs develop their third together. Instructors run a pooled live docking calculation while groups follow along on their own compounds.
 
-**Central challenge**
+**Start here: [Workshop manual](workshop_manual/Home.md)** · [Word worksheet](workshop_manual/downloads/Group-worksheet.docx) · [Excel worksheet](workshop_manual/downloads/Group-worksheet.xlsx) · [Instructor notes](workshop_manual/Instructor-notes.md)
 
-Starting from LSD, design three molecules predicted to retain or improve 5-HT2A affinity while increasing selectivity over 5-HT2B. Can human structure-based reasoning outperform AI?
+**Tools:** Maestro with Protein Preparation Workflow, LigPrep and Glide; optional Ligand Designer; a chatbot; and the [design submission dashboard](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/).
 
-Concept. Students first use PyMOL, aided by chatbots, to interrogate a prepared 5-HT2A-LSD structure. They then compare 5-HT2A and 5-HT2B to formulate binding affinity and selectivity hypotheses, design three compounds themselves, and independently obtain three chatbot-generated designs. All compounds are pooled and docked live with Glide/Maestro. The session ends with a prospective group-vs-group plus human-versus-AI comparison and a discussion of what docking can and cannot tell us.
+**Starting structures:** [9WPQ, LSD-bound 5-HT2A](https://www.rcsb.org/structure/9WPQ) and [7SRS, LSD-bound 5-HT2B](https://www.rcsb.org/structure/7SRS). Use the receptor chain and retain bound LSD in each working complex.
 
-### Learning objectives
+### Manual structure
 
-- Interrogate a protein-ligand complex in PyMOL and identify key molecular interactions.
-- Use surface properties such as hydrophobicity and electrostatics to reason about ligand binding.
-- Compare homologous binding sites and formulate structural hypotheses for subtype selectivity and improving (at least not decreasing) binding affinity.
-- Translate structural observations into concrete medicinal chemistry modifications.
-- Use chatbots both as scientific copilots and as molecular-design assistants.
-- Critically evaluate AI-generated suggestions for chemical and structural plausibility.
-- Use docking as a prospective ranking and hypothesis-testing method, not as experimental ground truth.
+Each step has its own Markdown page with actions, a checkpoint and previous/next navigation. The manual includes screenshots of the Maestro operations.
 
-### Workshop outputs
-
-- Three human-designed candidate ligands per team.
-- Three chatbot-generated candidate ligands per team.
-- A short structural rationale and predicted affinity/selectivity direction for each submission.
-- A live Glide docking leaderboard for 5-HT2A and 5-HT2B.
-- A class-level comparison of human and AI design performance.
-
-### Session overview
-
-| Time | Activity | Main concept / output |
-| --- | --- | --- |
-| 13:00-13:20 | Introduction and PyMOL demo | Challenge, workflow, competition rules |
-| 13:20-14:05 | Structural analysis of 5-HT2A-LSD | Molecular recognition and pocket properties |
-| 14:05-14:35 | 5-HT2A vs 5-HT2B comparison | Structural basis of selectivity |
-| 14:35-14:45 | Break |  |
-| 14:45-15:10 | Human molecular design | Three structure-guided candidates |
-| 15:10-15:30 | Chatbot molecular design | Three AI-suggested candidates |
-| 15:30-15:45 | Submission and predictions | Prospective hypotheses locked in |
-| 15:45-16:25 | Live Glide/Maestro docking | 5-HT2A and 5-HT2B prediction |
-| 16:25-16:50 | Leaderboard and comparison | Human vs AI performance |
-| 16:50-17:00 | Debrief | Interpretation, limitations, next experiment |
-
-> Pedagogical storyline: OBSERVE -> COMPARE -> HYPOTHESIZE -> DESIGN -> PREDICT -> CHALLENGE -> CRITIQUE
-
-### 1. Introduction and challenge (13:00-13:20)
-
-Purpose: establish the scientific problem and explain that the afternoon is a prospective design challenge rather than a software tutorial.
-
-#### Brief conceptual introduction
-
-- 5-HT2A is the desired target, and LSD is the structural starting point.
-- 5-HT2B is an important off-target, so the design objective is not only strong predicted 5-HT2A binding but also improved subtype selectivity.
-- The workflow follows a medicinal-chemistry decision cycle: structure -> hypothesis -> design -> prediction -> critique.
-
-#### Competition rules
-
-Suggested team size: 3-4 students.
-
-Each team submits six molecules: G#H1-G#H3 (human-designed) and G#AI1-G#AI3 (chatbot-generated).
-
-Important: students remain responsible for deciding whether the chatbot proposals are chemically and structurally plausible.
-
-#### PyMOL demo
-
-Keep the demonstration short and task-oriented. Show only the operations needed for the exercise and provide a cheat sheet so that the workshop does not become a syntax exercise.
-
-### 2. Structural investigation of 5-HT2A-LSD (13:20-14:05)
-
-Students fetch a 5-HT2A-LSD complex and use PyMOL to investigate why LSD binds. Chatbots are explicitly allowed as copilots for generating PyMOL commands and helping interpret observations.
-
-#### Required analyses
-
-- Identify ionic interactions, hydrogen bonds, aromatic interactions, hydrophobic contacts and shape complementarity.
-- Inspect polar versus hydrophobic regions of the binding site.
-- Identify solvent-exposed regions and available cavities around LSD.
-- Display the binding-pocket surface.
-- Color or otherwise represent the surface by hydrophobicity.
-- Display an electrostatic-potential representation or an equivalent electrostatic view.
-
-#### Example chatbot use
-
-"I have a 5-HT2A receptor-LSD complex loaded in PyMOL. Help me identify residues within 4 A of LSD and display them as sticks."
-
-"How can I display the molecular surface and color the binding pocket according to hydrophobicity?"
-
-"Based on these contacts and pocket properties, what structural features might be exploitable to increase ligand affinity?"
-
-#### Mini-deliverable
-
-Each team records three observations in an Observation -> Design consequence format. The emphasis is on turning structural inspection into a testable medicinal-chemistry hypothesis.
-
-| Structural observation | Possible design consequence |
+| Phase | Step-by-step guide |
 | --- | --- |
-| Hydrophobic cavity adjacent to one part of LSD | Consider a small hydrophobic substituent. |
-| Polar feature close to an accessible ligand position | Consider a group capable of a favorable polar interaction. |
-| Tightly packed region around the ligand | Avoid additional steric bulk in that direction. |
+| Getting started | [01 · Maestro interface](workshop_manual/01-Maestro-interface.md) · [02 · Create project](workshop_manual/02-Create-project.md) |
+| Structure setup | [03 · Fetch structures](workshop_manual/03-Fetch-structures.md) · [04 · Diagnostics](workshop_manual/04-Protein-diagnostics.md) · [05 · Remove unwanted chains](workshop_manual/05-Remove-unwanted-chains.md) |
+| Receptor comparison | [06 · Align receptors](workshop_manual/06-Align-receptors.md) · [07 · Protein preparation](workshop_manual/07-Prepare-proteins.md) · [08 · Interactions, surfaces and side-by-side views](workshop_manual/08-Inspect-interactions.md) |
+| Human design | [09 · Interaction and cavity hypotheses](workshop_manual/09-Form-design-hypotheses.md) · [10 · Draw molecules](workshop_manual/10-Draw-molecules.md) · [11 · Choose three human designs](workshop_manual/11-Choose-human-designs.md) |
+| AI and collection | [12 · Generate three AI designs](workshop_manual/12-Generate-AI-designs.md) · [13 · Submit six SMILES](workshop_manual/13-Submit-designs.md) |
+| Live docking | [14 · Ligand preparation](workshop_manual/14-Prepare-ligands.md) · [15 · Receptor grids](workshop_manual/15-Generate-grids.md) · [16 · Dock to both receptors](workshop_manual/16-Dock-to-both-receptors.md) |
+| Evaluation | [17 · Poses, scores, Ki and fold selectivity](workshop_manual/17-Analyse-affinity-and-selectivity.md) · [18 · Ranking, prizes and debrief](workshop_manual/18-Ranking-and-debrief.md) |
 
-### 3. Structural basis of 5-HT2A / 5-HT2B selectivity (14:05-14:35)
+### Afternoon schedule
 
-Students fetch and align a 5-HT2B structure to 5-HT2A and inspect the region around the ligand. They use structural superimposition to identify opportunities for subtype-selective design.
-
-- Non-conserved binding-site residues.
-- Differences in side-chain orientation.
-- Differences in local pocket shape or volume.
-- Potential steric conflicts in 5-HT2B that may be tolerated in 5-HT2A.
-- Differences in polarity or hydrophobicity that could be exploited.
-
-Required conclusion: each team formulates one affinity hypothesis and one selectivity hypothesis before designing compounds.
-
-| Hypothesis | Statement |
+| Time | Activity |
 | --- | --- |
-| Affinity hypothesis | "Modification X should improve 5-HT2A binding because..." |
-| Selectivity hypothesis | "Modification Y should be better accommodated by 5-HT2A than 5-HT2B because..." |
+| 13:00–13:10 | Introduction, Maestro interface and project |
+| 13:10–13:35 | Fetch structures, inspect diagnostics, remove chains and align |
+| 13:35–13:55 | Protein preparation and checks |
+| 13:55–14:20 | Ligand contacts, binding-site surfaces and receptor comparison |
+| 14:20–14:35 | Affinity and selectivity hypotheses |
+| 14:35–14:45 | Break |
+| 14:45–15:10 | Draw and select three human candidates |
+| 15:10–15:25 | Generate and check three AI candidates |
+| 15:25–15:35 | Submit designs and lock predictions |
+| 15:35–16:25 | LigPrep, grid generation and live paired docking |
+| 16:25–16:50 | Analyse poses, affinity and selectivity |
+| 16:50–17:00 | Rankings, prizes and discussion |
 
-### 4. Human medicinal chemistry vs AI design (14:45-15:30)
+The [manual home](workshop_manual/Home.md) gives the detailed step timings. Instructors provide matching prepared files if calculation delays would reduce analysis time.
 
-The design phase deliberately separates human structure-based reasoning from chatbot-generated ideas so that the two approaches can be compared prospectively.
+### Outputs and interpretation
 
-#### A. Human design (14:45-15:10)
+Each group leaves with six submitted structures and hypotheses, a saved Maestro project, paired receptor docking results and a short comparison of Human and AI design. The shared LSD control provides the reference for the docking-score comparison.
 
-Each team designs three LSD analogues based on its own structural analysis. Ideally the three designs represent different hypotheses rather than minor variants of the same idea.
+Groups choose a Word or Excel worksheet for their observations, predictions and analysis. They submit the six SMILES and hypotheses through the [GitHub Pages web app](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/) and record its generated compound IDs in the worksheet. The Excel version calculates paired docking-score differences and comparisons with LSD.
 
-- H1 - affinity-driven design: optimize an interaction or fill available space.
-- H2 - selectivity-driven design: exploit a 5-HT2A / 5-HT2B structural difference.
-- H3 - combined design: attempt to improve both affinity and selectivity.
+The selectivity score proxy is **DockingScore(2B) − DockingScore(2A)**; a positive value favors 2A in this model. Scores are empirical rankings. The analysis guide separates measured Ki ratios from an optional, explicitly hypothetical score-to-Ki calculation. Pose plausibility and experimental follow-up remain central to interpreting any leaderboard.
 
-Each molecule is built directly in Maestro using the 2D-builder, students should also provide the modification relative to LSD, the expected benefit, a structural rationale, and the expected direction of 5-HT2A / 5-HT2B selectivity.
+### GitHub Wiki delivery
 
-#### B. Chatbot design (15:10-15:30)
+**GitHub Wiki is a good fit for the participant manual**, with short linked pages and a sidebar. Keep the Markdown in this repository as the reviewed source and publish it to the Wiki for delivery. The Wiki uses a separate Git repository, so source edits need a separate publication step; see [GitHub's Wiki workflow](https://docs.github.com/en/communities/documenting-your-project-with-wikis/adding-or-editing-wiki-pages).
 
-Students then ask a chatbot to independently propose three molecules with the same design objective. Do not prescribe a single "perfect" prompt. Different prompting strategies are part of the experiment.
+The [publishing guide](workshop_manual/PUBLISHING.md) explains local staging, namespaced pages for the shared course Wiki, screenshot links and publication checks. The Wiki has not been published by adding these files. The submission interface remains on GitHub Pages.
 
-- Provide LSD as the starting ligand.
-- State the desired target (5-HT2A) and off-target (5-HT2B).
-- Provide relevant structural observations discovered during the workshop.
-- Ask for concrete, chemically interpretable modifications and a rationale.
+### Files and supporting guides
 
-AI quality-control question: "Would I actually dock this molecule? Why or why not?" Students should reject or revise clearly implausible suggestions before submission.
+```text
+day02/
+├── README.md                  Day program and workshop entry point
+├── workshop_manual/
+│   ├── Home.md                Participant landing page and schedule
+│   ├── 01-…md through 18-…md  One page per workflow step
+│   ├── Group-worksheet.md     Worksheet downloads and instructions
+│   ├── Instructor-notes.md    Rehearsal, pooled docking and contingencies
+│   ├── References.md          Scientific and software sources
+│   ├── _Sidebar.md            Manual navigation
+│   ├── PUBLISHING.md          GitHub Wiki delivery instructions
+│   ├── export_wiki.py         Local Wiki staging; no automatic publication
+│   ├── build_worksheets.py    Regenerate the editable worksheets
+│   ├── downloads/             Word and Excel group worksheets
+│   └── assets/                Maestro screenshots
+├── workshop_content/          Design submission dashboard and setup guide
+├── workshop_materials/        Teaching materials
+└── slides/                    Lecture slides
+```
 
-### 5. Submission and prospective predictions (15:30-15:45)
-
-Teachers collect all designs through the [design submission dashboard](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/) (setup: [workshop_content](workshop_content/README.md)). The predictions should be locked before any docking result is revealed.
-
-| Team | Origin | ID | SMILES / structure | Main hypothesis | Expected effect |
-| --- | --- | --- | --- | --- | --- |
-| Team 4 | Human | G#H2 | ... | Exploit subtype pocket difference | 2A affinity up; selectivity up |
-| Team 4 | AI | G#AI1 | ... | Chatbot rationale | 2A affinity up; selectivity up |
-
-Each team should also nominate one compound as "our predicted winner" before seeing docking results.
-
-### 6. Live Glide / Maestro docking (15:45-16:25)
-
-Pool the submitted molecules and run a live docking demonstration for the full ligand set (all groups) while the students prepare the protein plus ligands, calculate grids and dock their own compounds. The live component should focus on ligand preparation, docking, result inspection and interpretation.
-
-> Recommended live workflow: Submitted structures -> LigPrep -> 5-HT2A Glide docking -> 5-HT2B Glide docking -> scores + pose inspection -> leaderboard
-
-- Show enough of Maestro to explain what LigPrep, the receptor grid and Glide are doing.
-- Dock to both 5-HT2A and 5-HT2B so the class can assess the stated selectivity objective.
-- Inspect poses as well as scores; a favorable score with an implausible pose should be discussed, not celebrated uncritically.
-- Emphasize that GlideScore is a model-dependent ranking quantity, not an experimental affinity measurement.
-
-Simple selectivity metric: GlideScore(5-HT2B) - GlideScore(5-HT2A). Under the usual negative-score convention, a more positive value indicates a stronger predicted preference for 5-HT2A. Treat this as a teaching metric rather than a validated quantitative free-energy prediction. Consider calculating Ki and fold-change.
-
-### 7. Leaderboard and Human vs AI comparison (16:25-16:50)
-
-Use the competition to motivate discussion, but keep the scientific interpretation central. A useful format is to award separate rankings for predicted 5-HT2A binding and predicted subtype selectivity.
-
-| Challenge | Ranking | Interpretation |
-| --- | --- | --- |
-| Affinity challenge | Gold / Silver / Bronze | Best predicted 5-HT2A docking scores |
-| Selectivity challenge | Gold / Silver / Bronze | Best predicted preference for 5-HT2A over 5-HT2B |
-| Overall design award | Optional | Strong performance on both criteria plus a plausible pose |
-
-Compare human and AI molecules not only by the winners but also at class level. Depending on time, summarize median 5-HT2A score, predicted selectivity, number of implausible poses and chemical diversity. A simple scatter plot of 5-HT2A docking score versus predicted selectivity could be generated on the fly if convenient.
-
-### 8. Debrief (16:50-17:00)
-
-Close with a short whole-class discussion. The questions below should make explicit what was learned about both structure-based design and AI-assisted drug discovery.
-
-1. Did docking support your original structural hypothesis? If not, why might that be?
-1. Did the chatbot propose anything useful that the human team did not think of?
-1. Did the chatbot also propose chemically or structurally questionable ideas?
-1. Which evidence would you trust most when structure, docking and AI disagree?
-1. What experiment would you perform next to test the best hypothesis?
-
-> Key methodological message: Winning the docking competition does not mean that a team designed the highest-affinity ligand. It means that the molecule scored best according to this particular computational model.
-
-### Suggested instructor roles during the session
-
-| Role | Main responsibility |
-| --- | --- |
-| Lead instructor | Introduces the challenge, coordinates timing and leads the final scientific discussion. |
-| PyMOL / structural support | Helps students with structural analysis, visualization and receptor superimposition. |
-| Medicinal chemistry support | Challenges design rationales and checks whether proposed modifications are interpretable. |
-| AI / prompting support | Helps students use chatbots productively without turning suggestions into unquestioned answers. |
-| Docking operator | Collects submissions, prepares ligands, runs live Glide docking and produces the leaderboard. |
-
-### Core take-home messages
-
-- AI can act as a scientific copilot for interacting with complex software and structural data.
-- AI can also generate molecular hypotheses, but those hypotheses still require chemical and structural judgement.
-- Strong drug-design decisions integrate structural reasoning, chemical knowledge and computational predictions.
-- Affinity and selectivity are distinct design objectives and should be evaluated separately.
-- Docking provides model-dependent evidence. The goal is to formulate better testable hypotheses, not to generate the lowest score.
+[Dashboard setup](workshop_content/README.md) · [Scientific and software references](workshop_manual/References.md) · [Wiki publishing](workshop_manual/PUBLISHING.md)
