@@ -21,7 +21,7 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 
 Working in **groups of 2–3**, participants use Maestro to inspect LSD-bound 5-HT2A and 5-HT2B structures, propose three human designs and obtain three AI designs, then dock all six compounds to both receptors. Each participant picks or draws one human candidate; pairs develop their third together. Instructors run a pooled live docking calculation while groups follow along on their own compounds.
 
-**Start here: [Workshop manual](workshop_manual/Home.md)** · [Word worksheet](workshop_manual/downloads/Group-worksheet.docx) · [Excel worksheet](workshop_manual/downloads/Group-worksheet.xlsx) · [Instructor notes](workshop_manual/Instructor-notes.md)
+**Start here: [Workshop manual](workshop_manual/Home.md)** · [Word worksheet](workshop_manual/downloads/Group-worksheet.docx) · [Excel worksheet](workshop_manual/downloads/Group-worksheet.xlsx)
 
 **Tools:** Maestro with Protein Preparation Workflow, LigPrep and Glide; optional Ligand Designer; a chatbot; and the [design submission dashboard](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/).
 
@@ -72,28 +72,35 @@ The selectivity score proxy is **DockingScore(2B) − DockingScore(2A)**; a posi
 
 **GitHub Wiki is a good fit for the participant manual**, with short linked pages and a sidebar. Keep the Markdown in this repository as the reviewed source and publish it to the Wiki for delivery. The Wiki uses a separate Git repository, so source edits need a separate publication step; see [GitHub's Wiki workflow](https://docs.github.com/en/communities/documenting-your-project-with-wikis/adding-or-editing-wiki-pages).
 
-The [publishing guide](workshop_manual/PUBLISHING.md) explains local staging, namespaced pages for the shared course Wiki, screenshot links and publication checks. The Wiki has not been published by adding these files. The submission interface remains on GitHub Pages.
+The student Wiki contains the manual, navigation, screenshots and downloadable worksheets. Instructor preparation, publishing instructions and maintenance scripts are kept in `for_instructors/` and excluded from the student Wiki export. The submission interface runs on GitHub Pages.
 
 ### Files and supporting guides
 
 ```text
 day02/
 ├── README.md                  Day program and workshop entry point
+├── for_instructors/
+│   ├── README.md              Instructor resource index
+│   ├── Instructor-notes.md    Rehearsal, pooled docking and contingencies
+│   ├── Dashboard-setup.md     Submission app configuration
+│   ├── PUBLISHING.md          GitHub Wiki delivery instructions
+│   ├── export_wiki.py         Stage the student Wiki
+│   └── build_worksheets.py    Regenerate the editable worksheets
 ├── workshop_manual/
 │   ├── Home.md                Participant landing page and schedule
 │   ├── 01-…md through 18-…md  One page per workflow step
 │   ├── Group-worksheet.md     Worksheet downloads and instructions
-│   ├── Instructor-notes.md    Rehearsal, pooled docking and contingencies
 │   ├── References.md          Scientific and software sources
 │   ├── _Sidebar.md            Manual navigation
-│   ├── PUBLISHING.md          GitHub Wiki delivery instructions
-│   ├── export_wiki.py         Local Wiki staging; no automatic publication
-│   ├── build_worksheets.py    Regenerate the editable worksheets
 │   ├── downloads/             Word and Excel group worksheets
 │   └── assets/                Maestro screenshots
-├── workshop_content/          Design submission dashboard and setup guide
+├── workshop_content/          Design submission app and student guide
 ├── workshop_materials/        Teaching materials
 └── slides/                    Lecture slides
 ```
 
-[Dashboard setup](workshop_content/README.md) · [Scientific and software references](workshop_manual/References.md) · [Wiki publishing](workshop_manual/PUBLISHING.md)
+[Submission app guide](workshop_content/README.md) · [Scientific and software references](workshop_manual/References.md)
+
+### Instructor resources
+
+[Instructor resource index](for_instructors/README.md) · [Workshop notes](for_instructors/Instructor-notes.md) · [Dashboard setup](for_instructors/Dashboard-setup.md) · [Wiki publishing](for_instructors/PUBLISHING.md)

@@ -26,11 +26,11 @@ These are proposed teaching settings. GUI controls, calculation outputs and turn
 - Save matching checkpoints: raw complexes, cleaned/aligned complexes, prepared complexes, checked LSD SMILES, prepared control, both grid archives **with their matching receptor coordinates**, and example docking outputs. Distribute them through the course materials location announced in class.
 - Test the submission page using a clearly marked instructor test entry. Confirm it persists in the linked Sheet after reload, that group/origin filtering works, and that the `.smi` export has the expected IDs. Remove test entries from the workshop collection before opening it.
 - Check all assigned group numbers exist in the dashboard dropdown (currently Groups 1–13). Explain the definition of Expected effect and how joint human designs should be named.
-- Provide the [Word and Excel worksheets](Group-worksheet.md). Groups choose one format for notes and analysis; all six SMILES and their hypotheses are collected through the GitHub Pages web app. The worksheet records returned compound IDs so the notes can be matched to submitted designs.
+- Provide the [Word and Excel worksheets](../workshop_manual/Group-worksheet.md). Groups choose one format for notes and analysis; all six SMILES and their hypotheses are collected through the GitHub Pages web app. The worksheet records returned compound IDs so the notes can be matched to submitted designs.
 - Prepare a separate results spreadsheet with parent ID, origin, group, both scores, state/pose IDs, ΔS, comparison with LSD, pose assessment and eligibility. The current dashboard collects designs; it does not import scores or calculate a docking leaderboard.
 - Publish and check the manual's page links and images in GitHub Wiki. Give participants a single entry URL and have a downloadable/offline copy available.
 
-The [dashboard setup guide](https://github.com/cpdse-edux/UCPH-PhD-AI-data-driven-drug-design/blob/main/day02/workshop_content/README.md) describes the Google Form / Sheet integration. Because the Sheet is readable for the dashboard, participants should use the agreed display names and enter only workshop content.
+The [dashboard setup guide](Dashboard-setup.md) describes the Google Form / Sheet integration. Because the Sheet is readable for the dashboard, participants should use the agreed display names and enter only workshop content.
 
 ## Staffing and pacing
 
@@ -73,4 +73,4 @@ Do not describe rehearsal results as live results for the submitted designs. Pre
 
 Keep affinity, selectivity and functional activity separate. Discuss receptor-state and preparation dependence, missing waters, rigid-receptor approximations, ligand-state choices and score uncertainty. Pair an empirical binding assay at both receptors with functional characterization before drawing conclusions about agonism, antagonism or biological benefit.
 
-[Home](Home.md) · [References](References.md)
+[Instructor resources](README.md) · [Manual home](../workshop_manual/Home.md) · [References](../workshop_manual/References.md)

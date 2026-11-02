@@ -12,7 +12,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.workbook.properties import CalcProperties
 
 
-OUT = Path(__file__).resolve().parent / "downloads"
+OUT = Path(__file__).resolve().parent.parent / "workshop_manual" / "downloads"
 APP = "https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/workshop_content/"
 GUIDE = "https://github.com/cpdse-edux/UCPH-PhD-AI-data-driven-drug-design/blob/main/day02/workshop_manual/Home.md"
 PARENTS = ["LSD_control", "H1", "H2", "H3", "AI1", "AI2", "AI3"]

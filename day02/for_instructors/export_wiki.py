@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage the workshop manual for a GitHub Wiki; never publish or run git."""
+"""Stage the student manual for a GitHub Wiki; never publish or run git."""
 
 import argparse
 from pathlib import Path
@@ -31,39 +31,41 @@ def main():
     if not re.fullmatch(r"[A-Za-z0-9-]*", args.prefix):
         parser.error("--prefix may contain only letters, digits and hyphens")
 
-    source = Path(__file__).resolve().parent
+    source = Path(__file__).resolve().parent.parent / "workshop_manual"
     destination = args.destination.expanduser().resolve()
     if destination.exists() and (not destination.is_dir() or any(destination.iterdir())):
         parser.error("destination must be a new or empty directory; existing files are never overwritten")
 
     pages = sorted(source.glob("[0-9][0-9]-*.md")) + [
         source / name for name in (
-            "Home.md", "Group-worksheet.md", "Instructor-notes.md", "References.md", "_Sidebar.md"
+            "Home.md", "Group-worksheet.md", "References.md", "_Sidebar.md"
         )
     ]
-    if len(pages) != 23 or any(not page.is_file() for page in pages):
-        parser.error("expected 18 step pages plus Home, worksheet, instructors, references and sidebar")
+    if len(pages) != 22 or any(not page.is_file() for page in pages):
+        parser.error("expected 18 step pages plus Home, worksheet, references and sidebar")
     names = {
         page.name: (
             args.prefix + "Navigation" if args.prefix else "_Sidebar"
         ) if page.stem == "_Sidebar" else args.prefix + page.stem
         for page in pages
     }
+    page_names = {page.resolve(): names[page.name] for page in pages}
     asset_directory = "assets/" + (args.prefix.rstrip("-") or "manual")
     raw_root = f"https://raw.githubusercontent.com/wiki/{parts[0]}/{parts[1]}"
     resources = {}
 
-    def rewrite_link(match):
+    def rewrite_link(match, current_page):
         target = match.group(1)
         if urlparse(target).scheme or target.startswith(("#", "//")):
             return match.group(0)
         path, separator, fragment = target.partition("#")
-        if path in names:
-            return "](" + wiki_url + "/" + quote(names[path]) + (separator + fragment) + ")"
-        if path.startswith(("assets/", "downloads/")):
-            resource_type = path.split("/", 1)[0]
-            asset = (source / path).resolve()
-            if asset.parent != (source / resource_type).resolve() or not asset.is_file():
+        asset = (current_page.parent / path).resolve()
+        if asset in page_names:
+            return "](" + wiki_url + "/" + quote(page_names[asset]) + (separator + fragment) + ")"
+        resource_directories = {(source / kind).resolve(): kind for kind in ("assets", "downloads")}
+        if asset.parent in resource_directories:
+            resource_type = resource_directories[asset.parent]
+            if not asset.is_file():
                 raise ValueError(f"Missing or unsupported resource: {path}")
             if resource_type == "downloads" and asset.suffix not in (".docx", ".xlsx"):
                 raise ValueError(f"Unsupported worksheet download: {path}")
@@ -76,7 +78,7 @@ def main():
     rendered = {}
     for page in pages:
         rendered[names[page.name] + ".md"] = re.sub(
-            r"\]\(([^\s)]+)\)", rewrite_link, page.read_text(encoding="utf-8")
+            r"\]\(([^\s)]+)\)", lambda match: rewrite_link(match, page), page.read_text(encoding="utf-8")
         )
 
     destination.mkdir(parents=True, exist_ok=True)

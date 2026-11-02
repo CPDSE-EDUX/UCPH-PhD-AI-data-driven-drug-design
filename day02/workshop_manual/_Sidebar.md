@@ -19,4 +19,4 @@
 - [17 · Analyse results](17-Analyse-affinity-and-selectivity.md)
 - [18 · Ranking and debrief](18-Ranking-and-debrief.md)
 
-[Worksheet](Group-worksheet.md) · [Instructors](Instructor-notes.md) · [References](References.md)
+[Worksheet](Group-worksheet.md) · [References](References.md)

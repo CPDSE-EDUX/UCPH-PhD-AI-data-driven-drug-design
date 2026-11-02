@@ -72,4 +72,4 @@ Calculation times depend on hardware, licenses and the number of ligand states. 
 
 An observation is something you can point to in a structure. A design hypothesis predicts what a modification might change. A docking result tests that hypothesis within a particular model. Experimental binding and functional assays are needed to establish affinity, subtype selectivity and activity.
 
-[Start step 01](01-Maestro-interface.md) · [Group worksheet](Group-worksheet.md) · [Instructor notes](Instructor-notes.md) · [References](References.md)
+[Start step 01](01-Maestro-interface.md) · [Group worksheet](Group-worksheet.md) · [References](References.md)
