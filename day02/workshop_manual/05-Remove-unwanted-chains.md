@@ -2,7 +2,7 @@
 
 **Goal:** make one receptor–LSD working complex for each subtype.
 
-1. Work on a duplicate, with the raw entry excluded. Show ribbons and use the hierarchy or sequence viewer to inspect individual chains.
+1. Work on a duplicate, with the raw entry excluded. Show ribbons and use the hierarchy or sequence viewer to inspect individual chains. You can also use the Substructures panel in the Protein Preparation Workflow window.
 2. Identify the receptor by its seven transmembrane helices and its chain annotation.
 3. Select the other **protein chains** and delete those atoms from the working copy. Excluding their display alone will leave them in the calculation input.
 4. Keep the receptor and **7LD (LSD)**. Check the ligand explicitly after deleting chains: in mmCIF, a ligand can have a separate label chain from its receptor.

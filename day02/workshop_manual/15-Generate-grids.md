@@ -11,6 +11,8 @@
 7. Name the job `G04_2A_grid` and run. Retain the grid archive, job settings and prepared receptor coordinates.
 8. Repeat from the final prepared 5-HT2B complex, centering on **its own** bound LSD, with the same box dimensions and settings. Save as `G04_2B_grid`.
 
+![Receptor Gid Generation options](assets/18-receptor-grid-panel.png)
+
 The inner box controls the ligand-center search region; all ligand atoms must fit in the outer box. See Schrödinger's [grid box explanation](https://my.schrodinger.com/support/article/701). The 30 Å outer box is a proposed workshop setting, not a universal default.
 
 Do not move or re-prepare a receptor after generating its grid and then compare its poses in the new coordinates. If coordinates change, regenerate the grid or restore the matching saved receptor. Use each grid with its own receptor output.

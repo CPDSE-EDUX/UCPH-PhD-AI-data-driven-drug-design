@@ -11,12 +11,8 @@ This is a computational structure-based design workshop. Start from the
 following checked LSD isomeric SMILES:
 [paste the parent SMILES here]
 
-Aim to retain 5-HT2A binding while reducing 5-HT2B binding. Keep the ergoline
-scaffold and its specified stereochemistry. Suggest three distinct, modest
-modifications. For each, return one isomeric SMILES, the change relative to
-the parent, a short structural hypothesis, and one reason the idea might fail.
-Treat selectivity as a hypothesis, not an established property. Do not invent
-measured affinities or imply that a SMILES string establishes selectivity.
+Aim to retain 5-HT2A binding while reducing 5-HT2B binding. Keep the ergoline scaffold and its specified stereochemistry. Suggest three distinct, modest modifications. For each, return one isomeric SMILES, the change relative to the parent, a short structural hypothesis, and one reason the idea might fail.
+Treat selectivity as a hypothesis, not an established property. Do not invent measured affinities or imply that a SMILES string establishes selectivity.
 
 Our structural observations from 9WPQ and 7SRS are:
 [paste your observations, with corresponding residue labels if available]

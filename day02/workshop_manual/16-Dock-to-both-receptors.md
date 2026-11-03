@@ -12,6 +12,8 @@
 6. Name the job `G04_2A_SP`, select the assigned host and run.
 7. Repeat with the **5-HT2B grid**, the **same prepared ligand file**, and identical docking settings; name it `G04_2B_SP`.
 
+![Ligand docking panel](assets/19-ligand-docking-panel.png)
+
 For the distinction between the empirical scoring function and pose selection, see [Schrödinger: docking and scoring](https://www.schrodinger.com/life-science/learn/white-papers/docking-and-scoring/). DockingScore includes an Epik state penalty when configured, whereas GlideScore alone does not; see the [score definitions](https://my.schrodinger.com/support/article/27).
 
 ## Check the results before ranking
