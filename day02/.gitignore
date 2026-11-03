@@ -1,8 +1,0 @@
-/archive/
-/temp/
-/_site/
-
-# Student worksheet downloads belong in the published course site.
-!/workshop_manual/downloads/
-!/workshop_manual/downloads/*.docx
-!/workshop_manual/downloads/*.xlsx

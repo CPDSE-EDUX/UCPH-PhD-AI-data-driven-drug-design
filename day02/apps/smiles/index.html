@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human vs AI Designs</title>
+<script src="https://cdn.jsdelivr.net/npm/@rdkit/rdkit@2024.3.5-1.0.0/dist/RDKit_minimal.js"></script>
+<style>
+  :root {
+    --bg: #f7f7f5; --surface: #ffffff; --text: #1d1d1f; --muted: #6b6b70;
+    --border: #e2e2e0; --accent: #2f5fd0; --human: #2f7d4f; --ai: #8a3fc0;
+    --bad: #c0392b; --good: #2f7d4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #9a9aa2;
+      --border: #333338; --accent: #7b9cff; --human: #5fc08a; --ai: #c08bf0;
+      --bad: #ff6b5b; --good: #5fc08a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  header, main { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 20px; }
+  .banner {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: stretch;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; margin-bottom: 16px;
+  }
+  .banner-text { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .banner-fig { background: #fff; display: flex; align-items: center; justify-content: center; }
+  .banner-fig img { width: 100%; height: 100%; max-height: 320px; object-fit: cover; object-position: 40% 60%; }
+  @media (max-width: 700px) {
+    .banner { grid-template-columns: minmax(0, 1fr); }
+    .banner-fig img { max-height: 200px; }
+  }
+  .brand { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  /* White backing keeps the dark logo text readable in dark mode */
+  .brand img { height: 40px; width: auto; max-width: 100%; background: #fff; padding: 4px 6px; border-radius: 6px; }
+  .course { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 8px 0 0; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; margin: 0; }
+  h1 .h { color: var(--human); }
+  h1 .a { color: var(--ai); }
+  .workshop { font-weight: 600; margin: 0; }
+  .sub { color: var(--muted); margin: 0; }
+  nav { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  nav button {
+    background: none; border: 0; padding: 10px 14px; font: inherit; color: var(--muted);
+    cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  nav button.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; align-items: start; }
+  @media (max-width: 800px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  .field { margin-bottom: 14px; }
+  label, .label { display: block; font-weight: 600; margin-bottom: 6px; }
+  .hint { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+  input[type="text"], select, textarea {
+    width: 100%; padding: 8px 10px; font: inherit; color: var(--text);
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  @media (max-width: 500px) { .row { grid-template-columns: minmax(0, 1fr); } }
+  .choice { display: flex; gap: 8px; flex-wrap: wrap; }
+  .choice label {
+    font-weight: 500; margin: 0; padding: 7px 14px; border: 1px solid var(--border);
+    border-radius: 6px; cursor: pointer; background: var(--bg);
+  }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice input:checked + span { font-weight: 700; }
+  .choice label:has(input:checked) { border-color: var(--accent); outline: 1px solid var(--accent); }
+  .idbox {
+    font-family: ui-monospace, Menlo, monospace; font-size: 1.2rem; font-weight: 700;
+    padding: 10px 12px; background: var(--bg); border: 1px dashed var(--border); border-radius: 6px;
+  }
+  .msg { font-size: 0.9rem; color: var(--muted); margin-top: 6px; }
+  .msg.bad { color: var(--bad); }
+  .msg.good { color: var(--good); }
+  .structure { display: flex; justify-content: center; align-items: center; background: #fff; border-radius: 6px; }
+  .structure svg { max-width: 100%; height: auto; }
+  .structure .bad { color: #c0392b; font-size: 0.85rem; }
+  #preview { min-height: 240px; }
+  .mono { font-family: ui-monospace, Menlo, monospace; word-break: break-all; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .toolbar select { width: auto; }
+  .toolbar .spacer { flex: 1; }
+  .btn {
+    padding: 8px 14px; font: inherit; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; min-width: 120px; }
+  .stat b { display: block; font-size: 1.4rem; }
+  .stat span { color: var(--muted); font-size: 0.85rem; }
+  .group { margin-bottom: 24px; }
+  .group h2 { font-size: 1.1rem; margin: 0 0 8px; }
+  .mols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .mol { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .mol .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .mol .id { font-weight: 700; word-break: break-all; }
+  .mol .structure { margin: 8px 0; min-height: 180px; }
+  .mol .smiles { font-size: 0.75rem; color: var(--muted); }
+  .tag { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; color: #fff; }
+  .tag.Human { background: var(--human); }
+  .tag.AI { background: var(--ai); }
+  .mol dl { margin: 8px 0 0; font-size: 0.85rem; }
+  .mol dt { font-weight: 600; margin-top: 6px; }
+  .mol dd { margin: 0; }
+  .empty { color: var(--muted); padding: 24px 0; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <div class="banner">
+    <div class="banner-text">
+      <div class="brand">
+        <img src="../../../assets/brand/logo_ku.png" alt="University of Copenhagen">
+        <img src="../../../assets/brand/logo_cpdse.png" alt="Center for Pharmaceutical Data Science Education">
+
+      </div>
+      <p class="course">PhD/LLL course · AI &amp; Data Driven Drug Discovery 2026</p>
+      <h1><span class="h">Human</span> vs <span class="a">AI</span>: 5-HT2A ligand design</h1>
+      <p class="workshop">Workshop: Structure-based Drug Discovery (Day 2)</p>
+      <p class="sub">Submit one molecule at a time: your own designs as <b>Human</b>, chatbot designs as <b>AI</b>.</p>
+    </div>
+    <div class="banner-fig"><img src="../../../assets/brand/hero.jpg" alt="Ligand in the binding pocket of a GPCR"></div>
+  </div>
+  <nav>
+    <button data-tab="submit" class="active">Submit</button>
+    <button data-tab="dashboard">Dashboard</button>
+  </nav>
+</header>
+
+<main>
+  <section id="submit">
+    <div class="grid">
+      <form id="designForm" class="card" autocomplete="off">
+        <div class="row">
+          <div class="field">
+            <label for="group">Group</label>
+            <select id="group" required></select>
+          </div>
+          <div class="field">
+            <span class="label">Designed by</span>
+            <div class="choice">
+              <label><input type="radio" name="origin" value="Human" checked><span>Human</span></label>
+              <label><input type="radio" name="origin" value="AI"><span>AI</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="name" id="nameLabel">Your name</label>
+          <input type="text" id="name" required placeholder="e.g. Peter">
+        </div>
+
+        <div class="field">
+          <span class="label">Compound ID <span class="hint">(generated)</span></span>
+          <div class="idbox" id="idBox">–</div>
+        </div>
+
+        <div class="field">
+          <label for="smiles">SMILES</label>
+          <input type="text" id="smiles" class="mono" required spellcheck="false" placeholder="Paste SMILES here">
+          <div id="smilesMsg" class="msg">The structure is drawn on the right as you type.</div>
+        </div>
+
+        <div class="field">
+          <label for="hypothesis">Hypothesis <span class="hint">(one or two sentences)</span></label>
+          <textarea id="hypothesis" required maxlength="400" placeholder="e.g. A small hydrophobic group here should fill a cavity that is narrower in 5-HT2B."></textarea>
+        </div>
+
+        <div class="field">
+          <span class="label">Expected effect</span>
+          <div class="choice">
+            <label><input type="radio" name="effect" value="Small" required><span>Small</span></label>
+            <label><input type="radio" name="effect" value="Medium"><span>Medium</span></label>
+            <label><input type="radio" name="effect" value="Large"><span>Large</span></label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn primary" id="submitBtn">Submit molecule</button>
+        <div id="submitMsg" class="msg"></div>
+      </form>
+
+      <div>
+        <div class="card">
+          <span class="label">Structure</span>
+          <div class="structure" id="preview"></div>
+        </div>
+        <div class="card">
+          <span class="label">LSD (starting point)</span>
+          <div class="structure" id="lsd"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="toolbar">
+      <select id="groupFilter"><option value="">All groups</option></select>
+      <select id="originFilter">
+        <option value="">Human + AI</option>
+        <option value="Human">Human only</option>
+        <option value="AI">AI only</option>
+      </select>
+      <span class="spacer"></span>
+      <span id="updated" class="msg"></span>
+      <button class="btn" id="refreshBtn">Refresh</button>
+      <button class="btn primary" id="smiBtn">Download .smi for LigPrep</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div id="groups"></div>
+  </section>
+</main>
+
+<script>
+  // ---- Configuration -------------------------------------------------------
+  // Google Sheet that receives the Form responses (shared as "Anyone with the link: Viewer").
+  const SHEET_ID = '164Ew4C1-Q5NQFADDBM7oJTw6AlsunWPAlzv6V6SqV10';
+  // Tab the Google Form writes to.
+  const SHEET_TAB = 'Form responses 1';
+  // Pre-filled link of the Google Form, with each answer set to its field key:
+  // group, origin, name, id, smiles, hypothesis, effect (see README.md).
+  const FORM_PREFILL_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSeW8QQoXYEIlfUal-QSJt9rzMXAIDK4N6e78KlQvXQlOmhPFw/viewform?usp=pp_url&entry.1268038668=group&entry.1827109107=origin&entry.2140194758=name&entry.563311119=id&entry.1416150452=smiles&entry.1029624427=hypothesis&entry.1011843481=effect';
+  const N_GROUPS = 13;
+  const REFRESH_SECONDS = 60;
+  // --------------------------------------------------------------------------
+
+  const $ = id => document.getElementById(id);
+
+  // Tabs
+  document.querySelectorAll('nav button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('main > section').forEach(s => s.classList.toggle('hidden', s.id !== btn.dataset.tab));
+      if (btn.dataset.tab === 'dashboard') loadSubmissions();
+    });
+  });
+
+  // ---- Structure drawing (RDKit.js) ----------------------------------------
+  const rdkitReady = initRDKitModule({
+    locateFile: () => 'https://cdn.jsdelivr.net/npm/@rdkit/rdkit@2024.3.5-1.0.0/dist/RDKit_minimal.wasm',
+  });
+
+  // Returns an SVG string, or null if RDKit cannot parse the SMILES.
+  async function smilesToSvg(smiles, width, height) {
+    const RDKit = await rdkitReady;
+    let mol = null;
+    try { mol = RDKit.get_mol(smiles); } catch (e) { return null; }
+    if (!mol) return null;
+    try { return mol.is_valid() ? mol.get_svg(width, height) : null; }
+    finally { mol.delete(); }
+  }
+
+  smilesToSvg('CCN(CC)C(=O)[C@H]1CN([C@@H]2CC3=CNC4=CC=CC(=C34)C2=C1)C', 320, 240)
+    .then(svg => { $('lsd').innerHTML = svg || ''; });
+
+  // ---- Submission form -----------------------------------------------------
+  $('group').innerHTML = '<option value="" disabled selected>Select group</option>' +
+    Array.from({ length: N_GROUPS }, (_, i) => `<option value="${i + 1}">Group ${i + 1}</option>`).join('');
+
+  // "PETER", "peter" -> "Peter"; "ChatGPT-4o" -> "Chatgpt4o"
+  function normalizeName(s) {
+    const clean = s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]/g, '');
+    return clean.charAt(0).toUpperCase() + clean.slice(1).toLowerCase();
+  }
+
+  const origin = () => document.querySelector('input[name="origin"]:checked').value;
+  const idPrefix = () => {
+    const name = normalizeName($('name').value);
+    return $('group').value && name ? `G${$('group').value}${origin() === 'AI' ? 'AI' : 'H'}${name}` : '';
+  };
+
+  // Next free sequential number for this group/origin/name, from the Sheet.
+  function nextId() {
+    const prefix = idPrefix();
+    if (!prefix) return '';
+    const re = new RegExp('^' + prefix + '(\\d+)$', 'i');
+    const used = molecules.map(m => (m.id.match(re) || [])[1]).filter(Boolean).map(Number);
+    return prefix + ((used.length ? Math.max(...used) : 0) + 1);
+  }
+
+  function updateId() { $('idBox').textContent = nextId() || '–'; }
+
+  document.querySelectorAll('input[name="origin"]').forEach(r => r.addEventListener('change', () => {
+    const ai = origin() === 'AI';
+    $('nameLabel').textContent = ai ? 'Chatbot name' : 'Your name';
+    $('name').placeholder = ai ? 'e.g. Claude' : 'e.g. Peter';
+    updateId();
+  }));
+  $('group').addEventListener('change', updateId);
+  $('name').addEventListener('input', updateId);
+
+  let smilesValid = false;
+  $('smiles').addEventListener('input', async () => {
+    const s = $('smiles').value.trim();
+    const msg = $('smilesMsg');
+    $('preview').innerHTML = '';
+    smilesValid = false;
+    msg.className = 'msg';
+    msg.textContent = 'The structure is drawn on the right as you type.';
+    if (!s) return;
+    const svg = await smilesToSvg(s, 320, 240);
+    if ($('smiles').value.trim() !== s) return; // user kept typing
+    if (svg) {
+      $('preview').innerHTML = svg;
+      smilesValid = true;
+      msg.className = 'msg good';
+      msg.textContent = 'Valid SMILES.';
+    } else {
+      msg.className = 'msg bad';
+      msg.textContent = 'Could not parse this SMILES. Check brackets, ring closures, aromaticity and charges.';
+    }
+  });
+
+  // Map field keys to the Form's entry IDs using the pre-filled link.
+  function formTarget() {
+    if (!FORM_PREFILL_LINK) return null;
+    const url = new URL(FORM_PREFILL_LINK);
+    const entries = {};
+    url.searchParams.forEach((value, key) => { if (key.startsWith('entry.')) entries[value.trim().toLowerCase()] = key; });
+    return { action: url.origin + url.pathname.replace(/\/viewform$/, '/formResponse'), entries };
+  }
+
+  $('designForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const msg = $('submitMsg');
+    msg.className = 'msg bad';
+    const target = formTarget();
+    if (!target) { msg.textContent = 'FORM_PREFILL_LINK is not set in index.html yet.'; return; }
+    if (!smilesValid) { msg.textContent = 'Please enter a valid SMILES first.'; return; }
+
+    await loadSubmissions(); // refresh so the sequential number is up to date
+    const values = {
+      group: $('group').value,
+      origin: origin(),
+      name: normalizeName($('name').value),
+      id: nextId(),
+      smiles: $('smiles').value.trim(),
+      hypothesis: $('hypothesis').value.trim(),
+      effect: document.querySelector('input[name="effect"]:checked').value,
+    };
+    const body = new URLSearchParams();
+    for (const [key, value] of Object.entries(values)) {
+      if (target.entries[key]) body.append(target.entries[key], value);
+    }
+
+    $('submitBtn').disabled = true;
+    try {
+      // Google Forms does not allow reading the response cross-origin, so success is assumed.
+      await fetch(target.action, { method: 'POST', mode: 'no-cors', body });
+      molecules.push({ ...values, groupNum: values.group, expected: values.effect, rationale: values.hypothesis });
+      msg.className = 'msg good';
+      msg.textContent = `Submitted ${values.id}. It appears on the Dashboard within a minute.`;
+      $('smiles').value = ''; $('hypothesis').value = ''; $('preview').innerHTML = '';
+      document.querySelectorAll('input[name="effect"]').forEach(r => { r.checked = false; });
+      smilesValid = false;
+      $('smilesMsg').className = 'msg';
+      $('smilesMsg').textContent = 'The structure is drawn on the right as you type.';
+      updateId();
+    } catch (err) {
+      msg.textContent = 'Submission failed. Check your connection and try again.';
+    } finally {
+      $('submitBtn').disabled = false;
+    }
+  });
+
+  // ---- Dashboard -----------------------------------------------------------
+  // CSV parsing (handles quoted fields with commas and newlines)
+  function parseCSV(text) {
+    const rows = []; let row = []; let field = ''; let quoted = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (quoted) {
+        if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+        else if (c === '"') quoted = false;
+        else field += c;
+      } else if (c === '"') quoted = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(field); rows.push(row); row = []; field = '';
+      } else field += c;
+    }
+    if (field || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  // Columns are matched by keywords in the Form question titles, so wording can vary.
+  const COLUMNS = {
+    timestamp: ['timestamp'],
+    id: ['id'], // matched exactly, see mapRows
+    group: ['group', 'team'],
+    origin: ['origin', 'human or ai', 'designed by'],
+    name: ['name'],
+    smiles: ['smiles'],
+    rationale: ['hypothesis', 'rationale'],
+    expected: ['expected effect', 'effect'],
+  };
+
+  function mapRows(rows) {
+    const header = rows[0].map(h => h.trim().toLowerCase());
+    const idx = {};
+    for (const [key, words] of Object.entries(COLUMNS)) {
+      idx[key] = key === 'id'
+        ? header.findIndex(h => h === 'id' || h.includes('compound id') || h.includes('molecule id'))
+        : header.findIndex(h => words.some(w => h.includes(w)));
+    }
+    const latest = new Map(); // a later row with the same ID replaces the earlier one
+    for (const r of rows.slice(1)) {
+      const get = k => (idx[k] >= 0 ? (r[idx[k]] || '').trim() : '');
+      if (!get('smiles')) continue;
+      const id = get('id');
+      const groupNum = (get('group').match(/\d+/) || [])[0] || (id.match(/^G(\d+)/i) || [])[1] || '';
+      const origin = /ai|chat|bot/i.test(get('origin')) || /^G\d+AI/i.test(id) ? 'AI' : 'Human';
+      const key = id || `${groupNum}-${origin}-${latest.size}`;
+      latest.set(key, {
+        id: id || '(no ID)', groupNum, origin, name: get('name'),
+        timestamp: get('timestamp'), smiles: get('smiles'),
+        rationale: get('rationale'), expected: get('expected'),
+      });
+    }
+    return [...latest.values()];
+  }
+
+  let molecules = [];
+
+  async function loadSubmissions() {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}&t=${Date.now()}`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(res.status);
+      const rows = parseCSV(await res.text());
+      molecules = rows.length > 1 ? mapRows(rows) : [];
+      $('updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+      updateGroupFilter();
+      render();
+      updateId();
+    } catch (err) {
+      $('groups').innerHTML =
+        '<div class="empty">Could not load submissions. Check that the Sheet is shared as "Anyone with the link: Viewer".</div>';
+    }
+  }
+
+  function updateGroupFilter() {
+    const sel = $('groupFilter');
+    const current = sel.value;
+    const groups = [...new Set(molecules.map(m => m.groupNum))].sort((a, b) => a - b);
+    sel.innerHTML = '<option value="">All groups</option>' +
+      groups.map(g => `<option value="${g}">Group ${g}</option>`).join('');
+    sel.value = groups.includes(current) ? current : '';
+  }
+
+  function filtered() {
+    const g = $('groupFilter').value;
+    const o = $('originFilter').value;
+    return molecules.filter(m => (!g || m.groupNum === g) && (!o || m.origin === o));
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function render() {
+    const mols = filtered();
+    const stats = [
+      [molecules.length, 'molecules'],
+      [new Set(molecules.map(m => m.groupNum)).size, 'groups'],
+      [molecules.filter(m => m.origin === 'Human').length, 'human designs'],
+      [molecules.filter(m => m.origin === 'AI').length, 'AI designs'],
+    ];
+    $('stats').innerHTML = stats.map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+
+    const holder = $('groups');
+    if (!mols.length) { holder.innerHTML = '<div class="empty">No submissions yet.</div>'; return; }
+
+    const byGroup = {};
+    mols.forEach(m => (byGroup[m.groupNum] ||= []).push(m));
+    const order = { Human: 0, AI: 1 };
+    holder.innerHTML = Object.keys(byGroup).sort((a, b) => a - b).map(g => {
+      const list = byGroup[g].sort((a, b) => order[a.origin] - order[b.origin] || a.id.localeCompare(b.id, undefined, { numeric: true }));
+      return `<div class="group"><h2>Group ${esc(g)} <span class="msg">(${list.length} molecules)</span></h2><div class="mols">` +
+        list.map(m => `
+          <div class="mol">
+            <div class="top"><span class="id">${esc(m.id)}</span><span class="tag ${m.origin}">${m.origin}</span></div>
+            <div class="structure" data-smiles="${esc(m.smiles)}"></div>
+            <div class="smiles mono">${esc(m.smiles)}</div>
+            <dl>
+              ${m.rationale ? `<dt>Hypothesis</dt><dd>${esc(m.rationale)}</dd>` : ''}
+              ${m.expected ? `<dt>Expected effect</dt><dd>${esc(m.expected)}</dd>` : ''}
+            </dl>
+          </div>`).join('') + '</div></div>';
+    }).join('');
+
+    holder.querySelectorAll('.structure[data-smiles]').forEach(async el => {
+      const svg = await smilesToSvg(el.dataset.smiles, 240, 180);
+      el.innerHTML = svg || '<span class="bad">Invalid SMILES</span>';
+    });
+  }
+
+  // .smi file: "SMILES ID" per line, which LigPrep/Maestro imports directly
+  $('smiBtn').addEventListener('click', () => {
+    const lines = filtered().map(m => `${m.smiles} ${m.id}`).join('\n') + '\n';
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([lines], { type: 'chemical/x-daylight-smiles' }));
+    a.download = 'workshop_designs.smi';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  $('refreshBtn').addEventListener('click', loadSubmissions);
+  $('groupFilter').addEventListener('change', render);
+  $('originFilter').addEventListener('change', render);
+  setInterval(() => {
+    if (!$('dashboard').classList.contains('hidden')) loadSubmissions();
+  }, REFRESH_SECONDS * 1000);
+
+  loadSubmissions(); // needed for sequential IDs on the Submit tab
+</script>
+</body>
+</html>
