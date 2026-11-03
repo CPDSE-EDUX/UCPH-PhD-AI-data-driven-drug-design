@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#143c3b">
+  <title>{{ page.title }} · UCPH Drug Design 2026</title>
+  <link rel="icon" type="image/png" href="{{ url('assets/brand/logo_ku.png') }}">
+  <link rel="stylesheet" href="{{ url('assets/site.css') }}">
+  <script src="{{ url('assets/site.js') }}" defer></script>
+</head>
+<body data-site-root="{{ url('index.html') }}" data-search-index="{{ url('assets/search.json') }}"{% if page.day %} data-day="{{ page.day }}"{% endif %}{% if page.step %} data-step="{{ page.step }}"{% endif %}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="masthead">
+    <a class="identity" href="{{ url('index.html') }}" aria-label="Course home">
+      <img src="{{ url('assets/brand/logo_ku.png') }}" alt="University of Copenhagen" width="112" height="40">
+      <span class="identity-divider"></span><span class="identity-title">Drug design<span>PhD / LLL course · 2026</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="{{ url('index.html') }}"{% if page.kind == 'home' %} aria-current="page"{% endif %}>Overview</a>
+      <a href="{{ url('program/index.html') }}"{% if page.kind == 'program' %} aria-current="page"{% endif %}>Full program</a>
+    </nav>
+    <div class="header-actions"><button class="search-toggle" type="button" aria-label="Search course"><span aria-hidden="true">⌕</span><span class="search-label">Search</span><kbd>/</kbd></button>
+      <button class="menu-toggle" aria-controls="course-navigation" aria-expanded="false" aria-label="Open course navigation"><span></span><span></span></button></div>
+  </header>
+  <div class="nav-backdrop" hidden></div>
+  <aside class="course-sidebar" id="course-navigation">
+    <div class="sidebar-top"><span class="eyebrow">THE COURSE</span><span class="week-label">09–13 Nov 2026</span></div>
+    <nav aria-label="Course days">
+      {% for day in days %}<a class="day-link{% if page.day == day.number %} active{% endif %}" href="{{ url(day.page.route) }}"{% if page.kind == 'day' and page.day == day.number %} aria-current="page"{% endif %}><span class="day-number">{{ '%02d'|format(day.number) }}</span><span>{{ day.topic }}<small>{{ day.short_date }}</small></span></a>{% endfor %}
+    </nav>
+    {% for day in days if day.workshop %}
+    <div class="sidebar-section">
+      <details{% if page.day == day.number %} open{% endif %}>
+        <summary><span class="eyebrow">DAY {{ '%02d'|format(day.number) }} WORKSHOP</span><span aria-hidden="true">⌄</span></summary>
+        <a class="workshop-home" href="{{ url(day.workshop.route) }}"{% if page.kind == 'workshop' and page.day == day.number %} aria-current="page"{% endif %}>{{ day.workshop.title }} <span aria-hidden="true">↗</span></a>
+        {% if day.steps %}
+        <div class="workshop-progress" data-progress-day="{{ day.number }}" data-steps-total="{{ day.steps|length }}"><span>Your progress</span><span data-progress-count>0 / {{ day.steps|length }}</span><progress data-progress-bar value="0" max="{{ day.steps|length }}" aria-label="Day {{ day.number }} workshop progress"></progress></div>
+        <nav class="step-list" aria-label="Day {{ day.number }} workshop steps">{% for step in day.steps %}<a href="{{ url(step.route) }}" data-step-link="{{ step.step }}" data-step-day="{{ day.number }}"{% if page.step == step.step and page.day == day.number %} aria-current="step"{% endif %}><span class="step-number">{{ '%02d'|format(step.step) }}</span><span>{{ step.title }}</span><span class="step-check" aria-label="Completed" hidden>✓</span></a>{% endfor %}</nav>
+        {% endif %}
+        {% if day.apps or day.resources %}
+        <nav class="resource-nav" aria-label="Day {{ day.number }} workshop resources"><span class="eyebrow">QUICK ACCESS</span>
+          {% for app in day.apps %}<a href="{{ url(app.route) }}"{% if page.route == app.route %} aria-current="page"{% endif %}><span aria-hidden="true">↥</span> {{ app.app.nav_label }}</a>{% endfor %}
+          {% for resource in day.resources %}<a href="{{ url(resource.route) }}"{% if page.route == resource.route %} aria-current="page"{% endif %}><span aria-hidden="true">↗</span> {{ resource.title }}</a>{% endfor %}
+        </nav>
+        {% endif %}
+      </details>
+    </div>
+    {% endfor %}
+    <div class="sidebar-bottom"><img src="{{ url('assets/brand/logo_cpdse.png') }}" alt="Center for Pharmaceutical Data Science Education"><p>University of Copenhagen</p></div>
+  </aside>
+  <main id="main" class="site-main{% if page.kind == 'home' %} home-page{% endif %}" tabindex="-1">
+  {% if page.kind == 'home' %}
+    <section class="home-hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><div class="eyebrow"><span class="status-dot"></span> UNIVERSITY OF COPENHAGEN · 09–13 NOV 2026</div><h1 id="hero-title">AI & data-driven<br><em>drug design.</em></h1><p class="hero-intro">An introduction to the tools, evidence and ideas shaping molecular discovery.</p><p class="hero-detail">A one-week PhD course connecting lectures, industry examples and hands-on workshops. Explore databases, design molecules and learn to question computational predictions.</p><div class="button-row"><a class="button primary" href="{{ url('program/index.html') }}">Explore the program <span aria-hidden="true">↗</span></a><a class="text-link" href="#course-week">Find your day <span aria-hidden="true">↓</span></a></div><div class="hero-facts"><span><strong>5 days</strong> of connected learning</span><span><strong>Mornings</strong> lectures</span><span><strong>Afternoons</strong> hands-on workshops</span></div></div>
+      <figure class="hero-figure"><div class="figure-label"><span class="status-dot"></span> FROM STRUCTURE TO HYPOTHESIS</div><img src="{{ url('assets/brand/hero.jpg') }}" alt="A ligand surrounded by a three-dimensional receptor binding pocket" width="720" height="620"><figcaption><span>01 / Molecular recognition</span><span>Observe. Design. Evaluate.</span></figcaption></figure>
+    </section>
+    <figure class="course-banner"><img src="{{ url('assets/brand/' ~ home_banner.image) }}" alt="{{ home_banner.alt }}" width="2000" height="667" loading="lazy" decoding="async"></figure>
+    <section class="week-section" id="course-week"><div class="section-heading"><div><span class="eyebrow">THE LEARNING JOURNEY</span><h2>A week. Five perspectives.</h2></div><p>Follow each day’s program and materials.<br>Bring the questions from your own research.</p></div>
+      <div class="week-list">{% for day in days %}<a class="week-day" href="{{ url(day.page.route) }}"><span class="week-number">{{ '%02d'|format(day.number) }}</span><div class="week-topic"><span class="eyebrow">{{ day.short_date }} · {{ day.tag }}</span><h3>{{ day.topic }}</h3><p>{{ day.summary }}</p></div><span class="week-arrow" aria-hidden="true">↗</span></a>{% endfor %}</div>
+    </section>
+    {% set guides = days|selectattr('workshop')|list %}
+    {% set guided_steps = guides|map(attribute='steps')|map('length')|sum %}
+    {% if guides %}
+    <section class="featured-workshop"><div><span class="eyebrow">HANDS-ON</span><h2>Work through it yourself.</h2><p>Each afternoon workshop has a step-by-step guide with the operations, checkpoints and resources you need. Open the guide for a day to follow along or revisit it afterwards.</p><div class="button-row">{% for day in guides %}<a class="button {% if loop.first %}primary{% else %}secondary{% endif %}" href="{{ url(day.workshop.route) }}">Day {{ '%02d'|format(day.number) }} workshop <span aria-hidden="true">↗</span></a>{% endfor %}</div></div><div class="challenge-numbers"><span><strong>{{ guides|length }}</strong>workshop guide{{ '' if guides|length == 1 else 's' }}</span><span><strong>{{ guided_steps }}</strong>guided steps</span></div></section>
+    {% endif %}
+    <section class="learning-section"><span class="eyebrow">WHAT YOU WILL PRACTISE</span><div class="learning-columns"><h2>Build hypotheses.<br>Assess the evidence.</h2><ul><li>Find and interpret drug, target and disease data.</li><li>Turn molecular interactions into ligand design hypotheses.</li><li>Explore AI/ML tools for protein and peptide design.</li><li>Choose visual representations and analyse molecular data.</li><li>Critically assess AI suggestions and computational predictions.</li></ul></div></section>
+  {% else %}
+    <div class="page-topline"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ url('index.html') }}">Course</a>{% if page.day %}<span>/</span><a href="{{ url(day_info.page.route) }}">Day {{ page.day }}</a>{% endif %}{% if page.kind in ['lesson', 'resource'] and day_info.workshop %}<span>/</span><a href="{{ url(day_info.workshop.route) }}">Workshop</a>{% endif %}</nav><span class="course-dates">09–13 NOVEMBER 2026</span></div>
+    {% if page.kind == 'day' %}<figure class="day-banner"><img src="{{ url('assets/brand/' ~ day_info.image) }}" alt="{{ day_info.alt }}" width="2000" height="667" decoding="async"></figure>{% endif %}
+    <header class="page-heading{% if page.kind == 'app' %} submission-heading{% endif %}"><div class="eyebrow">{% if page.step %}WORKSHOP STEP {{ '%02d'|format(page.step) }} / {{ steps|length }}{% elif page.kind == 'day' %}DAY {{ '%02d'|format(page.day) }} · {{ day_info.date }}{% elif page.kind == 'workshop' %}DAY {{ '%02d'|format(page.day) }} · {{ day_info.tag|upper }}{% elif page.kind == 'app' %}DAY {{ '%02d'|format(page.day) }} · {{ day_info.topic|upper }}{% elif page.kind == 'program' %}9–13 NOVEMBER · UNIVERSITY OF COPENHAGEN{% else %}DAY {{ '%02d'|format(page.day) }} · WORKSHOP RESOURCES{% endif %}</div><h1>{{ page.title }}</h1>{% if page.step %}<button class="completion-toggle" aria-pressed="false" type="button"><span aria-hidden="true">○</span> Mark step complete</button>{% endif %}{% if page.kind == 'day' %}<p class="page-description">{{ day_info.summary }}</p>{% endif %}</header>
+    {% if page.kind == 'day' and day_info.workshop %}<div class="workshop-banner"><div><span class="eyebrow">READY FOR THE AFTERNOON?</span><strong>{% if day_info.steps %}Go to the {{ day_info.steps|length }}-step workshop guide{% else %}Open the workshop guide{% endif %}</strong></div><a class="button primary" href="{{ url(day_info.workshop.route) }}">{% if day_info.steps %}Start the workshop{% else %}Open the guide{% endif %} <span aria-hidden="true">→</span></a></div>{% endif %}
+    {% if page.kind == 'app' %}
+    <section class="submission-panel" aria-labelledby="app-panel-title"><div class="submission-panel-header"><div><h2 id="app-panel-title">{{ page.app.heading or page.title }}</h2>{% if page.app.blurb %}<p>{{ page.app.blurb }}</p>{% endif %}</div><a class="button secondary" href="{{ url(page.app.entry_route) }}" target="_blank" rel="noopener">Open app in a new tab ↗</a></div><iframe id="app-frame" src="{{ url(page.app.entry_route) }}" title="{{ page.title }}" loading="eager"></iframe><noscript><p>Open the app in a new tab to use it. The app requires JavaScript.</p></noscript></section>
+    {% endif %}
+    <div class="reading-layout{% if page.kind == 'app' %} full-reading{% endif %}"><article class="prose">{{ content|safe }}{% if page.step %}<div class="lesson-pagination">{% if previous %}<a href="{{ url(previous.route) }}"><small>← PREVIOUS STEP</small><strong>{{ previous.title }}</strong></a>{% else %}<a href="{{ url(day_info.workshop.route) }}"><small>← WORKSHOP OVERVIEW</small><strong>{{ day_info.workshop.title }}</strong></a>{% endif %}{% if following %}<a class="next-lesson" href="{{ url(following.route) }}"><small>NEXT STEP →</small><strong>{{ following.title }}</strong></a>{% else %}<a class="next-lesson" href="{{ url(day_info.workshop.route) }}"><small>WORKSHOP COMPLETE →</small><strong>Return to the overview</strong></a>{% endif %}</div>{% endif %}</article>{% if toc and page.kind != 'app' %}<aside class="page-toc" aria-label="On this page"><span class="eyebrow">ON THIS PAGE</span>{{ toc|safe }}{% if day_info and day_info.apps %}<a class="toc-submission" href="{{ url(day_info.apps[0].route) }}">{{ day_info.apps[0].app.nav_label }}<br><strong>Open the app ↗</strong></a>{% endif %}</aside>{% endif %}</div>
+  {% endif %}
+    <footer class="site-footer"><div><strong>AI & data-driven drug design</strong><span>University of Copenhagen · PhD / LLL course · 2026</span></div><div><a href="{{ url('licenses/LICENSE.txt') }}">Content: CC BY 4.0</a><a href="{{ url('licenses/LICENSE-code.txt') }}">Code: MIT</a></div></footer>
+  </main>
+  <dialog class="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-heading"><h2 id="search-title">Search the course</h2><button class="dialog-close" aria-label="Close search">✕</button></form><label class="sr-only" for="course-search">Search pages, workshop steps and concepts</label><input id="course-search" type="search" placeholder="Try “protein preparation” or “Day 3”…" autocomplete="off"><div id="search-status" role="status" aria-live="polite">Search across all course days and workshop steps.</div><ul id="search-results"></ul><div class="search-help"><kbd>esc</kbd> to close <span>Course materials · 2026</span></div></dialog>
+</body>
+</html>
