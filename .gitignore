@@ -101,3 +101,9 @@ htmlcov/
 
 # Generated instructor review copies of a day's full workshop.
 for_instructors/day*/Day*-Workshop-Manual-Complete.docx
+
+# --- Archive and scratch ---------------------------------------------------
+# Superseded or unused material is kept locally in archive/ and never committed.
+# The site checks also refuse to publish any "archive" or "temp" folder.
+archive/
+temp/
