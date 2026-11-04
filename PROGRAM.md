@@ -15,7 +15,7 @@ Each day has a focus topic, with lectures **09:00–12:00**, lunch **12:00–13:
 **Way:** Enter the building via the double door, go down the stairs and 15 metres to the right.  
 If you need help, contact course leader, David Gloriam: 93 56 54 49
 
-![Building entrance at Jagtvej 158](assets/location.jpg)
+![Building entrance at Jagtvej 158](assets/brand/location.jpg)
 
 | Day | Date | Topic | Materials |
 | --- | --- | --- | --- |
