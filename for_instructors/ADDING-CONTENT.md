@@ -26,7 +26,7 @@ The build fails rather than publishing something broken, so a failing check is a
 - **A line of only links** separated by `·` is treated as repository navigation and dropped from the web page, because the site generates its own breadcrumbs and previous/next links. Keep such lines if you want the Markdown to read well on GitHub.
 - **Instructor material is never published.** Keep rehearsal notes, answer keys and generator scripts in `for_instructors/dayNN/`.
 
-Steps are the ordered walkthrough a participant follows once. Resources are the pages they jump back to: worksheets, references, cheat sheets.
+Steps are the ordered walkthrough a participant follows once. Resources are the pages they jump back to: setup guides, references, cheat sheets.
 
 ## Adding an app
 

@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selectivity calculator</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --surface: #ffffff; --text: #1d1d1f; --muted: #6b6b70;
+    --border: #e2e2e0; --accent: #2f5fd0;
+    --surface-2: #f1f1ee;
+    /* Human/AI green and purple, matching the submission app. Checked with the
+       data-viz palette validator: deutan ΔE 19.2, normal ΔE 29.4, contrast >= 3:1.
+       Origin is also carried by a text label on every bar, so colour is never alone. */
+    --human: #2f7d4f; --ai: #8a3fc0; --control: #6b6b70;
+    --good: #1baf7a; --bad: #c0392b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #9a9aa2;
+      --border: #333338; --accent: #7b9cff;
+      --surface-2: #26262a;
+      /* Same two hues and saturation, stepped down into the dark lightness band. */
+      --human: #3ea16d; --ai: #9d69cb; --control: #9a9aa2;
+      --good: #199e70; --bad: #ff6b5b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header, main { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 20px; }
+  .banner {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: stretch;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; margin-bottom: 16px;
+  }
+  .banner-text { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .banner-fig { background: #fff; display: flex; align-items: center; justify-content: center; }
+  .banner-fig img { width: 100%; height: 100%; max-height: 320px; object-fit: cover; object-position: 50% 50%; }
+  @media (max-width: 700px) {
+    .banner { grid-template-columns: minmax(0, 1fr); }
+    .banner-fig img { max-height: 200px; }
+  }
+  .brand { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  /* White backing keeps the dark logo text readable in dark mode */
+  .brand img { height: 40px; width: auto; max-width: 100%; background: #fff; padding: 4px 6px; border-radius: 6px; }
+  .course { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 8px 0 0; }
+  h1 { font-size: clamp(1.5rem, 3.6vw, 2.1rem); line-height: 1.15; margin: 0; }
+  h1 .h { color: var(--human); }
+  h1 .a { color: var(--ai); }
+  .workshop { font-weight: 600; margin: 0; }
+  h2 { font-size: 17px; margin: 0 0 12px; }
+  p.sub { color: var(--muted); margin: 0; }
+  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+          padding: 10px 14px; min-width: 150px; flex: 1 1 150px; border-top: 3px solid var(--border); }
+  .stat b { display: block; font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: 0.85rem; }
+  .stat.is-human { border-top-color: var(--human); }
+  .stat.is-ai { border-top-color: var(--ai); }
+  .stat.is-control { border-top-color: var(--control); }
+  .stat.is-accent { border-top-color: var(--accent); }
+  /* Equation cards: the arithmetic, set as mathematics rather than prose. */
+  .eqs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .eq { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .eq .name { font-size: 0.8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+              color: var(--accent); margin: 0 0 8px; }
+  /* Pre-rendered equations. Near-black on transparency, so dark mode inverts
+     them back to near-white rather than shipping a second set of files. */
+  .eq img { display: block; max-width: 100%; height: auto; margin: 6px 0 12px; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .eq img { filter: invert(1) brightness(0.93); }
+  }
+  :root[data-theme="dark"] .eq img { filter: invert(1) brightness(0.93); }
+  .eq p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+  .eq.for-2a { border-left: 3px solid var(--human); }
+  .eq.for-ki { border-left: 3px solid var(--accent); }
+  .eq.for-fold { border-left: 3px solid var(--ai); }
+  .card { background: var(--surface); border: 1px solid var(--border);
+          border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .drop { border: 2px dashed var(--border); border-radius: 10px; padding: 28px 16px;
+          text-align: center; transition: border-color .15s, background .15s; }
+  .drop.over { border-color: var(--accent); background: var(--surface-2); }
+  .drop p { margin: 0 0 12px; color: var(--muted); }
+  button, .filebtn {
+    font: inherit; font-weight: 500; padding: 8px 15px; border-radius: 7px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    cursor: pointer;
+  }
+  button:hover, .filebtn:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btnrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  input[type=file] { display: none; }
+  textarea {
+    width: 100%; min-height: 110px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--text); background: var(--bg); border: 1px solid var(--border);
+    border-radius: 7px; padding: 10px; resize: vertical;
+  }
+  select, input[type=number] {
+    font: inherit; color: var(--text); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px;
+  }
+  .assign { display: flex; gap: 18px; flex-wrap: wrap; align-items: end; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 13px; color: var(--muted); font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+  th { font-size: 13px; color: var(--muted); cursor: pointer; user-select: none; position: sticky; top: 0; background: var(--surface); }
+  th:hover { color: var(--text); }
+  th .dir { opacity: .5; }
+  tbody tr:hover { background: var(--surface-2); }
+  tr.control td { color: var(--muted); font-style: italic; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 7px;
+         border-radius: 20px; border: 1px solid; }
+  .tag.Human { color: var(--human); border-color: var(--human); }
+  .tag.AI { color: var(--ai); border-color: var(--ai); }
+  .tag.Control { color: var(--control); border-color: var(--control); }
+  .scroll { overflow-x: auto; max-height: 540px; }
+  .chart-head { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;
+                justify-content: space-between; margin-bottom: 12px; }
+  .chart-head h2 { margin: 0; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 11px; height: 11px; border-radius: 3px; }
+  .note { font-size: 13px; color: var(--muted); }
+  .backlink { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .backlink:hover { text-decoration: underline; }
+  .warn { border-left: 3px solid var(--bad); padding-left: 12px; color: var(--muted); font-size: 14px; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px;
+        padding: 12px 14px; overflow-x: auto; font-size: 13px; margin: 0 0 12px; }
+  .hidden { display: none; }
+  .err { color: var(--bad); font-size: 14px; }
+  svg { display: block; width: 100%; height: auto; }
+  .grid-line { stroke: var(--border); stroke-width: 1; }
+  .zero-line { stroke: var(--muted); stroke-width: 1.5; }
+  .ref-line { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .ax-label { fill: var(--muted); font-size: 12px; }
+  .bar-label { fill: var(--text); font-size: 12.5px; }
+  .bar-value { fill: var(--text); font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  @media (max-width: 640px) { .assign { gap: 12px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="banner">
+    <div class="banner-text">
+      <div class="brand">
+        <img src="../../../assets/brand/logo_ku.png" alt="University of Copenhagen">
+        <img src="../../../assets/brand/logo_cpdse.png" alt="Center for Pharmaceutical Data Science Education">
+      </div>
+      <p class="course">PhD/LLL course · AI &amp; Data Driven Drug Discovery 2026</p>
+      <h1><span class="h">Human</span> vs <span class="a">AI</span>: selectivity calculator</h1>
+      <p class="workshop">Workshop: Structure-based Drug Discovery (Day 2) · Step 16</p>
+      <p class="sub">Drop in the CSV you exported from the Maestro Project Table. It pairs each compound's
+      two docking scores and works out the score difference, a rough K<sub>i</sub> and the predicted fold selectivity.</p>
+      <p class="sub"><a class="backlink" href="../../workshop/index.html" target="_top">← Back to the workshop guide</a></p>
+    </div>
+    <div class="banner-fig"><img src="../../../assets/brand/human-vs-ai.jpg" alt="Fresco-style illustration: a human arm and a robotic arm locked in an evenly matched arm-wrestle"></div>
+  </div>
+</header>
+
+<main>
+  <section class="card" id="input">
+    <div class="drop" id="drop">
+      <p><b>Drop your CSV here</b>, or</p>
+      <div class="btnrow" style="justify-content:center">
+        <label class="filebtn" for="file">Choose a file…</label>
+        <input type="file" id="file" accept=".csv,text/csv" multiple>
+        <button type="button" id="paste-toggle">Paste text instead</button>
+        <button type="button" id="example">Load example data</button>
+      </div>
+    </div>
+    <div id="paste-area" class="hidden" style="margin-top:14px">
+      <textarea id="paste" placeholder='"Title","docking score","glide emodel","glide gscore"&#10;"2a_9WPQ_prep",,,&#10;"LSD",-8.533,-79.434,-9.308'></textarea>
+      <div class="btnrow" style="margin-top:8px"><button type="button" class="primary" id="parse-paste">Read this</button></div>
+    </div>
+    <p id="error" class="err hidden"></p>
+  </section>
+
+  <section class="card hidden" id="setup">
+    <h2>Which block is which receptor?</h2>
+    <div class="assign">
+      <div class="field"><label for="rec-a">5-HT<sub>2A</sub> (the target)</label><select id="rec-a"></select></div>
+      <div class="field"><label for="rec-b">5-HT<sub>2B</sub> (the anti-target)</label><select id="rec-b"></select></div>
+      <div class="field"><label for="rt">RT (kcal/mol)</label><input type="number" id="rt" value="0.5925" step="0.0001" min="0.01" style="width:110px"></div>
+      <div class="field"><label for="control">Control compound</label><select id="control"></select></div>
+    </div>
+    <p class="note" id="detected" style="margin:12px 0 0"></p>
+  </section>
+
+  <div class="stats hidden" id="stats"></div>
+
+  <section class="card hidden" id="chart-card">
+    <div class="chart-head">
+      <h2 id="chart-title">Ranked by predicted selectivity</h2>
+      <div class="field">
+        <label for="metric">Rank by</label>
+        <select id="metric">
+          <option value="delta" selected>ΔScore (2B − 2A)</option>
+          <option value="fold">Predicted fold selectivity</option>
+          <option value="scoreA">Docking score at 2A</option>
+          <option value="scoreB">Docking score at 2B</option>
+          <option value="kiA">Estimated Ki at 2A</option>
+        </select>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--human)"></i> Human</span>
+      <span><i class="swatch" style="background:var(--ai)"></i> AI</span>
+      <span><i class="swatch" style="background:var(--control)"></i> Control</span>
+      <span>— — &nbsp;<span id="legend-ref">control</span></span>
+    </div>
+    <div id="chart"></div>
+    <p class="note" id="chart-note"></p>
+  </section>
+
+  <section class="card hidden" id="results">
+    <h2>Results</h2>
+    <div class="scroll"><table id="table"><thead></thead><tbody></tbody></table></div>
+    <div class="btnrow" style="margin-top:14px">
+      <button type="button" id="download">Download results as CSV</button>
+      <span class="note" id="summary"></span>
+    </div>
+  </section>
+
+  <section class="card hidden" id="maths">
+    <h2>What it just did</h2>
+    <div class="eqs">
+      <div class="eq for-2a">
+        <p class="name">Score difference</p>
+        <img src="eq-delta.svg" width="325" height="27" alt="Delta Score equals score at 2B minus score at 2A">
+        <p>Scores are negative, so a positive &Delta;Score favours 5-HT<sub>2A</sub>.</p>
+      </div>
+      <div class="eq for-ki">
+        <p class="name">Score to binding constant</p>
+        <img src="eq-ki.svg" width="168" height="40" alt="K sub i equals exponential of score divided by R T">
+        <p>RT = 0.5925 kcal/mol at 298.15 K, editable above.</p>
+      </div>
+      <div class="eq for-fold">
+        <p class="name">Fold selectivity</p>
+        <img src="eq-fold.svg" width="297" height="50" alt="fold equals K sub i at 2B over K sub i at 2A, which equals the exponential of Delta Score divided by R T">
+        <p>How many times tighter the model expects 2A binding to be.</p>
+      </div>
+    </div>
+    <p class="warn" style="margin-top:16px">A docking score is not a binding free energy. Treating it as one gives a number
+    in molar units, not a predicted affinity — for LSD it typically lands two or more orders of
+    magnitude away from the measured value. Use these numbers to rank and compare within this run,
+    and nothing else.</p>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+const EXAMPLE = `"Title","docking score","glide emodel","glide gscore"
+"2a_9WPQ_prep",,,
+"LSD",-8.533,-79.434,-9.308
+"G13AIGemini1",-8.080,-65.802,-8.108
+"G1AIGemini1",-7.568,-54.379,-8.424
+"G13AIGemini1",-6.445,-45.968,-6.473
+"2b_7SRS_prep",,,
+"G13AIGemini1",-6.331,-53.826,-6.359
+"G13AIGemini1",-6.099,-48.354,-6.127
+"LSD",-5.467,-55.030,-6.242
+"G1AIGemini1",-5.320,-55.450,-6.176`;
+
+const $ = (id) => document.getElementById(id);
+let blocks = new Map();   // receptor block title -> Map(compound -> {best, states})
+let rows = [];
+let sortKey = "delta", sortDir = -1;
+
+/* ---------- CSV ---------- */
+
+// Minimal RFC4180 reader: quoted fields, doubled quotes, CR/LF line ends.
+function parseCSV(text) {
+  const out = [];
+  let row = [], field = "", quoted = false, i = 0;
+  text = text.replace(/^﻿/, "");
+  while (i < text.length) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+        quoted = false; i++; continue;
+      }
+      field += c; i++; continue;
+    }
+    if (c === '"') { quoted = true; i++; continue; }
+    if (c === ",") { row.push(field); field = ""; i++; continue; }
+    if (c === "\r") { i++; continue; }
+    if (c === "\n") { row.push(field); out.push(row); row = []; field = ""; i++; continue; }
+    field += c; i++;
+  }
+  if (field.length || row.length) { row.push(field); out.push(row); }
+  return out.filter(r => r.some(cell => cell.trim() !== ""));
+}
+
+const norm = (s) => s.trim().toLowerCase().replace(/[\s_-]+/g, " ");
+
+function findColumns(header) {
+  const names = header.map(norm);
+  const title = names.findIndex(n => n === "title" || n === "entry name" || n === "name");
+  // Prefer "docking score"; fall back to a GlideScore column if that is all there is.
+  let score = names.findIndex(n => n === "docking score" || n === "r i docking score");
+  if (score < 0) score = names.findIndex(n => n.includes("docking score"));
+  if (score < 0) score = names.findIndex(n => n.includes("gscore") || n.includes("glidescore"));
+  return { title, score };
+}
+
+function readTables(texts) {
+  const found = new Map();
+  let used = 0;
+  for (const text of texts) {
+    const table = parseCSV(text);
+    if (!table.length) continue;
+    const headerAt = table.findIndex(r => findColumns(r).title >= 0 && findColumns(r).score >= 0);
+    if (headerAt < 0) continue;
+    const cols = findColumns(table[headerAt]);
+    used++;
+    let current = null;
+    for (const r of table.slice(headerAt + 1)) {
+      const title = (r[cols.title] || "").trim();
+      if (!title) continue;
+      const raw = (r[cols.score] || "").trim();
+      const value = raw === "" ? NaN : Number(raw);
+      if (!Number.isFinite(value)) {
+        // A titled row with no score is the receptor heading for the rows below it.
+        current = title;
+        if (!found.has(current)) found.set(current, new Map());
+        continue;
+      }
+      if (current === null) { current = "Ungrouped results"; found.set(current, new Map()); }
+      const into = found.get(current);
+      const seen = into.get(title);
+      // Several LigPrep states or poses of one compound: keep the best score.
+      if (!seen) into.set(title, { best: value, states: 1 });
+      else { seen.states++; if (value < seen.best) seen.best = value; }
+    }
+  }
+  if (!used) throw new Error("No table with a Title column and a docking score column. Export from the Project Table with Glide primary properties shown.");
+  for (const [name, map] of [...found]) if (!map.size) found.delete(name);
+  if (found.size < 1) throw new Error("Found the columns, but no scored compounds underneath them.");
+  return found;
+}
+
+/* ---------- Interpretation ---------- */
+
+const looks2A = (s) => /(^|[^0-9a-z])(2a|9wpq)([^0-9a-z]|$)|5ht2a|htr2a/i.test(s);
+const looks2B = (s) => /(^|[^0-9a-z])(2b|7srs)([^0-9a-z]|$)|5ht2b|htr2b/i.test(s);
+
+function guessOrigin(id) {
+  if (/^lsd$/i.test(id.trim()) || /control|reference/i.test(id)) return "Control";
+  const m = id.match(/^g\s*\d+\s*(ai|h)/i);
+  if (m) return m[1].toLowerCase() === "ai" ? "AI" : "Human";
+  if (/\bai\b|gpt|claude|gemini|llama|mistral/i.test(id)) return "AI";
+  return "Human";
+}
+
+function fill(select, options, pick) {
+  select.replaceChildren();
+  for (const name of options) {
+    const o = document.createElement("option");
+    o.value = name; o.textContent = name;
+    select.append(o);
+  }
+  if (pick !== undefined && pick !== null) select.value = pick;
+}
+
+function setup(found) {
+  blocks = found;
+  const names = [...found.keys()];
+  const a = names.find(looks2A) ?? names[0];
+  const b = names.find(n => looks2B(n) && n !== a) ?? names.find(n => n !== a) ?? names[0];
+  fill($("rec-a"), names, a);
+  fill($("rec-b"), names, b);
+
+  const compounds = new Set();
+  for (const map of found.values()) for (const id of map.keys()) compounds.add(id);
+  const list = [...compounds].sort();
+  const control = list.find(id => /^lsd$/i.test(id)) ?? list.find(id => /control/i.test(id)) ?? list[0];
+  fill($("control"), ["(none)", ...list], control ?? "(none)");
+
+  $("detected").textContent =
+    `${names.length} receptor block${names.length === 1 ? "" : "s"} and ${list.length} compound${list.length === 1 ? "" : "s"} found.` +
+    (names.length < 2 ? " Only one block — the score difference needs results from both receptors." : "");
+  $("setup").classList.remove("hidden");
+  compute();
+}
+
+function compute() {
+  const RT = Number($("rt").value) || 0.5925;
+  const nameA = $("rec-a").value, nameB = $("rec-b").value;
+  const A = blocks.get(nameA) ?? new Map();
+  const B = blocks.get(nameB) ?? new Map();
+  const control = $("control").value;
+
+  const ids = new Set([...A.keys(), ...B.keys()]);
+  rows = [...ids].map(id => {
+    const a = A.get(id), b = B.get(id);
+    const sa = a ? a.best : null, sb = b ? b.best : null;
+    const paired = sa !== null && sb !== null && nameA !== nameB;
+    const delta = paired ? sb - sa : null;
+    return {
+      id,
+      origin: id === control ? "Control" : guessOrigin(id),
+      scoreA: sa, scoreB: sb, delta,
+      kiA: sa === null ? null : Math.exp(sa / RT) * 1e6,
+      kiB: sb === null ? null : Math.exp(sb / RT) * 1e6,
+      fold: paired ? Math.exp(delta / RT) : null,
+      states: Math.max(a ? a.states : 0, b ? b.states : 0),
+      isControl: id === control,
+    };
+  });
+  render();
+}
+
+/* ---------- Output ---------- */
+
+const COLUMNS = [
+  { key: "rank",   label: "#",            get: () => "" },   // Filled from the ΔScore ranking.
+  { key: "id",     label: "Compound",     get: r => r.id },
+  { key: "origin", label: "Origin",       get: r => r.origin },
+  { key: "scoreA", label: "Score 2A",     get: r => fmt(r.scoreA, 3) },
+  { key: "scoreB", label: "Score 2B",     get: r => fmt(r.scoreB, 3) },
+  { key: "delta",  label: "ΔScore",       get: r => fmt(r.delta, 3) },
+  { key: "kiA",    label: "Ki 2A (µM)",   get: r => fmtKi(r.kiA) },
+  { key: "kiB",    label: "Ki 2B (µM)",   get: r => fmtKi(r.kiB) },
+  { key: "fold",   label: "Fold 2A/2B",   get: r => r.fold === null ? "–" : (r.fold >= 100 ? Math.round(r.fold).toLocaleString() : r.fold.toFixed(1)) },
+  { key: "states", label: "Poses",        get: r => String(r.states || "–") },
+];
+
+const fmt = (v, d) => v === null || v === undefined ? "–" : v.toFixed(d);
+function fmtKi(v) {
+  if (v === null) return "–";
+  if (v >= 1000) return Math.round(v).toLocaleString();
+  if (v >= 1) return v.toFixed(1);
+  if (v >= 0.001) return v.toFixed(3);
+  return v.toExponential(1);
+}
+
+function sorted() {
+  const copy = [...rows];
+  copy.sort((x, y) => {
+    const a = x[sortKey], b = y[sortKey];
+    if (a === null && b === null) return 0;
+    if (a === null) return 1;
+    if (b === null) return -1;
+    if (typeof a === "string") return sortDir * a.localeCompare(b);
+    return sortDir * (a - b);
+  });
+  return copy;
+}
+
+function render() {
+  const list = sorted();
+  const head = $("table").tHead, body = $("table").tBodies[0];
+
+  const hr = document.createElement("tr");
+  for (const col of COLUMNS) {
+    const th = document.createElement("th");
+    th.textContent = col.label;
+    if (col.key !== "rank") {
+      th.tabIndex = 0;
+      if (sortKey === col.key) {
+        const dir = document.createElement("span");
+        dir.className = "dir";
+        dir.textContent = sortDir === 1 ? " ▲" : " ▼";
+        th.append(dir);
+      }
+      const go = () => {
+        if (sortKey === col.key) sortDir = -sortDir;
+        else { sortKey = col.key; sortDir = (col.key === "id" || col.key === "origin") ? 1 : -1; }
+        render();
+      };
+      th.addEventListener("click", go);
+      th.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    }
+    hr.append(th);
+  }
+  head.replaceChildren(hr);
+
+  body.replaceChildren();
+  const byDelta = [...rows].filter(r => r.delta !== null).sort((a, b) => b.delta - a.delta);
+  // The "#" column follows whichever metric the chart is ranked by.
+  const place = new Map(rankedBy(metricKey()).map((r, i) => [r.id, i + 1]));
+  for (const r of list) {
+    const tr = document.createElement("tr");
+    if (r.isControl) tr.className = "control";
+    for (const col of COLUMNS) {
+      const td = document.createElement("td");
+      if (col.key === "origin") {
+        const tag = document.createElement("span");
+        tag.className = `tag ${r.origin}`;
+        tag.textContent = r.origin;
+        td.append(tag);
+      } else if (col.key === "rank") {
+        td.textContent = r.delta === null ? "–" : String(place.get(r.id));
+      } else {
+        td.textContent = col.get(r);
+      }
+      tr.append(td);
+    }
+    body.append(tr);
+  }
+
+  const paired = rows.filter(r => r.delta !== null).length;
+  $("summary").textContent = `${rows.length} compound${rows.length === 1 ? "" : "s"}, ${paired} with scores at both receptors.`;
+  $("results").classList.remove("hidden");
+  $("maths").classList.remove("hidden");
+  drawTiles(byDelta);
+  drawChart();
+}
+
+// Headline numbers, so the result is readable before anyone reads the table.
+function drawTiles(ranked) {
+  const host = $("stats");
+  host.replaceChildren();
+  if (!ranked.length) { host.classList.add("hidden"); return; }
+  host.classList.remove("hidden");
+
+  const designs = ranked.filter(r => !r.isControl);
+  const control = rows.find(r => r.isControl && r.delta !== null);
+  const bestSel = designs[0];
+  const best2A = [...rows].filter(r => r.scoreA !== null && !r.isControl)
+                          .sort((a, b) => a.scoreA - b.scoreA)[0];
+  const beating = control ? designs.filter(r => r.delta > control.delta).length : null;
+  const klass = (r) => r ? (r.origin === "AI" ? "is-ai" : r.origin === "Control" ? "is-control" : "is-human") : "is-accent";
+
+  const tiles = [
+    ["is-accent", String(designs.length), `design${designs.length === 1 ? "" : "s"} with both scores`],
+    [klass(bestSel), bestSel ? bestSel.delta.toFixed(2) : "–", bestSel ? `best ΔScore · ${trim(bestSel.id)}` : "best ΔScore"],
+    [klass(best2A), best2A ? best2A.scoreA.toFixed(2) : "–", best2A ? `best 2A score · ${trim(best2A.id)}` : "best 2A score"],
+    control
+      ? ["is-control", `${beating} / ${designs.length}`, `beat ${trim(control.id)} on ΔScore`]
+      : ["is-control", "–", "no control selected"],
+  ];
+  for (const [cls, value, label] of tiles) {
+    const tile = document.createElement("div");
+    tile.className = `stat ${cls}`;
+    const b = document.createElement("b"); b.textContent = value;
+    const s = document.createElement("span"); s.textContent = label;
+    tile.append(b, s);
+    host.append(tile);
+  }
+}
+
+// Each metric says how to read it: which direction is better, how to print a
+// value, and what the axis is measuring.
+const METRICS = {
+  delta: { label: "ΔScore", better: "high", axis: "ΔScore (kcal/mol) →", pad: 86,
+    title: "Ranked by predicted selectivity", fmt: v => v.toFixed(2),
+    note: "ΔScore = score(2B) − score(2A). Bars to the right favour 5-HT2A." },
+  fold: { label: "fold selectivity", better: "high", axis: "Predicted fold selectivity (2A over 2B) →", pad: 100,
+    title: "Ranked by predicted fold selectivity", fmt: v => v >= 100 ? Math.round(v).toLocaleString() : v.toFixed(1),
+    note: "Ki(2B) / Ki(2A). Longer bars mean the model expects a bigger preference for 5-HT2A." },
+  scoreA: { label: "2A score", better: "low", axis: "← Docking score at 5-HT2A (kcal/mol)", pad: 86,
+    title: "Ranked by docking score at 5-HT2A", fmt: v => v.toFixed(2),
+    note: "Scores are negative, so bars reaching further left score better at the target." },
+  // 5-HT2B is the anti-target, so the desirable result is the weakest binding:
+  // this is the one metric where the least negative score ranks first.
+  scoreB: { label: "2B score", better: "high", axis: "← Docking score at 5-HT2B (kcal/mol)", pad: 86,
+    title: "Ranked by weakest binding at 5-HT2B", fmt: v => v.toFixed(2),
+    note: "5-HT2B is the anti-target, so here the least negative score is the desirable one and ranks first." },
+  kiA: { label: "Ki at 2A", better: "low", axis: "Estimated Ki at 5-HT2A (µM) →", pad: 100,
+    title: "Ranked by estimated Ki at 5-HT2A", fmt: v => fmtKi(v),
+    note: "A rough conversion of the 2A score, not a predicted affinity. Shorter bars are tighter binding." },
+};
+
+function metricKey() {
+  const key = $("metric").value;
+  return METRICS[key] ? key : "delta";
+}
+
+// Order the compounds by the chosen metric, best first.
+function rankedBy(key) {
+  const spec = METRICS[key];
+  return [...rows].filter(r => r[key] !== null && r[key] !== undefined)
+    .sort((a, b) => spec.better === "high" ? b[key] - a[key] : a[key] - b[key]);
+}
+
+function drawChart() {
+  const host = $("chart");
+  const key = metricKey(), spec = METRICS[key];
+  const ranked = rankedBy(key);
+  $("chart-title").textContent = spec.title;
+  $("chart-note").textContent = spec.note;
+  if (ranked.length < 1) { $("chart-card").classList.add("hidden"); return; }
+  $("chart-card").classList.remove("hidden");
+
+  const rowH = 34, barH = 18, padL = 150, padR = spec.pad, padT = 10, padB = 30;
+  const width = 900, height = padT + padB + ranked.length * rowH;
+  const values = ranked.map(r => r[key]);
+  const lo = Math.min(0, ...values), hi = Math.max(0, ...values);
+  const span = (hi - lo) || 1;
+  const x0 = padL, x1 = width - padR;
+  const x = (v) => x0 + ((v - lo) / span) * (x1 - x0);
+  const control = rows.find(r => r.isControl && r[key] !== null && r[key] !== undefined);
+  $("legend-ref").textContent = control ? `${control.id}'s ${spec.label}` : "control";
+
+  const svg = [`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(spec.title)}">`];
+  // Recessive axis: a zero line, plus the control's value as a reference.
+  svg.push(`<line class="zero-line" x1="${x(0).toFixed(1)}" y1="${padT}" x2="${x(0).toFixed(1)}" y2="${height - padB}"/>`);
+  svg.push(`<text class="ax-label" x="${x(0).toFixed(1)}" y="${height - padB + 16}" text-anchor="middle">0</text>`);
+  if (control) {
+    const cx = x(control[key]).toFixed(1);
+    svg.push(`<line class="ref-line" x1="${cx}" y1="${padT}" x2="${cx}" y2="${height - padB}"/>`);
+    svg.push(`<text class="ax-label" x="${cx}" y="${height - padB + 16}" text-anchor="middle">${esc(control.id)}</text>`);
+  }
+
+  ranked.forEach((r, i) => {
+    const y = padT + i * rowH + (rowH - barH) / 2;
+    const from = x(0), to = x(r[key]);
+    const left = Math.min(from, to), w = Math.max(Math.abs(to - from), 2);
+    const fill = r.origin === "AI" ? "var(--ai)" : r.origin === "Control" ? "var(--control)" : "var(--human)";
+    // 4px rounded data-end only; the baseline end stays square.
+    const right = r[key] >= 0;
+    const rx = 4;
+    const path = right
+      ? `M${left},${y} H${left + w - rx} a${rx},${rx} 0 0 1 ${rx},${rx} V${y + barH - rx} a${rx},${rx} 0 0 1 -${rx},${rx} H${left} Z`
+      : `M${left + w},${y} H${left + rx} a${rx},${rx} 0 0 0 -${rx},${rx} V${y + barH - rx} a${rx},${rx} 0 0 0 ${rx},${rx} H${left + w} Z`;
+    // The <title> must be a child of the mark for it to act as a tooltip.
+    svg.push(`<path d="${path}" fill="${fill}"><title>${esc(r.id)} · ${r.origin} · ${spec.label} ${spec.fmt(r[key])}</title></path>`);
+    // Names run left-aligned in their own band, so a long negative bar's value
+    // label can never land on top of them.
+    svg.push(`<text class="bar-label" x="8" y="${y + barH / 2 + 4}">${esc(trim(r.id))}</text>`);
+    const vx = right ? left + w + 8 : left - 8;
+    svg.push(`<text class="bar-value" x="${vx.toFixed(1)}" y="${y + barH / 2 + 4}" text-anchor="${right ? "start" : "end"}">${spec.fmt(r[key])}</text>`);
+  });
+  svg.push(`<text class="ax-label" x="${x0}" y="${height - padB + 16}">${esc(spec.axis)}</text>`);
+  svg.push("</svg>");
+  host.innerHTML = svg.join("");
+}
+
+const trim = (s) => s.length > 16 ? s.slice(0, 15) + "…" : s;
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ---------- Wiring ---------- */
+
+function show(error) {
+  const box = $("error");
+  box.textContent = error;
+  box.classList.toggle("hidden", !error);
+}
+
+function load(texts) {
+  try {
+    show("");
+    setup(readTables(texts));
+  } catch (e) {
+    show(e.message || String(e));
+    ["setup", "stats", "results", "maths", "chart-card"].forEach(id => $(id).classList.add("hidden"));
+  }
+}
+
+const drop = $("drop");
+["dragenter", "dragover"].forEach(type =>
+  drop.addEventListener(type, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave", "drop"].forEach(type =>
+  drop.addEventListener(type, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", async e => {
+  const files = [...(e.dataTransfer?.files || [])];
+  if (files.length) load(await Promise.all(files.map(f => f.text())));
+});
+$("file").addEventListener("change", async e => {
+  const files = [...e.target.files];
+  if (files.length) load(await Promise.all(files.map(f => f.text())));
+});
+$("example").addEventListener("click", () => { $("paste").value = EXAMPLE; load([EXAMPLE]); });
+$("paste-toggle").addEventListener("click", () => $("paste-area").classList.toggle("hidden"));
+$("parse-paste").addEventListener("click", () => {
+  const text = $("paste").value.trim();
+  if (text) load([text]); else show("Nothing pasted yet.");
+});
+["rec-a", "rec-b", "rt", "control"].forEach(id => $(id).addEventListener("change", compute));
+// Switching the ranking metric redraws the chart and renumbers the table.
+$("metric").addEventListener("change", render);
+
+$("download").addEventListener("click", () => {
+  const header = ["Compound", "Origin", "Score2A", "Score2B", "DeltaScore", "Ki2A_uM", "Ki2B_uM", "FoldSelectivity"];
+  const cell = (v) => v === null || v === undefined ? "" : typeof v === "number" ? v : `"${String(v).replace(/"/g, '""')}"`;
+  const body = sorted().map(r => [r.id, r.origin, r.scoreA, r.scoreB, r.delta, r.kiA, r.kiB, r.fold].map(cell).join(","));
+  const blob = new Blob([[header.join(","), ...body].join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "selectivity-results.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+</script>
+</body>
+</html>

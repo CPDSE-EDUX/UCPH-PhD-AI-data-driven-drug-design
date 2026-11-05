@@ -1,28 +1,52 @@
-# 04 · Inspect protein preparation diagnostics
+# 04 · Run the diagnostics
 
-**Goal:** understand what the experimental coordinates contain and what preparation needs to repair.
+**Goal:** find out what is actually wrong with the structures before you trust them.
 
-1. Include only the 9WPQ working copy. In **Protein Preparation Workflow**, select it as input and choose **Review Structure**.
-2. Open **Diagnostics** and inspect **Missing**. Select reported residues to locate them in the structure.
-3. Distinguish missing hydrogens, incomplete side chains, unresolved residues and absent terminal regions. Ask whether each issue is near LSD or remote from the binding site.
-4. Inspect **Reports**, changing the report dropdown to review the available checks, including any reported clashes, alternate positions, bond-order or geometry issues.
-5. Locate the seven-transmembrane receptor and the associated proteins. Record which chain is the receptor before deleting anything.
-6. Repeat the inspection for the 7SRS working copy.
+An experimental structure is a model fitted to density. Parts of it are certain, parts are guesses, and some atoms are simply missing.
 
-![Diagnostics tab showing missing structural features](assets/05-preparation-diagnostics.png)
+## Check the workspace entry
 
-| Finding | Question to answer |
-| --- | --- |
-| Missing hydrogens | How will protonation and hydrogen-bond assignments be chosen? |
-| Missing side-chain atoms | Does the residue contact LSD or define the pocket? |
-| Missing loop or terminus | Is it remote, or could it shape the binding-site entrance? |
-| Alternate positions or clashes | Which interpretation will the common preparation use? |
-| Missing water density | Does absence of a modeled water mean that no water occupies this region? |
+1. In **TASKS**, search for **Protein Preparation Workflow** and open it.
 
-Preparation can add a plausible model for missing features; it cannot recover experimental evidence that is absent. The [Protein Preparation Workflow overview](https://www.schrodinger.com/life-science/learn/white-papers/protein-preparation-workflow/) explains the repair and refinement operations.
+![Finding Protein Preparation in TASKS](assets/04-task-protein-preparation.png)
 
-Do not rebuild long loops automatically during the live exercise. If a missing segment borders the pocket, ask the instructor whether to use the common prepared model and record the uncertainty.
+2. Go to the **Diagnostics** tab and click **Check workspace entry**.
 
-**Checkpoint:** record at least two diagnostic observations and explain whether they could affect docking.
+![The Diagnostics tab](assets/04-diagnostics-check.png)
 
-[Previous](03-Fetch-structures.md) · [Home](index.md) · [Next: remove unwanted chains](05-Remove-unwanted-chains.md)
+3. Work through the issues it reports.
+
+![Reported structure issues](assets/04-diagnostics-issues.png)
+
+> **Discuss** — take the main problems one at a time. What does each one actually mean for a docking calculation? Missing side chains near the pocket are not the same problem as a missing loop on the other side of the protein. Which of these would change your results, and which are cosmetic?
+> {: .discuss }
+
+## The reliability report
+
+4. In **TASKS**, open the **Protein Reliability Report**.
+
+![Finding the Protein Reliability Report](assets/04-reliability-report-task.png)
+
+5. Choose to analyse the entire structure, give the job a name, and **Run**.
+
+![Running the reliability report](assets/04-reliability-run.png)
+
+6. Open the report when it finishes and click through the flagged regions.
+
+![The reliability report](assets/04-reliability-results.png)
+
+> **Discuss** — click on the problems the report flags. What is it complaining about? Does anything it found sit in or near the LSD binding site?
+> {: .discuss }
+
+7. Close the report and **delete the structures it generated**. You will not dock into them, and they clutter the Project Table.
+
+![Deleting the reliability report entries](assets/04-delete-report-entries.png)
+
+**Checkpoint**
+
+- [ ] Diagnostics have been run on both structures.
+- [ ] Your group can name the main problems in each one.
+- [ ] You know whether any of them affect the binding site.
+- [ ] The reliability report entries are deleted.
+
+[Previous](03-Clean-structures.md) · [Workshop home](index.md) · [Next: prepare the proteins](05-Prepare-proteins.md)

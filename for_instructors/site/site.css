@@ -212,6 +212,8 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .prose pre { background: #f0f3ed; border: 1px solid var(--line); padding: 18px 22px; border-radius: 6px; overflow-x: auto; margin: 24px 0; }
 .prose pre code { border: 0; padding: 0; background: none; font-size: 15px; line-height: 1.6; white-space: pre; overflow-wrap: normal; }
 .prose p > img { display: block; width: auto; max-width: 100%; max-height: 740px; border: 1px solid var(--line); border-radius: 6px; margin: 24px auto; background: white; }
+/* A page's opening banner runs the full width and is cropped, not letterboxed. */
+.prose img.page-banner { width: 100%; max-height: 260px; object-fit: cover; border-radius: 8px; margin: 0 0 30px; }
 
 .table-scroll { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; margin: 22px 0 28px; background: white; scrollbar-width: thin; }
 .table-scroll table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.5; text-align: left; }
@@ -226,15 +228,44 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .page-toc .toc a { color: var(--muted); text-decoration: none; }
 .page-toc .toc a:hover { color: var(--green); }
 .page-toc .toc ul ul { padding-left: 12px; margin-top: 8px; font-size: 14px; }
-.toc-submission { display: block; margin-top: 22px; border-top: 1px solid var(--line); padding-top: 16px; font-weight: 600; text-decoration: none; }
-.toc-submission:hover { text-decoration: underline; }
+/* The day's browser apps, listed in the right-hand rail under their own heading. */
+.toc-apps { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 16px; }
+.toc-apps .label { display: block; margin-bottom: 10px; }
+.toc-apps a { display: block; font-weight: 600; text-decoration: none; margin-bottom: 8px; line-height: 1.35; }
+.toc-apps a:hover { text-decoration: underline; }
+.toc-apps a[aria-current=page] { color: var(--green-dark); }
 
 .lesson-pagination { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-top: 1px solid var(--line); margin-top: 48px; padding-top: 24px; }
 .lesson-pagination a { display: block; text-decoration: none; padding: 16px 18px; border: 1px solid var(--line); border-radius: 6px; background: white; line-height: 1.4; }
 .lesson-pagination a:hover { background: var(--pale); border-color: #c4d4c3; }
 .lesson-pagination small { display: block; font-size: 14px; margin-bottom: 4px; color: var(--muted); }
 .lesson-pagination strong { font-size: 17px; color: var(--green-dark); }
-.lesson-pagination .next-lesson { text-align: right; }
+/* The way onwards is the primary action on every step, so it carries the weight. */
+.lesson-pagination .next-lesson { text-align: right; background: var(--green); border-color: var(--green); }
+.lesson-pagination .next-lesson small, .lesson-pagination .next-lesson strong { color: #fff; }
+.lesson-pagination .next-lesson small { opacity: .85; }
+.lesson-pagination .next-lesson:hover { background: var(--green-dark); border-color: var(--green-dark); }
+
+/* Checkpoints: "- [ ] …" in the Markdown becomes a box the group can tick. */
+.prose ul:has(> li.check) { list-style: none; padding-left: 0; }
+.prose li.check { margin-bottom: 10px; padding-left: 0; }
+.prose li.check label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; background: var(--pale); border: 1px solid #c9d8cb; border-radius: 6px; padding: 12px 16px; transition: background .15s, border-color .15s; }
+.prose li.check label:hover { border-color: var(--green); }
+.prose li.check input { flex: none; width: 19px; height: 19px; margin-top: 2px; accent-color: var(--green); cursor: pointer; }
+.prose li.check.done label { background: #fff; border-color: var(--line); }
+.prose li.check.done span { color: var(--muted); text-decoration: line-through; text-decoration-color: #b6c3b8; }
+
+/* Callouts: a group discussion prompt, an aside worth noticing, a caution.
+   Markdown's attr_list puts the class on the first paragraph, so match on that.
+   Without :has() support these stay the default blockquote, which still reads. */
+.prose blockquote:has(> p.discuss) { border-left-color: #b7791f; background: #fdf6e8; }
+.prose blockquote:has(> p.tip) { border-left-color: #2b6cb0; background: #ebf2fa; }
+.prose blockquote:has(> p.warn) { border-left-color: #a33a2a; background: #fbeeec; }
+
+.prose video { display: block; width: 100%; border: 1px solid var(--line); border-radius: 6px; margin: 24px auto; background: #111; }
+.prose figure { margin: 24px 0; }
+.prose figure img, .prose figure video { margin: 0 auto; }
+.prose figcaption { font-size: 15px; color: var(--muted); text-align: center; margin-top: 8px; }
 
 /* Embedded app */
 .submission-panel { border: 1px solid var(--line); border-radius: var(--radius); background: white; overflow: hidden; margin-bottom: 40px; max-width: 1250px; }

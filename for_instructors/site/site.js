@@ -59,16 +59,49 @@
       completionButton.textContent = done ? "✓ Step complete" : "○ Mark step complete";
     }
   }
-  if (completionButton) completionButton.addEventListener("click", () => {
-    const completed = steps(currentDay);
-    completed.has(currentStep) ? completed.delete(currentStep) : completed.add(currentStep);
+  function saveProgress() {
     try {
       localStorage.setItem(storageKey, JSON.stringify(Object.fromEntries(
         [...progress].filter(([, set]) => set.size).map(([day, set]) => [day, [...set]]))));
     } catch (_) { /* Still reflect progress for this page. */ }
     renderProgress();
+  }
+  if (completionButton) completionButton.addEventListener("click", () => {
+    const completed = steps(currentDay);
+    completed.has(currentStep) ? completed.delete(currentStep) : completed.add(currentStep);
+    saveProgress();
+  });
+  // Following the arrow onwards counts as finishing the step you are leaving.
+  const onward = document.querySelector(".next-lesson");
+  if (onward && currentStep) onward.addEventListener("click", () => {
+    steps(currentDay).add(currentStep);
+    saveProgress();
   });
   renderProgress();
+
+  // Checkpoint boxes are per page, so each group keeps its own place in the guide.
+  const checkKey = `${storageKey}-checks`;
+  const boxes = document.querySelectorAll(".prose input[type=checkbox][data-check]");
+  if (boxes.length) {
+    const page = body.dataset.page || location.pathname;
+    let ticked = {};
+    try { ticked = JSON.parse(localStorage.getItem(checkKey) || "{}") || {}; } catch (_) { /* optional */ }
+    const mine = new Set(Array.isArray(ticked[page]) ? ticked[page] : []);
+    boxes.forEach(box => {
+      const id = Number(box.dataset.check);
+      box.checked = mine.has(id);
+      box.closest("li").classList.toggle("done", box.checked);
+      box.addEventListener("change", () => {
+        box.checked ? mine.add(id) : mine.delete(id);
+        box.closest("li").classList.toggle("done", box.checked);
+        try {
+          ticked[page] = [...mine];
+          if (!mine.size) delete ticked[page];
+          localStorage.setItem(checkKey, JSON.stringify(ticked));
+        } catch (_) { /* Still reflect the tick for this visit. */ }
+      });
+    });
+  }
 
   const dialog = document.querySelector(".search-dialog");
   const input = document.querySelector("#course-search");

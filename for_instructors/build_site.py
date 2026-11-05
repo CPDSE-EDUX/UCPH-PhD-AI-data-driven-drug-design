@@ -83,6 +83,10 @@ DAYS = [
 # generates its own breadcrumbs, sidebar and pagination instead.
 NAV_LINE = re.compile(r"^(?:\[[^\]]+\]\([^)]+\)|·|\s)+$")
 
+# A list item written as "- [ ] text" becomes a checkbox the student can tick.
+# The task-list syntax reads as a checklist on GitHub too, so one source serves both.
+CHECK_ITEM = re.compile(r"^\[([ xX])\]\s+")
+
 
 @dataclass(frozen=True)
 class App:
@@ -124,7 +128,11 @@ def day_folder(number):
 
 
 def read_apps(number):
-    """Discover `dayNN/apps/<name>/app.json` features for one day."""
+    """Discover `dayNN/apps/<name>/app.json` features for one day.
+
+    An app may set "order" to place itself in the workshop's sequence rather
+    than alphabetically; apps without one sort last, by folder name.
+    """
     apps = []
     for definition in sorted((day_folder(number) / APPS).glob("*/app.json")):
         meta = json.loads(definition.read_text(encoding="utf-8"))
@@ -135,7 +143,7 @@ def read_apps(number):
             raise ValueError(f"App entry point missing: {directory.relative_to(REPO)}/{entry}")
         if not source.is_file():
             raise ValueError(f"App page missing: {source.relative_to(REPO)}")
-        apps.append(App(
+        apps.append((meta.get("order", 99), directory.name, App(
             day=number, name=directory.name, directory=directory,
             entry_route=f"day{number:02d}/{APPS}/{directory.name}/{entry}",
             page_route=f"day{number:02d}/{meta['route']}/index.html",
@@ -143,8 +151,8 @@ def read_apps(number):
             title=meta.get("title") or title_of(source),
             nav_label=meta.get("nav_label", meta.get("title", directory.name)),
             heading=meta.get("heading", ""), blurb=meta.get("blurb", ""),
-        ))
-    return apps
+        )))
+    return [app for _order, _name, app in sorted(apps, key=lambda item: item[:2])]
 
 
 def day_pages(number):
@@ -255,6 +263,14 @@ class RenderedHTML(HTMLParser):
         super().__init__(convert_charrefs=False)
         self.page, self.routes, self.resources, self.aliases = page, routes, resources, aliases
         self.parts = []
+        self.items = []  # Open <li> elements, innermost last.
+        self.checks = 0
+
+    def close_check(self):
+        """End the label a checkbox item opened, before its paragraph or item closes."""
+        if self.items and self.items[-1]["open"]:
+            self.parts.append("</span></label>")
+            self.items[-1]["open"] = False
 
     def link(self, target):
         if target.rstrip("/") in self.aliases:
@@ -271,12 +287,19 @@ class RenderedHTML(HTMLParser):
                 + ("#" + parsed.fragment if parsed.fragment else ""))
 
     def handle_starttag(self, tag, attrs):
+        # Only a paragraph may sit between an item's start and its "[ ]" marker.
+        if tag not in ("li", "p") and self.items:
+            self.items[-1]["pending"] = False
         attrs = dict(attrs)
         for key in ("href", "src"):
             if key in attrs:
                 attrs[key] = self.link(attrs[key])
         if tag == "img":
-            attrs.update(loading="lazy", decoding="async")
+            # A page's opening banner is above the fold, so it loads eagerly.
+            banner = "page-banner" in (attrs.get("class") or "")
+            attrs.update(loading="eager" if banner else "lazy", decoding="async")
+            if banner:
+                attrs.setdefault("fetchpriority", "high")
         if tag == "th":
             attrs["scope"] = "col"
         if tag == "table":
@@ -284,9 +307,15 @@ class RenderedHTML(HTMLParser):
         self.parts.append("<" + tag + "".join(
             " " + key + ("=\"" + escape(value, quote=True) + "\"" if value is not None else "")
             for key, value in attrs.items()) + ">")
+        if tag == "li":
+            self.items.append({"start": len(self.parts) - 1, "pending": True, "open": False})
 
     def handle_endtag(self, tag):
+        if tag in ("p", "li"):
+            self.close_check()
         self.parts.append(f"</{tag}>")
+        if tag == "li" and self.items:
+            self.items.pop()
         if tag == "table":
             self.parts.append("</div>")
 
@@ -294,6 +323,18 @@ class RenderedHTML(HTMLParser):
         self.handle_starttag(tag, attrs)
 
     def handle_data(self, data):
+        if self.items and self.items[-1]["pending"] and data.strip():
+            item = self.items[-1]
+            item["pending"] = False
+            marker = CHECK_ITEM.match(data)
+            if marker:
+                self.parts[item["start"]] = '<li class="check">'
+                self.parts.append(
+                    f'<label><input type="checkbox" data-check="{self.checks}"'
+                    f'{" checked" if marker.group(1).lower() == "x" else ""}><span>')
+                self.checks += 1
+                item["open"] = True
+                data = data[marker.end():]
         self.parts.append(data)
 
     def handle_entityref(self, name):
@@ -351,7 +392,7 @@ def build(output):
             day = navigation[page.day - 1] if page.day else None
             steps = day["steps"] if day else []
             url = lambda target: relative_url(page.route, target)
-            md = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "sane_lists"])
+            md = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "sane_lists", "attr_list"])
             content = md.convert(student_markdown(page)) if page.kind != "home" else ""
             renderer = RenderedHTML(page, routes, resources, aliases)
             renderer.feed(content)

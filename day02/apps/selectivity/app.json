@@ -1,0 +1,9 @@
+{
+  "route": "selectivity",
+  "order": 2,
+  "page": "selectivity.md",
+  "title": "Selectivity calculator",
+  "nav_label": "Selectivity calculator",
+  "heading": "Score difference, Ki and fold selectivity",
+  "blurb": "Drop in the CSV you exported from the Maestro Project Table. It pairs each compound's two docking scores and ranks your designs."
+}

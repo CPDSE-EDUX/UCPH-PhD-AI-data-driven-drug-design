@@ -1,5 +1,6 @@
 {
   "route": "submit",
+  "order": 1,
   "page": "submit.md",
   "title": "Submit your molecule designs",
   "nav_label": "Submit molecule designs",

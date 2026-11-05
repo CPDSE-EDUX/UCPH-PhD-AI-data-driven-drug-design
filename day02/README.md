@@ -17,32 +17,37 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 
 ## Workshop: Human vs AI
 
-**Ligand design and docking evaluation: 5-HT2A over 5-HT2B**
+**Ligand design and docking evaluation towards selectivity**
 
-Working in **groups of 2–3**, participants use Maestro to inspect LSD-bound 5-HT2A and 5-HT2B structures, propose three human designs and obtain three AI designs, then dock all six compounds to both receptors. Each participant picks or draws one human candidate; pairs develop their third together. Instructors run a pooled live docking calculation while groups follow along on their own compounds.
+Working in **groups of 2–3**, participants use Maestro to inspect LSD-bound 5-HT2A and 5-HT2B structures, propose three human designs and obtain three AI designs, then dock all six compounds to both receptors. Each participant picks or draws one human candidate; pairs develop their third together.
 
-**Start here: [Workshop guide](workshop_content/index.md)** · [Group worksheets](workshop_content/worksheets.md)
+5-HT2A is the receptor of interest. 5-HT2B carries a well-documented cardiac-valve liability, so the brief is to keep binding at one and lose it at the other — a selectivity problem between two close relatives with very similar pockets, not an affinity problem.
 
-**Tools:** Maestro with Protein Preparation Workflow, LigPrep and Glide; optional Ligand Designer; a chatbot; and the [design submission app](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/smiles/).
+Everyone runs the pipeline on their own machine, so each participant has done the preparation, grid and docking steps themselves. Instructors separately dock the pooled library of every group's compounds against shared prevalidated grids, and the awards are decided on that single run, so that all the scores being compared came out of one calculation.
+
+**Start here: [Workshop guide](workshop_content/index.md)** · [Set up Schrödinger](workshop_content/setup.md) · [Maestro basics](workshop_content/maestro-basics.md)
+
+**Tools:** Maestro with Protein Preparation Workflow, LigPrep and Glide; optional Ligand Designer; a chatbot; the [design submission app](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/smiles/) and the [selectivity calculator](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/selectivity/).
 
 **Starting structures:** [9WPQ, LSD-bound 5-HT2A](https://www.rcsb.org/structure/9WPQ) and [7SRS, LSD-bound 5-HT2B](https://www.rcsb.org/structure/7SRS). Use the receptor chain and retain bound LSD in each working complex.
 
+### Apps
+
+Two browser apps carry the workshop. Nothing to install, and no spreadsheet to fill in.
+
+| App | What it is for | Used in |
+| --- | --- | --- |
+| [Submit your designs](workshop_content/submit.md) | Validates each SMILES, draws the structure and issues the compound ID that follows the molecule through docking | [Step 12](workshop_content/12-Submit-designs.md) |
+| [Selectivity calculator](workshop_content/selectivity.md) | Reads the CSV exported from the Project Table and works out ΔScore, estimated Ki and fold selectivity, then ranks the designs | [Step 16](workshop_content/16-Analyse-selectivity.md) |
+
 ### Workshop steps
 
-Each step has its own page with actions, a checkpoint and screenshots of the Maestro operations.
-
-| Phase | Steps |
-| --- | --- |
-| Getting started | [01 · Maestro interface](workshop_content/01-Maestro-interface.md) · [02 · Create project](workshop_content/02-Create-project.md) |
-| Structure setup | [03 · Fetch structures](workshop_content/03-Fetch-structures.md) · [04 · Diagnostics](workshop_content/04-Protein-diagnostics.md) · [05 · Remove unwanted chains](workshop_content/05-Remove-unwanted-chains.md) |
-| Receptor comparison | [06 · Align receptors](workshop_content/06-Align-receptors.md) · [07 · Protein preparation](workshop_content/07-Prepare-proteins.md) · [08 · Interactions and surfaces](workshop_content/08-Inspect-interactions.md) |
-| Human design | [09 · Design hypotheses](workshop_content/09-Form-design-hypotheses.md) · [10 · Draw molecules](workshop_content/10-Draw-molecules.md) · [11 · Choose three human designs](workshop_content/11-Choose-human-designs.md) |
-| AI and collection | [12 · Generate three AI designs](workshop_content/12-Generate-AI-designs.md) · [13 · Submit six SMILES](workshop_content/13-Submit-designs.md) |
-| Live docking | [14 · Ligand preparation](workshop_content/14-Prepare-ligands.md) · [15 · Receptor grids](workshop_content/15-Generate-grids.md) · [16 · Dock to both receptors](workshop_content/16-Dock-to-both-receptors.md) |
-| Evaluation | [17 · Poses, scores and selectivity](workshop_content/17-Analyse-affinity-and-selectivity.md) · [18 · Ranking and debrief](workshop_content/18-Ranking-and-debrief.md) |
+The guide runs in five phases: get oriented, prepare the receptors, design, dock, judge the results. [Open the workshop guide](workshop_content/index.md) for the steps, or use the sidebar on the course website. Two reference pages sit outside the numbered steps: [Set up Schrödinger](workshop_content/setup.md) and [Maestro basics](workshop_content/maestro-basics.md).
 
 ### Outputs
 
-Each group leaves with six submitted structures and hypotheses, a saved Maestro project, paired receptor docking results and a short comparison of human and AI design. The shared LSD control is the reference for the docking-score comparison, and the selectivity proxy is **DockingScore(2B) − DockingScore(2A)**, where a positive value favors 2A in this model.
+Each group leaves with six submitted structures and hypotheses, a saved Maestro project, paired docking results at both receptors and a comparison of human and AI design.
 
-[Submission app guide](workshop_content/submit.md) · [Scientific and software references](workshop_content/references.md)
+Every score is read against the LSD control, and the selectivity proxy is **ΔScore = score(2B) − score(2A)**, where a positive value favours 2A *in this model*. The control is also the calibration: the same pipeline misestimates LSD's own affinity and its own selectivity, which is the limit the closing discussion works from.
+
+[Submission app guide](workshop_content/submit.md) · [Selectivity calculator](workshop_content/selectivity.md) · [References](workshop_content/references.md)

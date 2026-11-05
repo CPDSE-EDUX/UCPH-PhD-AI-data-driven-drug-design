@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Build the complete review copy. Requires python-docx, mistune<3 and Pillow."""
 
-from copy import deepcopy
 from pathlib import Path
 import re
 from urllib.parse import urlparse
@@ -39,26 +38,37 @@ def plain(nodes):
     return "".join(n.get("text", plain(n.get("children", []))) for n in nodes)
 
 
+# "{: .discuss }" styles a callout on the website; in print it is noise.
+ATTR_MARKER = re.compile(r"^>?\s*\{:\s*\.[a-z]+\s*\}\s*$")
+
+
 def clean_markdown(path):
-    return "\n".join(line for line in path.read_text().splitlines() if not NAV_LINE.match(line))
+    lines = []
+    for line in path.read_text().splitlines():
+        if NAV_LINE.match(line) or ATTR_MARKER.match(line):
+            continue
+        # Checkpoint boxes are interactive online and printable ballot boxes here.
+        lines.append(re.sub(r"^(\s*[-*]\s+)\[([ xX])\]\s+", lambda m: m.group(1) + ("☒ " if m.group(2) in "xX" else "☐ "), line))
+    return "\n".join(lines)
 
 
 def build():
     steps = sorted(MANUAL.glob("[0-9][0-9]-*.md"))
-    assert len(steps) == 18
+    assert steps, "No numbered workshop steps found"
     sources = [
         (MANUAL / "index.md", "Workshop overview"),
+        (MANUAL / "setup.md", "Setting up Schrödinger"),
+        (MANUAL / "maestro-basics.md", "Maestro basics"),
         *[(p, None) for p in steps],
-        (MANUAL / "worksheets.md", "Worksheet instructions"),
         (MANUAL / "references.md", None),
         (MANUAL / "submit.md", "Appendix B · Submission app guide"),
-        (HERE / "Instructor-notes.md", "Appendix C · Instructor notes"),
-        (HERE / "Dashboard-setup.md", "Appendix D · Dashboard setup"),
-        (REPO / "for_instructors/PUBLISHING.md", "Appendix E · Website publishing"),
+        (MANUAL / "selectivity.md", "Appendix C · Selectivity calculator"),
+        (HERE / "Instructor-notes.md", "Appendix D · Instructor notes"),
+        (HERE / "Dashboard-setup.md", "Appendix E · Dashboard setup"),
+        (REPO / "for_instructors/PUBLISHING.md", "Appendix F · Website publishing"),
     ]
     titles = {p: title or plain(PARSER(p.read_text())[0]["children"]) for p, title in sources}
     anchors = {p: f"section_{i}" for i, (p, _) in enumerate(sources)}
-    anchors[MANUAL / "downloads/Group-worksheet.docx"] = "worksheet_full"
     doc = Document()
     section = doc.sections[0]
     section.page_width, section.page_height = Mm(210), Mm(297)
@@ -224,6 +234,27 @@ def build():
                 p.add_run(n["text"].rstrip("\n"))
                 p.paragraph_format.keep_together = True
                 p._p.get_or_add_pPr().append(element("shd", fill="F3F5F7"))
+            elif kind == "block_quote":
+                # Discussion prompts, tips and cautions. The website styles these by
+                # the attr_list marker; in print they become an indented, shaded box.
+                for child in n["children"]:
+                    if child["type"] in ["block_text", "paragraph"]:
+                        p = parent.add_paragraph()
+                        p.paragraph_format.left_indent = Mm(5)
+                        p.paragraph_format.space_before = Pt(6)
+                        p.paragraph_format.space_after = Pt(6)
+                        inline(p, child["children"], source)
+                        p._p.get_or_add_pPr().append(element("shd", fill="F3F5F7"))
+                    else:
+                        render([child], source, parent)
+            elif kind == "block_html":
+                # Video has no print equivalent; point the reader at the website.
+                if "<video" in n["text"]:
+                    p = parent.add_paragraph()
+                    p.paragraph_format.left_indent = Mm(5)
+                    run = p.add_run("[Screen recording — see this step on the course website.]")
+                    run.italic = True
+                    run.font.color.rgb = RGBColor(0x5B, 0x65, 0x73)
             elif kind in ["newline", "thematic_break"]:
                 pass
             else:
@@ -237,14 +268,11 @@ def build():
     doc.add_paragraph("Day 2 · 10 November 2026 · 13:00–17:00 · Groups of 2–3")
     doc.add_paragraph("UCPH PhD course · AI and data-driven drug design")
     doc.add_paragraph("Complete workshop manual", "Heading 2")
-    doc.add_paragraph("Workshop schedule, all 18 steps, Maestro screenshots, references, editable group worksheet and instructor resources.")
+    doc.add_paragraph("Workshop schedule, every step, Maestro screenshots, references and instructor resources.")
     doc.add_page_break()
     doc.add_heading("Contents", 1)
     add_link(doc.add_paragraph(), "Day program", anchor="day_program")
-    for p, _ in sources[:21]:
-        add_link(doc.add_paragraph(), titles[p], anchor=anchors[p])
-    add_link(doc.add_paragraph(), "Appendix A · Full editable group worksheet", anchor="worksheet_full")
-    for p, _ in sources[21:]:
+    for p, _ in sources:
         add_link(doc.add_paragraph(), titles[p], anchor=anchors[p])
     doc.add_page_break()
     p = doc.add_heading("Day program", 1)
@@ -253,41 +281,17 @@ def build():
     day = "\n".join(x for x in day.splitlines() if not x.startswith("# Day 2") and not NAV_LINE.match(x))
     render(PARSER(day), DAY / "README.md")
 
-    def append_worksheet():
-        doc.add_page_break()
-        p = doc.add_heading("Appendix A · Full editable group worksheet", 1)
-        bookmark(p, "worksheet_full")
-        worksheet = Document(MANUAL / "downloads/Group-worksheet.docx")
-        for child in worksheet.element.body:
-            if child.tag == qn("w:sectPr"):
-                continue
-            child = deepcopy(child)
-            for style in child.iter(qn("w:pStyle")):
-                value = style.get(qn("w:val"))
-                if value in ["Heading1", "Heading2"]:
-                    style.set(qn("w:val"), "Heading2" if value == "Heading1" else "Heading3")
-            for link in child.iter(qn("w:hyperlink")):
-                old_id = link.get(qn("r:id"))
-                if old_id:
-                    rel = worksheet.part.rels[old_id]
-                    new_id = doc.part.relate_to(rel.target_ref, rel.reltype, is_external=True)
-                    link.set(qn("r:id"), new_id)
-            doc.element.body.insert(-1, child)
-
-    for i, (source, _) in enumerate(sources):
-        if i == 21:
-            append_worksheet()
+    for source, _ in sources:
         doc.add_page_break()
         nodes = PARSER(clean_markdown(source))
         assert nodes[0]["type"] == "heading"
         p = doc.add_heading(titles[source], 1)
         bookmark(p, anchors[source])
         render(nodes[1:], source)
-    assert len(figures) == 16
     OUT.parent.mkdir(exist_ok=True)
     doc.save(OUT)
     print(f"Created {OUT} ({OUT.stat().st_size:,} bytes)")
-    print(f"Included {len(steps)} steps, {len(figures)} images, all manual pages, full worksheet and 4 supporting guides.")
+    print(f"Included {len(steps)} steps, {len(figures)} images and all supporting guides.")
 
 
 if __name__ == "__main__":

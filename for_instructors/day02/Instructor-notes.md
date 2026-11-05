@@ -6,29 +6,29 @@ The four-hour exercise combines structural inspection, design and live docking. 
 
 | Item | Proposed protocol / action |
 | --- | --- |
-| Structures | 9WPQ and 7SRS; keep receptor plus LSD; check chain mappings in step 05 |
-| Shared preparation | Step 07: pH 7.4, ligand states at 7.4 ± 1.0, OPLS4, restrained refinement, no explicit waters |
+| Structures | 9WPQ and 7SRS; keep receptor plus LSD; check chain mappings in step 03 |
+| Shared preparation | Step 05: pH 7.4, ligand states at 7.4 ± 1.0, OPLS4, restrained refinement, no explicit waters |
 | Pocket integrity | Check unresolved segments, added side chains, covalent modifications and chemical assignments in both prepared models |
 | Drawing route | Demonstrate 2D Sketcher; offer Ligand Designer if installed and licensed |
-| LigPrep | Step 14; preserve specified stereochemistry and parent IDs; same prepared library for both sites |
-| Grids | Step 15: proposed 10 Å inner / 30 Å outer cubes, ligand-centered, common defaults, no optional constraints |
-| Docking | Step 16: SP, flexible ligands, state penalties included, up to five poses/state |
+| LigPrep | Step 13; preserve specified stereochemistry and parent IDs; same prepared library for both sites |
+| Grids | Step 14: proposed 10 Å inner / 30 Å outer cubes, ligand-centered, common defaults, no optional constraints |
+| Docking | Step 15: SP, flexible ligands, state penalties included, up to five poses/state |
 | Score convention | Lowest DockingScore per parent per receptor, with selected state/pose retained; ΔS = S2B − S2A |
-| Awards | Announce step 18 rules and pose-review criteria before results |
+| Awards | Announce step 17 rules and pose-review criteria before results |
 | Ki teaching | Present the measured-Ki ratio; use score-derived Ki* only as the labelled optional illustration |
 
 These are proposed teaching settings. GUI controls, calculation outputs and turnaround have **not** been validated by this Markdown guide. Confirm or revise the shared settings after rehearsal, then update the relevant pages and announce any course-wide changes. Record numerical vdW settings and any state/pose limits from the actual release.
 
 ## Before participants arrive
 
-- Test each required license, job host, writable directory and browser connection on the teaching desktops. Confirm whether local or remote jobs are intended and how many concurrent jobs the class can run.
+- Participants run Maestro on their own machines, so the licence and VPN setup has to happen before the day: point them at [Set up Schrödinger](../../day02/workshop_content/setup.md) in advance and keep time at the start of the session for stragglers. Confirm whether local or remote jobs are intended and how many concurrent jobs the licence server can carry with the whole class running at once.
 - Run both protein preparations, grids and LSD redocking controls. Inspect each pose and log. Prepare a small ligand test set to measure turnaround and verify that generated titles, parent IDs and state penalties survive export/import.
 - Save matching checkpoints: raw complexes, cleaned/aligned complexes, prepared complexes, checked LSD SMILES, prepared control, both grid archives **with their matching receptor coordinates**, and example docking outputs. Distribute them through the course materials location announced in class.
 - Test the submission page using a clearly marked instructor test entry. Confirm it persists in the linked Sheet after reload, that group/origin filtering works, and that the `.smi` export has the expected IDs. Remove test entries from the workshop collection before opening it.
 - Check all assigned group numbers exist in the dashboard dropdown (currently Groups 1–13). Explain the definition of Expected effect and how joint human designs should be named.
-- Provide the [Word and Excel worksheets](../../day02/workshop_content/worksheets.md). Groups choose one format for notes and analysis; all six SMILES and their hypotheses are collected through the GitHub Pages web app. The worksheet records returned compound IDs so the notes can be matched to submitted designs.
+- Groups keep no worksheet. All six SMILES and their hypotheses are collected through the [submission app](../../day02/apps/smiles/index.html), which issues the compound IDs, and the [selectivity calculator](../../day02/apps/selectivity/index.html) turns their exported CSV into score differences, Ki estimates and a ranking.
 - Prepare a separate results spreadsheet with parent ID, origin, group, both scores, state/pose IDs, ΔS, comparison with LSD, pose assessment and eligibility. The current dashboard collects designs; it does not import scores or calculate a docking leaderboard.
-- Build and publish the [course website](../PUBLISHING.md). Check the workshop links, images, worksheet downloads and embedded SMILES app. Give participants a single course URL and keep local copies of the materials available.
+- Build and publish the [course website](../PUBLISHING.md). Check the workshop links, images, cheat-sheet downloads and both embedded apps. Give participants a single course URL and keep local copies of the materials available.
 
 The [dashboard setup guide](Dashboard-setup.md) describes the Google Form / Sheet integration. Because the Sheet is readable for the dashboard, participants should use the agreed display names and enter only workshop content.
 
@@ -41,7 +41,7 @@ The [dashboard setup guide](Dashboard-setup.md) describes the Google Form / Shee
 | Chemistry / AI support | Check drawn structures, stereochemistry and testable rationales |
 | Docking operator | Freeze collection, prepare pooled library, run both targets and assemble results |
 
-Roles may be combined. Groups rotate the driver and note-taker so every participant makes a design choice. At 15:25, ask groups to finish rather than expand their candidate sets. Freeze collection at approximately 15:35 and start the pooled pipeline immediately; prevalidated receptor grids can make the pooled run independent of student grid jobs.
+Roles may be combined. Every participant runs Maestro on their own machine and works through the steps themselves; the group exists to compare results, argue about the pocket and agree on which designs to submit, not to share a screen. At 15:25, ask groups to finish rather than expand their candidate sets. Freeze collection at approximately 15:35 and start the pooled pipeline immediately; prevalidated receptor grids can make the pooled run independent of student grid jobs.
 
 ## Freeze and pooled calculation
 

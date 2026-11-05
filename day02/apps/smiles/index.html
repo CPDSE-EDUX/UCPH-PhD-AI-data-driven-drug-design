@@ -14,7 +14,7 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #151517; --surface: #1f1f22; --text: #ececee; --muted: #9a9aa2;
-      --border: #333338; --accent: #7b9cff; --human: #5fc08a; --ai: #c08bf0;
+      --border: #333338; --accent: #7b9cff; --human: #3ea16d; --ai: #9d69cb;
       --bad: #ff6b5b; --good: #5fc08a;
     }
   }
@@ -46,6 +46,8 @@
   h1 .a { color: var(--ai); }
   .workshop { font-weight: 600; margin: 0; }
   .sub { color: var(--muted); margin: 0; }
+  .backlink { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .backlink:hover { text-decoration: underline; }
   nav { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
   nav button {
     background: none; border: 0; padding: 10px 14px; font: inherit; color: var(--muted);
@@ -129,6 +131,7 @@
       <h1><span class="h">Human</span> vs <span class="a">AI</span>: 5-HT2A ligand design</h1>
       <p class="workshop">Workshop: Structure-based Drug Discovery (Day 2)</p>
       <p class="sub">Submit one molecule at a time: your own designs as <b>Human</b>, chatbot designs as <b>AI</b>.</p>
+      <p class="sub"><a class="backlink" href="../../workshop/index.html" target="_top">← Back to the workshop guide</a></p>
     </div>
     <div class="banner-fig"><img src="../../../assets/brand/hero.jpg" alt="Ligand in the binding pocket of a GPCR"></div>
   </div>
