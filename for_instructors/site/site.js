@@ -71,6 +71,19 @@
     completed.has(currentStep) ? completed.delete(currentStep) : completed.add(currentStep);
     saveProgress();
   });
+  document.querySelectorAll("[data-copy-target]").forEach(button => {
+    button.addEventListener("click", async () => {
+      const target = document.getElementById(button.dataset.copyTarget);
+      const status = button.parentElement.querySelector("[data-copy-status]");
+      if (!target || !status) return;
+      try {
+        await navigator.clipboard.writeText(target.innerText);
+        status.textContent = "Prompt copied.";
+      } catch {
+        status.textContent = "Copy failed. Select and copy the prompt manually.";
+      }
+    });
+  });
   // Following the arrow onwards counts as finishing the step you are leaving.
   const onward = document.querySelector(".next-lesson");
   if (onward && currentStep) onward.addEventListener("click", () => {
