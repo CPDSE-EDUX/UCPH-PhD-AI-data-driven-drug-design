@@ -26,7 +26,7 @@ So the design problem is not "bind 5-HT2A tightly". It is "bind 5-HT2A and *not*
 
 ## Before you begin
 
-1. **[Set up Schrödinger](setup.md)** — VPN, installation and licence. Do this before the workshop starts.
+1. **[Set up Schrödinger](setup.md)** — installation and licence, with separate instructions for KU and external participants. Do this before the workshop starts.
 2. Skim **[Maestro basics](maestro-basics.md)** — the panels, the mouse and the built-in assistant.
 3. Join your group. Everyone runs Maestro on their own machine, so work through the steps in parallel and compare what you each get.
 

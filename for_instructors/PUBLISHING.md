@@ -60,7 +60,7 @@ The browser must be able to reach the app's RDKit CDN and Google endpoints. Site
 
 ## Student downloads
 
-Day 2 publishes the Maestro cheat sheets from `day02/workshop_content/downloads/`. Anything dropped in a day's `downloads/` folder is published as a student download; the same convention applies to any day.
+Day 2 publishes the Maestro cheat sheets and Schrödinger installation guides from `day02/workshop_content/downloads/`. Anything dropped in a day's `downloads/` folder is published as a student download; the same convention applies to any day.
 
 Groups no longer fill in a spreadsheet — the [selectivity calculator](../day02/apps/selectivity/index.html) does the score arithmetic in the browser.
 
