@@ -10,7 +10,7 @@ A one-week University of Copenhagen PhD course introducing AI- and data-driven a
 | --- | --- | --- | --- |
 | [Day 1](day01/README.md) | Monday, 9 November | Databases | Find drug, target and disease data for an exercise or your own project. |
 | [Day 2](day02/README.md) | Tuesday, 10 November | Structure-based drug design (small molecules) | Structure-based ligand optimization: human versus AI design. |
-| [Day 3](day03/README.md) | Wednesday, 11 November | AI/ML tools for drug design (peptides & proteins) | Protein modeling and peptide or mini-protein binder design. |
+| [Day 3](day03/README.md) | Wednesday, 11 November | AI/ML tools for drug design (peptides & proteins) | *De novo* binder design for GLP-1R. |
 | [Day 4](day04/README.md) | Thursday, 12 November | Data visualization | Data visualization using Claude. |
 | [Day 5](day05/README.md) | Friday, 13 November | Data analysis using AI/ML | Data analysis using Claude, followed by the course wrap-up. |
 
@@ -52,7 +52,7 @@ The course introduces participants to:
 
 ## Setup
 
-Consult the relevant day's README for preparation and software requirements. Day 2 uses Maestro with Protein Preparation Workflow, LigPrep and Glide, a chatbot, and the SMILES submission app. Days 4 and 5 include workshops using Claude.
+Consult the relevant day's README for preparation and software requirements. Day 2 uses Maestro with Protein Preparation Workflow, LigPrep and Glide, a chatbot, and the SMILES submission app. Day 3 uses a Google Colab notebook, so bring a Google account. Days 4 and 5 include workshops using Claude.
 
 ## Repository conventions
 
