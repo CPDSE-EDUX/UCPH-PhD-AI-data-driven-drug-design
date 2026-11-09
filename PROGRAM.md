@@ -10,12 +10,12 @@ Each day has a focus topic, with lectures **09:00–12:00**, lunch **12:00–13:
 
 ## Location
 
-**Address:** Jagtvej 158 (see photo)  
+**Address:** Universitetsparken 4 (see photo and map)  
 **Room:** U21  
 **Way:** Enter the building via the double door, go down the stairs and 15 metres to the right.  
 If you need help, contact course leader, David Gloriam: 93 56 54 49
 
-![Building entrance at Jagtvej 158](assets/brand/new_location.jpg)
+<p class="location-images"><a href="assets/brand/new_location.jpg"><img src="assets/brand/new_location.jpg" alt="Building entrance at Universitetsparken 4" width="64%"></a> <a href="assets/brand/map_location.png"><img src="assets/brand/map_location.png" alt="Map of the corner of Jagtvej and Universitetsparken, with the entrance on the Universitetsparken side circled in red" width="30%"></a></p>
 
 | Day | Date | Topic | Materials |
 | --- | --- | --- | --- |
