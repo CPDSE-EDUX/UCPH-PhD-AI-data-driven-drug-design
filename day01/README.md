@@ -19,6 +19,6 @@ Explore drug, target and disease databases, then practise finding data for works
 
 [Workshop guide](workshop_content/index.md) — a guided Jupyter notebook, run in Google Colab, for finding drug, target and disease data with code.
 
-- [Open the notebook in Google Colab](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day01/workshop_content/downloads/Workshop1_hunt_for_data.ipynb)
-- [Download the notebook](workshop_content/downloads/Workshop1_hunt_for_data.ipynb)
+- [Open the notebook in Google Colab](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day01/workshop_content/Workshop1_hunt_for_data.ipynb)
+- [Download the notebook](workshop_content/Workshop1_hunt_for_data.ipynb)
 
