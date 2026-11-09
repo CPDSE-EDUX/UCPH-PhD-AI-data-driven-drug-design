@@ -6,7 +6,7 @@
 
 **9–13 November 2026 · University of Copenhagen**
 
-Each day has a focus topic, with lectures **09:00–12:00**, lunch **12:00–13:00**, and a hands-on workshop **13:00–17:00**. Items marked TBD remain to be confirmed.
+Each day has a focus topic, with lectures **09:00–12:00**, lunch **12:00–13:00**, and a hands-on workshop **13:00–17:00**. 
 
 ## Location
 
@@ -33,7 +33,7 @@ If you need help, contact course leader, David Gloriam: 93 56 54 49
 | --- | --- | --- | --- | --- |
 | Lecture 1 | 09:00 | Course introduction<br>Information and participant presentation | David Gloriam | ILF, UCPH |
 | Lecture 2 | 10:00 | Drug, target and disease databases<br>ClinicalTrials.gov, ChEMBL, DrugBank, DrugCentral, OpenTargets, Pharos, PubChem, Therapeutic targets database, (GPCRdb, GtoPdb, KLIFS), GTEX? | Javier Lorente | ILF, UCPH |
-| Lecture 3 | 11:00 | Industrial talk TBD | TBD | Amass |
+| Lecture 3 | 11:00 | From Databases to Knowledge: Integrating Biomedical Data at Amass | Jörn Petersen | Amass |
 | Workshop 1 | 13:00–17:00 | Hunt for drug, target and disease data<br>Find drug, target and disease data – either following a workshop material or related to your own project. | Javier Lorente, Søren Norge Andreasen, Aidan Flynn, David Gloriam | ILF, UCPH |
 
 ## Day 2 (Nov 10) – Structure-based drug design (small molecules)
@@ -54,7 +54,7 @@ If you need help, contact course leader, David Gloriam: 93 56 54 49
 | Session | Time | Content | Teacher | Affiliation |
 | --- | --- | --- | --- | --- |
 | Lecture 7 | 09:00 | Software for protein modeling & peptide drug design<br>AlphaFold, Rosetta, ProteinMPNN, BindCraft … | Albert Kooistra | ILF, UCPH |
-| Lecture 8 | 10:00 | Industry’s toolbox and case story<br>Commercially used methods and case stories | Rodrigo Alonso Ochoa | Novo Nordisk A/S |
+| Lecture 8 | 10:00 | Modelling and cheminformatics approaches for peptide analysis and design <br> Commercially used methods and case stories | Rodrigo Alonso Ochoa | Novo Nordisk A/S |
 | Lecture 9 | 11:00 | AI-/ML-based peptide design at Gubra | Kasper Einarson | Gubra |
 | Workshop 3 | 13:00–17:00 | Protein modeling and peptide design<br>Build a protein model and design peptide/mini-protein binders. Use of AlphaFold, Boltz etc. and maybe Colab notebook. | Albert Kooistra, Jody Pacalon,<br>Jonas Verhellen, David Gloriam | ILF, UCPH |
 
