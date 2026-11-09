@@ -20,7 +20,6 @@ Prefer to run it on your own machine? Download the [notebook file](downloads/Wor
 
 - A laptop and a Google account, so you can run the notebook in Colab.
 - Optional: if you want to work on a disease from your own research in [Part D](05-your-project.md), note its name and two or three proteins you already know are involved.
-- The morning's lecture slides are a useful reference: [Drug, target and disease databases (PPTX)](downloads/Lecture2_drug_target_disease_databases.pptx).
 
 ## What you will do
 
