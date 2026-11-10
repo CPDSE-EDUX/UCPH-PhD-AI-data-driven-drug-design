@@ -62,7 +62,7 @@ class CourseSiteTests(unittest.TestCase):
             for source in content.glob("*.md"):
                 self.assertIn(source.resolve(), routes, source)
             for folder in ["assets", "downloads"]:
-                for source in (content / folder).glob("*"):
+                for source in (content / folder).rglob("*"):
                     if source.is_file() and not source.name.startswith("."):
                         self.assertIn(source.resolve(), self.resources, source)
 

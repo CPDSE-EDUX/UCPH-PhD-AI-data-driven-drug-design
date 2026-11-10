@@ -10,8 +10,8 @@ The course website is built from the Markdown each day keeps in `dayNN/workshop_
 | `dayNN/workshop_content/index.md` | Your workshop landing page at `/dayNN/workshop/` |
 | `dayNN/workshop_content/01-your-topic.md` | Step 01 at `/dayNN/workshop/01-your-topic/`, in the sidebar with previous/next links |
 | `dayNN/workshop_content/your-topic.md` | A resource page at `/dayNN/workshop/your-topic/`, listed under Quick access |
-| `dayNN/workshop_content/assets/*` | Images at `/dayNN/workshop/assets/`, linked from Markdown as `assets/your-file.png` |
-| `dayNN/workshop_content/downloads/*` | Student downloads, linked as `downloads/your-file.docx` |
+| `dayNN/workshop_content/assets/` | Images at `/dayNN/workshop/assets/`, linked from Markdown as `assets/your-file.png`; subfolders are preserved |
+| `dayNN/workshop_content/downloads/` | Student downloads, linked as `downloads/your-file.docx`; subfolders are preserved (for example, `downloads/Round_1/data.csv`) |
 | `dayNN/apps/<name>/` | A browser app at `/dayNN/apps/<name>/`, plus a course page that embeds it |
 
 Day 2 is a worked example of all of these.
