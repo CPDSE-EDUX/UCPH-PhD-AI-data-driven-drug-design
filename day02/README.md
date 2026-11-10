@@ -32,7 +32,7 @@ Working in **groups of 2–3**, participants use Maestro to inspect LSD-bound 5-
 
 Everyone runs the pipeline on their own machine, so each participant has done the preparation, grid and docking steps themselves. Instructors separately dock the pooled library of every group's compounds against shared prevalidated grids, and the awards are decided on that single run, so that all the scores being compared came out of one calculation.
 
-**Start here: [Workshop guide](workshop_content/index.md)** · [Set up Schrödinger](workshop_content/setup.md) · [Maestro basics](workshop_content/maestro-basics.md)
+**Start here: [Workshop guide](workshop_content/index.md)** · [Intro slides (PDF)](workshop_content/downloads/workshop-intro-slides.pdf) · [Set up Schrödinger](workshop_content/setup.md) · [Maestro basics](workshop_content/maestro-basics.md)
 
 **Tools:** Maestro with Protein Preparation Workflow, LigPrep and Glide; optional Ligand Designer; a chatbot; the [design submission app](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/smiles/) and the [selectivity calculator](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/selectivity/).
 

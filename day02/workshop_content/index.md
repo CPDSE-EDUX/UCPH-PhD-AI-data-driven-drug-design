@@ -6,6 +6,12 @@
 
 Starting from LSD-bound 5-HT2A and 5-HT2B structures, design molecules that might keep 5-HT2A binding while losing 5-HT2B binding. Three human designs, three AI designs, docked into both receptors, judged on poses and scores.
 
+## Intro slides
+
+The slides that open the workshop introduce the receptors, the challenge and the rules. [Download the slides (PDF, 8 MB)](downloads/workshop-intro-slides.pdf)
+
+<iframe class="pdf-embed" src="downloads/workshop-intro-slides.pdf" title="Workshop intro slides: Human vs AI challenge" loading="lazy"></iframe>
+
 ## Why this receptor pair
 
 5-HT2A is the receptor of interest: it mediates the effects of the classical psychedelics, and compounds acting at it are being pursued for psychiatric indications. 5-HT2B is the one you want to miss. Sustained 5-HT2B agonism drives proliferation of heart valve tissue, and that liability has already removed drugs from the market — the appetite suppressant fenfluramine, and the ergoline dopamine agonist pergolide ([references](references.md#why-5-ht2a-over-5-ht2b)).
