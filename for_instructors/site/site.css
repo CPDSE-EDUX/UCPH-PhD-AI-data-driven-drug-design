@@ -216,6 +216,8 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .prose p > img { display: block; width: auto; max-width: 100%; max-height: 740px; border: 1px solid var(--line); border-radius: 6px; margin: 24px auto; background: white; }
 /* A page's opening banner runs the full width and is cropped, not letterboxed. */
 .prose img.page-banner { width: 100%; max-height: 260px; object-fit: cover; border-radius: 8px; margin: 0 0 30px; }
+/* An embedded slide deck, sized for 16:9 slides plus the viewer toolbar. */
+.prose iframe.pdf-embed { display: block; width: 100%; aspect-ratio: 4 / 3; border: 1px solid var(--line); border-radius: 6px; margin: 18px 0 30px; background: white; }
 /* Entrance photo and map side by side; each grows by its aspect ratio so their heights match. */
 .prose .location-images { display: flex; gap: 14px; align-items: flex-start; margin: 24px 0; }
 .prose .location-images a { flex: 1.814 1 0; min-width: 0; }
