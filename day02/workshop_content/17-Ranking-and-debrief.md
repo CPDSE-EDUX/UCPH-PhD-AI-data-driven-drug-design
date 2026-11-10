@@ -4,13 +4,16 @@
 
 ## The awards
 
+Two prizes: one for the best **human** design, one for the best **AI** design.
+
 | Award | How it is decided |
 | --- | --- |
-| **Best 2A result** | Best 2A docking score, among compounds with a plausible 2A pose |
-| **Best selectivity** | Largest ΔScore, among compounds with plausible poses at *both* receptors and a 2A score no worse than the LSD control |
-| **Best hypothesis** | The clearest line from structural observation to design — judged on the prediction you wrote in step 08, not on the score you got |
+| **Best human design** | Largest ΔScore among the Human submissions, counting only compounds with plausible poses at *both* receptors and a 2A score no worse than the LSD control |
+| **Best AI design** | The same rule, among the AI submissions |
 
-A pose that disagrees with your hypothesis is not disqualified. A pose that is physically implausible is. If nobody passes the selectivity rule, that is a result worth announcing.
+Each prize goes to the group that submitted the winning compound. Origin is the `H` or `AI` in the compound ID from step 12, so one group can take both.
+
+A pose that disagrees with your hypothesis is not disqualified. A pose that is physically implausible is. If nobody on one side passes the selectivity rule, that is a result worth announcing.
 
 > **The awards are judged on the pooled run, not your local one.** Every group's compounds are docked once, against the same two prevalidated grids, so that the scores being compared came out of one calculation. Your own numbers from step 15 will be close but not identical — you prepared your own receptors and built your own grids. That gap between two runs of the same molecule is itself worth a look.
 > {: .tip }
