@@ -231,6 +231,12 @@ def published_files(navigation=None):
                 if source.is_file() and not source.name.startswith("."):
                     relative = source.relative_to(content / folder).as_posix()
                     files[source.resolve()] = f"day{day['number']:02d}/workshop/{folder}/{relative}"
+        lectures = day_folder(day["number"]) / "lectures"
+        if lectures.is_dir():
+            for source in sorted(lectures.rglob("*")):
+                if source.is_file() and not source.name.startswith("."):
+                    relative = source.relative_to(lectures).as_posix()
+                    files[source.resolve()] = f"day{day['number']:02d}/lectures/{relative}"
         for app in day["features"]:
             for source in sorted(app.directory.rglob("*")):
                 if not source.is_file() or source.name in {"app.json", ".DS_Store"}:

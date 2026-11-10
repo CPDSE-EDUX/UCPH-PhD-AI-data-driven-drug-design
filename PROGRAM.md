@@ -54,7 +54,7 @@ If you need help, contact course leader, David Gloriam: 93 56 54 49
 | Session | Time | Content | Teacher | Affiliation |
 | --- | --- | --- | --- | --- |
 | Lecture 7 | 09:00 | Software for protein modeling & peptide drug design<br>AlphaFold, Rosetta, ProteinMPNN, BindCraft … | Albert Kooistra | ILF, UCPH |
-| Lecture 8 | 10:00 | Modelling and cheminformatics approaches for peptide analysis and design <br> Commercially used methods and case stories | Rodrigo Alonso Ochoa | Novo Nordisk A/S |
+| Lecture 8 | 10:00 | Modelling and cheminformatics approaches for peptide analysis and design<br>Commercially used methods and case stories | Rodrigo Alonso Ochoa | Novo Nordisk A/S |
 | Lecture 9 | 11:00 | AI-/ML-based peptide design at Gubra | Kasper Einarson | Gubra |
 | Workshop 3 | 13:00–17:00 | Protein modeling and peptide design<br>Build a protein model and design peptide/mini-protein binders. Use of AlphaFold, Boltz etc. and maybe Colab notebook. | Albert Kooistra, Jody Pacalon,<br>Jonas Verhellen, David Gloriam | ILF, UCPH |
 
@@ -64,7 +64,7 @@ If you need help, contact course leader, David Gloriam: 93 56 54 49
 
 | Session | Time | Content | Teacher | Affiliation |
 | --- | --- | --- | --- | --- |
-| Lecture 10 | 09:00 | **Data visualization theory**<br>Choosing graphs, colors, and visual encoding based on data types.<br>Visual perception: How the brain sees patterns such as shape, position, color and size.<br>Designing charts for different purposes. | Sarah Mittenentzwei | IST, SDU |
+| Lecture 10 | 09:00 | Data visualization theory<br>Choosing graphs, colors, and visual encoding based on data types.<br>Visual perception: How the brain sees patterns such as shape, position, color and size.<br>Designing charts for different purposes. | Sarah Mittenentzwei | IST, SDU |
 | Lecture 11 | 10:00 | Visualization in popular science | Karen Grubbe | Illustreret videnskab |
 | Lecture 12 | 11:00 | Scripting tools for data visualization<br>Tool tips to get started | Alexander Hauser | ILF, UCPH |
 | Workshop 4 | 13:00–17:00 | Data visualization workshop<br>Using Claude | Sarah Mittenentzwei, Javier Lorente,<br>David Gloriam, Jascha Henseler, Jacob Fredegaard Hansen | ILF, UCPH |

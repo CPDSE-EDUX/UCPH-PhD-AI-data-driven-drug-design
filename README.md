@@ -29,6 +29,7 @@ Teaching teams: see [adding your day's content](for_instructors/ADDING-CONTENT.m
 ```text
 ├── day01/ … day05/        One directory per course day
 │   ├── README.md          Day description and session table
+│   ├── lectures/          PDF slides for that day's lectures
 │   ├── workshop_content/  Markdown pages, images and downloads for that day's workshop
 │   └── apps/              Optional browser features (Day 2: SMILES submission)
 ├── for_instructors/       Site builder, publishing guides and per-day teaching notes

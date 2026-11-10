@@ -15,6 +15,13 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 | Lecture 6 | Drug-target molecular interactions<br>Molecular interactions (H-bonds etc.), shape fit and its role in selectivity etc. | David Gloriam | ILF, UCPH |
 | Workshop 2 | Structure-based ligand optimization<br>Competition to build the best drug | Kasper Harpsøe, Icaro Simon, Pablo Macho, Jody Pacalon, David Gloriam | ILF, UCPH |
 
+## Lectures
+
+Download the lecture slides (PDF):
+
+- [Lecture 4 – The structure-based drug design toolbox](lectures/L4-The%20structure-based%20drug%20design%20toolbox.pdf)
+- [Lecture 6 – Drug–target molecular interactions](lectures/L6-Drug-target%20molecular%20interactions.pdf)
+
 ## Workshop: Human vs AI
 
 **Ligand design and docking evaluation towards selectivity**
