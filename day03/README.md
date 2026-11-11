@@ -15,6 +15,12 @@ Explore AI and machine-learning tools for protein modeling and peptide drug desi
 | Lecture 9 | AI-/ML-based peptide design at Gubra | Kasper Einarson | Gubra |
 | Workshop 3 | Protein modeling and peptide design<br>Build a protein model and design peptide/mini-protein binders. Use of AlphaFold, Boltz etc. and maybe Colab notebook. | Albert Kooistra, Jody Pacalon,<br>Jonas Verhellen, David Gloriam | ILF, UCPH |
 
+## Lectures
+
+Download the lecture slides (PDF):
+
+- [Lecture 8 – Modelling and cheminformatics approaches for peptide analysis and design](lectures/L8_Modelling%20and%20cheminformatics....pdf)
+
 ## Workshop
 
 [Workshop guide](workshop_content/index.md)
