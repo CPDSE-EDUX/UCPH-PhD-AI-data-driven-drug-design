@@ -69,6 +69,10 @@ h1, h2, h3 { line-height: 1.2; color: var(--ink); }
 .top-nav a { color: var(--muted); text-decoration: none; padding: 23px 0; border-bottom: 2px solid transparent; }
 .top-nav a:hover { color: var(--green); }
 .top-nav a[aria-current] { color: var(--ink); font-weight: 600; border-bottom-color: var(--green); }
+/* Links to the centre sit beside the course navigation: shortened below 1250px, moved to the sidebar below 1000px. */
+.centre-nav { display: flex; align-items: center; gap: 24px; height: 34px; padding-left: 40px; border-left: 1px solid var(--line); font-size: 15px; white-space: nowrap; }
+.centre-nav a { color: var(--muted); text-decoration: none; }
+.centre-nav a:hover { color: var(--green); }
 .header-actions { display: flex; align-items: center; gap: 16px; }
 .search-toggle { border: 1px solid var(--line); background: white; display: flex; align-items: center; gap: 10px; padding: 7px 12px; border-radius: 6px; color: var(--muted); font-size: 15px; }
 .search-toggle > span:first-child { font-size: 22px; line-height: 1; }
@@ -122,6 +126,9 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .resource-nav a[aria-current] { font-weight: 600; }
 .sidebar-bottom { margin: 28px 10px 0; border-top: 1px solid var(--line); padding-top: 22px; }
 .sidebar-bottom img { width: 170px; max-height: 52px; object-fit: contain; object-position: left; }
+.sidebar-centre { display: none; flex-direction: column; gap: 6px; margin-top: 14px; }
+.sidebar-centre a { color: var(--green); text-decoration: none; font-size: 15px; line-height: 1.4; }
+.sidebar-centre a:hover { text-decoration: underline; }
 
 /* ------------------------------------------------------------------
    Main column
@@ -152,10 +159,10 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .course-banner { max-width: 1200px; margin: 0 auto 64px; }
 .day-banner { max-width: 1040px; margin: 0 0 32px; }
 
-.week-section, .featured-workshop, .learning-section, .connect-section { max-width: 1200px; margin-left: auto; margin-right: auto; }
+.week-section, .featured-workshop, .learning-section { max-width: 1200px; margin-left: auto; margin-right: auto; }
 .section-heading { display: flex; gap: 32px; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
 .section-heading > p { color: var(--muted); font-size: 16px; margin: 0; }
-.week-section h2, .featured-workshop h2, .learning-section h2, .connect-section h2 { font: 400 36px/1.2 var(--serif); letter-spacing: -.5px; margin: 0; }
+.week-section h2, .featured-workshop h2, .learning-section h2 { font: 400 36px/1.2 var(--serif); letter-spacing: -.5px; margin: 0; }
 .week-list { border-top: 2px solid var(--ink); }
 .week-day { display: flex; align-items: center; gap: 28px; text-decoration: none; color: var(--text); padding: 22px 8px; border-bottom: 1px solid var(--line); transition: background .15s; }
 .week-day:hover { background: #eef3ec; }
@@ -170,12 +177,10 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .featured-workshop p { font-size: 17px; max-width: 40em; margin: 14px 0 0; }
 .featured-workshop .button-row { margin-top: 22px; }
 
-.learning-section, .connect-section { margin-bottom: 72px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+.learning-section { margin-bottom: 72px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
 .learning-section ul { margin: 4px 0 0; padding-left: 22px; font-size: 18px; line-height: 1.6; }
 .learning-section li { margin-bottom: 8px; }
 .learning-section li::marker { color: var(--green); }
-.connect-section p { margin: 4px 0 0; font-size: 18px; line-height: 1.6; max-width: 34em; }
-.connect-section .button-row { margin-top: 22px; }
 
 /* Inner pages */
 .breadcrumbs { display: flex; align-items: center; gap: 10px; font-size: 15px; margin: 0 0 28px; }
@@ -315,6 +320,8 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 @media (max-width: 1250px) {
   :root { --sidebar: 260px; }
   .masthead { padding: 0 24px; gap: 28px; }
+  .centre-nav { padding-left: 28px; gap: 20px; }
+  .centre-nav .centre-long { display: none; }
   .site-main { padding-left: 36px; padding-right: 36px; }
   .reading-layout { grid-template-columns: minmax(0, 46em); }
   .page-toc { display: none; }
@@ -326,9 +333,11 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
   .hero-figure { display: none; }
   .section-heading { display: block; }
   .section-heading > p { margin-top: 8px; }
-  .learning-section, .connect-section { grid-template-columns: 1fr; gap: 16px; }
+  .learning-section { grid-template-columns: 1fr; gap: 16px; }
   .submission-panel-header { flex-direction: column; align-items: flex-start; }
   .identity-title > span { display: none; }
+  .centre-nav { display: none; }
+  .sidebar-centre { display: flex; }
 }
 
 @media (max-width: 760px) {
@@ -357,7 +366,7 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
   .hero-copy h1 { font-size: clamp(38px, 11vw, 52px); letter-spacing: -1px; }
   .hero-intro { font-size: 20px; }
   .course-banner { margin-bottom: 40px; }
-  .week-section h2, .featured-workshop h2, .learning-section h2, .connect-section h2 { font-size: 30px; }
+  .week-section h2, .featured-workshop h2, .learning-section h2 { font-size: 30px; }
   .week-day { gap: 16px; padding: 20px 0; }
   .week-number { font-size: 30px; min-width: 22px; }
   .week-topic h3 { font-size: 20px; }

@@ -15,6 +15,8 @@
 </head>
 <body data-site-root="{{ url('index.html') }}" data-search-index="{{ url('assets/search.json') }}" data-page="{{ page.route }}"{% if page.day %} data-day="{{ page.day }}"{% endif %}{% if page.step %} data-step="{{ page.step }}"{% endif %}>
   <a class="skip-link" href="#main">Skip to content</a>
+  {#- Links to the centre: in the masthead on wide screens, at the foot of the sidebar on narrow ones. -#}
+  {%- macro centre_links() %}<a href="https://cpdse.dk/" target="_blank" rel="noopener" title="Center for Pharmaceutical Data Science Education">cpdse.dk ↗</a><a href="https://www.linkedin.com/company/cpdse/" target="_blank" rel="noopener" title="Follow the Center for Pharmaceutical Data Science Education on LinkedIn"><span class="centre-long">Follow CPDSE on </span>LinkedIn ↗</a>{% endmacro %}
   <header class="masthead">
     <a class="identity" href="{{ url('index.html') }}" aria-label="Course home">
       <img src="{{ url('assets/brand/logo_ku.png') }}" alt="University of Copenhagen" width="112" height="40">
@@ -25,6 +27,7 @@
       <a href="{{ url('index.html') }}"{% if page.kind == 'home' %} aria-current="page"{% endif %}>Overview</a>
       <a href="{{ url('program/index.html') }}"{% if page.kind == 'program' %} aria-current="page"{% endif %}>Program</a>
     </nav>
+    <nav class="centre-nav" aria-label="Center for Pharmaceutical Data Science Education">{{ centre_links() }}</nav>
     <div class="header-actions">
       <button class="search-toggle" type="button" aria-label="Search course"><span aria-hidden="true">⌕</span><span class="search-label">Search</span><kbd>/</kbd></button>
       <button class="menu-toggle" aria-controls="course-navigation" aria-expanded="false" aria-label="Open course navigation"><span></span><span></span></button>
@@ -53,7 +56,7 @@
       </details>
     </div>
     {% endfor %}
-    <div class="sidebar-bottom"><img src="{{ url('assets/brand/logo_cpdse.png') }}" alt="Center for Pharmaceutical Data Science Education"></div>
+    <div class="sidebar-bottom"><img src="{{ url('assets/brand/logo_cpdse.png') }}" alt="Center for Pharmaceutical Data Science Education"><nav class="sidebar-centre" aria-label="Center for Pharmaceutical Data Science Education">{{ centre_links() }}</nav></div>
   </aside>
   <main id="main" class="site-main{% if page.kind == 'home' %} home-page{% endif %}" tabindex="-1">
   {% if page.kind == 'home' %}
@@ -83,13 +86,6 @@
     <section class="learning-section">
       <h2>What you will practise</h2>
       <ul><li>Find and interpret drug, target and disease data.</li><li>Turn molecular interactions into ligand design hypotheses.</li><li>Explore AI/ML tools for protein and peptide design.</li><li>Choose visual representations and analyse molecular data.</li><li>Critically assess AI suggestions and computational predictions.</li></ul>
-    </section>
-    <section class="connect-section">
-      <h2>Stay connected</h2>
-      <div>
-        <p>The Center for Pharmaceutical Data Science Education (CPDSE) works to build data science skills across the pharmaceutical value chain.</p>
-        <div class="button-row"><a class="button secondary" href="https://cpdse.dk/" target="_blank" rel="noopener">Visit cpdse.dk ↗</a><a class="button secondary" href="https://www.linkedin.com/company/cpdse/" target="_blank" rel="noopener">Follow CPDSE on LinkedIn ↗</a></div>
-      </div>
     </section>
   {% else %}
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ url('index.html') }}">Course</a>{% if page.day %}<span>/</span><a href="{{ url(day_info.page.route) }}">Day {{ page.day }}</a>{% endif %}{% if page.kind in ['lesson', 'resource'] and day_info.workshop %}<span>/</span><a href="{{ url(day_info.workshop.route) }}">Workshop</a>{% endif %}</nav>
