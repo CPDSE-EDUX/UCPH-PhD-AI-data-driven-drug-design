@@ -18,7 +18,7 @@ Explore AI and machine-learning tools for protein modeling and peptide drug desi
 ## Lectures
 
 Download the lecture slides (PDF):
-- [Lecture 7 – Deep learning for protein structure and protein design - from folding to co-folding to design](downloads/Lecture7_AJKooistra.pdf)
+- [Lecture 7 – Deep learning for protein structure and protein design - from folding to co-folding to design](lectures/Lecture7_AJKooistra.pdf)
 - [Lecture 8 – Modelling and cheminformatics approaches for peptide analysis and design](lectures/L8_Modelling%20and%20cheminformatics....pdf)
 
 ## Workshop: *De novo* binder design for GLP-1R
