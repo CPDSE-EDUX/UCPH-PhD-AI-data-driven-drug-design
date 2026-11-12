@@ -10,7 +10,7 @@ Explore AI and machine-learning tools for protein modeling and peptide drug desi
 
 | Session | Content | Teacher | Affiliation |
 | --- | --- | --- | --- |
-| Lecture 7 | Software for protein modeling & peptide drug design<br>AlphaFold, Rosetta, ProteinMPNN, BindCraft … | Albert Kooistra | ILF, UCPH |
+| Lecture 7 | Software for protein modeling & peptide drug design<br>AlphaFold, Rosetta, ProteinMPNN, BindCraft …<br>[Lecture slides (PDF)](workshop_content/downloads/Lecture7_AJKooistra.pdf) | Albert Kooistra | ILF, UCPH |
 | Lecture 8 | Industry’s toolbox and case story<br>Commercially used methods and case stories | Rodrigo Alonso Ochoa | Novo Nordisk A/S |
 | Lecture 9 | AI-/ML-based peptide design at Gubra | Kasper Einarson | Gubra |
 | Workshop 3 | *De novo* binder design for GLP-1R<br>Design a protein binder for the GLP-1 receptor with RFD4-Proteina, ProteinMPNN and OpenFold3 in a Colab notebook. | Albert Kooistra, Jody Pacalon,<br>Jonas Verhellen, David Gloriam | ILF, UCPH |
@@ -42,3 +42,7 @@ Every number is a computed prediction, not a measured affinity. The workshop is 
 ### Outputs
 
 Each group hands in a scorecard (CSV), one candidate card (HTML) and a three-minute report.
+
+### Outcomes
+
+Six groups handed in 272 scored designs. The scores plateau at the GLP-1 level, redesign rounds rarely improved on the best RFD4 design, and the confidence scores say nothing about liabilities or charge. Read the full [analysis of the hand-ins](workshop_content/analysis.md).
