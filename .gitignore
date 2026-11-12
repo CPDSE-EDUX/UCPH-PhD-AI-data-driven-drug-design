@@ -107,3 +107,7 @@ for_instructors/day*/Day*-Workshop-Manual-Complete.docx
 # The site checks also refuse to publish any "archive" or "temp" folder.
 archive/
 temp/
+
+# Stray virtualenvs and macOS metadata that the downloads exception above re-included.
+.venv*/
+day*/workshop_content/downloads/.DS_Store
