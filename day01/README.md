@@ -13,7 +13,7 @@ Explore drug, target and disease databases, then practise finding data for works
 | Lecture 1 | Course introduction<br>Information and participant presentation | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 | Lecture 2 | Drug, target and disease databases<br>ClinicalTrials.gov, ChEMBL, DrugBank, DrugCentral, OpenTargets, Pharos, PubChem, Therapeutic targets database, (GPCRdb, GtoPdb, KLIFS), GTEX? | [Javier Lorente](https://www.linkedin.com/in/javiersanchezlorente/) | ILF, UCPH |
 | Lecture 3 | Industrial talk TBD | TBD | Amass |
-| Workshop 1 | Hunt for drug, target and disease data<br>Find drug, target and disease data – either following a workshop material or related to your own project. | [Javier Lorente](https://www.linkedin.com/in/javiersanchezlorente/), [Søren Norge Andreasen](https://www.linkedin.com/in/sorennorgea/), Aidan Flynn, [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+| Workshop 1 | Hunt for drug, target and disease data<br>Find drug, target and disease data – either following a workshop material or related to your own project. | [Javier Lorente](https://www.linkedin.com/in/javiersanchezlorente/), [Søren Norge Andreassen](https://www.linkedin.com/in/sorennorgea/), Aidan Flynn, [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 
 ## Workshop
 
