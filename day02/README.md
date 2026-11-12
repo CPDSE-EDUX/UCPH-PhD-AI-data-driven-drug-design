@@ -10,10 +10,10 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 
 | Session | Content | Teacher | Affiliation |
 | --- | --- | --- | --- |
-| Lecture 4 | The structure-based drug design toolbox<br>Docking, LigPlot, SiteMap etc. | David Gloriam | ILF, UCPH |
-| Lecture 5 | Computational hit identification & hit-to-lead optimization<br>Compounds properties being optimized and case story. | Henrik Daver | Lundbeck A/S |
-| Lecture 6 | Drug-target molecular interactions<br>Molecular interactions (H-bonds etc.), shape fit and its role in selectivity etc. | David Gloriam | ILF, UCPH |
-| Workshop 2 | Structure-based ligand optimization<br>Competition to build the best drug | Kasper Harpsøe, Icaro Simon, Pablo Macho, Jody Pacalon, David Gloriam | ILF, UCPH |
+| Lecture 4 | The structure-based drug design toolbox<br>Docking, LigPlot, SiteMap etc. | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+| Lecture 5 | Computational hit identification & hit-to-lead optimization<br>Compounds properties being optimized and case story. | [Henrik Daver](https://www.linkedin.com/in/henrik-daver/) | Lundbeck A/S |
+| Lecture 6 | Drug-target molecular interactions<br>Molecular interactions (H-bonds etc.), shape fit and its role in selectivity etc. | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+| Workshop 2 | Structure-based ligand optimization<br>Competition to build the best drug | [Kasper Harpsøe](https://www.linkedin.com/in/harpsoe/), [Icaro Simon](https://www.linkedin.com/in/icarosimon/), [Pablo Macho](https://www.linkedin.com/in/pablo-baceiredo-macho/), [Jody Pacalon](https://www.linkedin.com/in/jody-pacalon-56668214b), [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 
 ## Lectures
 

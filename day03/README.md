@@ -10,10 +10,10 @@ Explore AI and machine-learning tools for protein modeling and peptide drug desi
 
 | Session | Content | Teacher | Affiliation |
 | --- | --- | --- | --- |
-| Lecture 7 | Software for protein modeling & peptide drug design<br>AlphaFold, Rosetta, ProteinMPNN, BindCraft … | Albert Kooistra | ILF, UCPH |
-| Lecture 8 | Industry’s toolbox and case story<br>Commercially used methods and case stories | Rodrigo Alonso Ochoa | Novo Nordisk A/S |
-| Lecture 9 | AI-/ML-based peptide design at Gubra | Kasper Einarson | Gubra |
-| Workshop 3 | Protein modeling and peptide design<br>Build a protein model and design peptide/mini-protein binders. Use of AlphaFold, Boltz etc. and maybe Colab notebook. | Albert Kooistra, Jody Pacalon,<br>Jonas Verhellen, David Gloriam | ILF, UCPH |
+| Lecture 7 | Software for protein modeling & peptide drug design<br>AlphaFold, Rosetta, ProteinMPNN, BindCraft … | [Albert Kooistra](https://www.linkedin.com/in/ajkooistra/) | ILF, UCPH |
+| Lecture 8 | Industry’s toolbox and case story<br>Commercially used methods and case stories | [Rodrigo Alonso Ochoa](https://www.linkedin.com/in/rodrigo-ochoa-compchem) | Novo Nordisk A/S |
+| Lecture 9 | AI-/ML-based peptide design at Gubra | [Kasper Einarson](https://www.linkedin.com/in/kasper-einarson-a26104159/) | Gubra |
+| Workshop 3 | Protein modeling and peptide design<br>Build a protein model and design peptide/mini-protein binders. Use of AlphaFold, Boltz etc. and maybe Colab notebook. | [Albert Kooistra](https://www.linkedin.com/in/ajkooistra/), [Jody Pacalon](https://www.linkedin.com/in/jody-pacalon-56668214b),<br>[Jonas Verhellen](https://www.linkedin.com/in/jonas-verhellen-634bba12b/), [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 
 ## Lectures
 
