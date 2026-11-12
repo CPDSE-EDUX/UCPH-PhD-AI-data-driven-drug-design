@@ -15,6 +15,10 @@ Learn how visual properties shape the interpretation of data, how to choose grap
 | Lecture 12 | Scripting tools for data visualization<br>Tool tips to get started | [Alexander Hauser](https://www.linkedin.com/in/alexshauser/) | ILF, UCPH |
 | Workshop 4 | Data visualization workshop<br>Using Claude | [Sarah Mittenentzwei](https://www.linkedin.com/in/sarah-mittenentzwei-508073257/), [Javier Lorente](https://www.linkedin.com/in/javiersanchezlorente/),<br>[David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/), [Jascha Henseler](https://www.linkedin.com/in/jascha-henseler-746ba925a/), [Jacob Fredegaard Hansen](https://www.linkedin.com/in/jacobfh/) | ILF, UCPH |
 
+## Slides and materials
+
+Slides and other materials for this day are on GitHub: [Day 4 materials on GitHub](https://github.com/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/tree/main/day04). Lecture slides are in the `lectures` folder and workshop slides in `workshop_content`.
+
 ## Workshop & timetable
 
 [Workshop guide](workshop_content/index.md)
