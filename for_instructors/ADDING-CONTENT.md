@@ -7,6 +7,7 @@ The course website is built from the Markdown each day keeps in `dayNN/workshop_
 | Path | Becomes |
 | --- | --- |
 | `dayNN/README.md` | The day page at `/dayNN/`, with your session table |
+| `dayNN/lectures/` | Lecture slides. PDFs are published at `/dayNN/lectures/` and linked from the day page as `lectures/your-slides.pdf`; other formats, such as PowerPoint, stay in the repository, so link to them on GitHub |
 | `dayNN/workshop_content/index.md` | Your workshop landing page at `/dayNN/workshop/` |
 | `dayNN/workshop_content/01-your-topic.md` | Step 01 at `/dayNN/workshop/01-your-topic/`, in the sidebar with previous/next links |
 | `dayNN/workshop_content/your-topic.md` | A resource page at `/dayNN/workshop/your-topic/`, listed under Quick access |

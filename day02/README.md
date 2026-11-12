@@ -10,10 +10,17 @@ Explore the structure-based drug design toolbox, computational hit identificatio
 
 | Session | Content | Teacher | Affiliation |
 | --- | --- | --- | --- |
-| Lecture 4 | The structure-based drug design toolbox<br>Docking, LigPlot, SiteMap etc. | David Gloriam | ILF, UCPH |
-| Lecture 5 | Computational hit identification & hit-to-lead optimization<br>Compounds properties being optimized and case story. | Henrik Daver | Lundbeck A/S |
-| Lecture 6 | Drug-target molecular interactions<br>Molecular interactions (H-bonds etc.), shape fit and its role in selectivity etc. | David Gloriam | ILF, UCPH |
-| Workshop 2 | Structure-based ligand optimization<br>Competition to build the best drug | Kasper Harpsøe, Icaro Simon, Pablo Macho, Jody Pacalon, David Gloriam | ILF, UCPH |
+| Lecture 4 | The structure-based drug design toolbox<br>Docking, LigPlot, SiteMap etc. | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+| Lecture 5 | Computational hit identification & hit-to-lead optimization<br>Compounds properties being optimized and case story. | [Henrik Daver](https://www.linkedin.com/in/henrik-daver/) | Lundbeck A/S |
+| Lecture 6 | Drug-target molecular interactions<br>Molecular interactions (H-bonds etc.), shape fit and its role in selectivity etc. | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+| Workshop 2 | Structure-based ligand optimization<br>Competition to build the best drug | [Kasper Harpsøe](https://www.linkedin.com/in/harpsoe/), [Icaro Simon](https://www.linkedin.com/in/icarosimon/), [Pablo Macho](https://www.linkedin.com/in/pablo-baceiredo-macho/), [Jody Pacalon](https://www.linkedin.com/in/jody-pacalon-56668214b), [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+
+## Lectures
+
+Download the lecture slides (PDF):
+
+- [Lecture 4 – The structure-based drug design toolbox](lectures/L4-The%20structure-based%20drug%20design%20toolbox.pdf)
+- [Lecture 6 – Drug–target molecular interactions](lectures/L6-Drug-target%20molecular%20interactions.pdf)
 
 ## Workshop: Human vs AI
 
@@ -25,7 +32,7 @@ Working in **groups of 2–3**, participants use Maestro to inspect LSD-bound 5-
 
 Everyone runs the pipeline on their own machine, so each participant has done the preparation, grid and docking steps themselves. Instructors separately dock the pooled library of every group's compounds against shared prevalidated grids, and the awards are decided on that single run, so that all the scores being compared came out of one calculation.
 
-**Start here: [Workshop guide](workshop_content/index.md)** · [Set up Schrödinger](workshop_content/setup.md) · [Maestro basics](workshop_content/maestro-basics.md)
+**Start here: [Workshop guide](workshop_content/index.md)** · [Intro slides (PDF)](workshop_content/downloads/workshop-intro-slides.pdf) · [Set up Schrödinger](workshop_content/setup.md) · [Maestro basics](workshop_content/maestro-basics.md)
 
 **Tools:** Maestro with Protein Preparation Workflow, LigPrep and Glide; optional Ligand Designer; a chatbot; the [design submission app](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/smiles/) and the [selectivity calculator](https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/day02/apps/selectivity/).
 

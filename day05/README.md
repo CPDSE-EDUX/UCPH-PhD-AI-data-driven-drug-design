@@ -10,11 +10,11 @@ Explore data preparation, molecular features and descriptors, and predictive mac
 
 | Session | Content | Teacher | Affiliation |
 | --- | --- | --- | --- |
-| Lecture 13 | Data processing / preparation<br>Features for small molecule and peptides, descriptors, data formats, transformation, normalization | Wouter Boomsma | DIKU, UCPH |
-| Lecture 14 | Predictive ML | Jakob Madsen | ILF, UCPH |
-| Lecture 15 | Industrial data analysis and case story | Lars Juhl Jensen | ZS discovery |
-| Workshop 5 | Data analysis workshop<br>Using Claude | Arnault-Quentin Vermillet, Jascha Henseler, Jacob Fredegaard Hansen, Lykke Pedersen, David Gloriam | ILF, UCPH |
-| Wrap-up | Wrapping up the course<br>Tips of next-level courses and course evaluation. | David Gloriam | ILF, UCPH |
+| Lecture 13 | Data processing / preparation<br>Features for small molecule and peptides, descriptors, data formats, transformation, normalization | [Wouter Boomsma](https://www.linkedin.com/in/wouter-boomsma-80b1376/) | DIKU, UCPH |
+| Lecture 14 | Predictive ML | [Jakob Madsen](https://www.linkedin.com/in/jsmadsen/) | ILF, UCPH |
+| Lecture 15 | Industrial data analysis and case story | [Lars Juhl Jensen](https://www.linkedin.com/in/larsjuhljensen/) | ZS discovery |
+| Workshop 5 | Data analysis workshop<br>Using Claude | [Arnault-Quentin Vermillet](https://www.linkedin.com/in/arnault-vermillet-080284381/), [Jascha Henseler](https://www.linkedin.com/in/jascha-henseler-746ba925a/), [Jacob Fredegaard Hansen](https://www.linkedin.com/in/jacobfh/), [Lykke Pedersen](https://www.linkedin.com/in/lykkepedersen/), [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
+| Wrap-up | Wrapping up the course<br>Tips of next-level courses and course evaluation. | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 
 ## Workshop
 

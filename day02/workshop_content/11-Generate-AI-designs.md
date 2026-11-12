@@ -5,11 +5,9 @@
 Give the model the same information you had. Paste in the isomeric SMILES from your checked LSD entry, and your own observations from step 07:
 
 ```text
-This is a computational structure-based design workshop. Start from the
-following checked LSD isomeric SMILES:
-[paste the parent SMILES here]
+We are designing ergoline-like compounds that are selective for 5-HT2A relative to 5HT2B.
 
-Suggest three distinct, modest modifications that aim to retain 5-HT2A binding
+Suggest three distinct and new modifications that aim to retain 5-HT2A binding
 while reducing 5-HT2B binding, keeping the ergoline scaffold and its
 stereochemistry. For each, return one isomeric SMILES, the change relative to
 the parent, a short structural hypothesis, and one reason the idea might fail.

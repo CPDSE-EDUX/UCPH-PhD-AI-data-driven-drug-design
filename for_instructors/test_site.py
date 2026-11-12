@@ -112,6 +112,17 @@ class CourseSiteTests(unittest.TestCase):
         for source, route in downloads.items():
             self.assertEqual(source.read_bytes(), (self.output / route).read_bytes())
 
+    def test_lecture_slides_are_published_as_pdf_only(self):
+        """Other formats in dayNN/lectures, such as PowerPoint, stay in the repository."""
+        for day in self.navigation:
+            for source in (day_folder(day["number"]) / "lectures").rglob("*"):
+                if source.is_file() and not source.name.startswith("."):
+                    self.assertEqual(source.resolve() in self.resources,
+                                     source.suffix.lower() == ".pdf", source)
+        for path in self.output.glob("day*/lectures/**/*"):
+            if path.is_file():
+                self.assertEqual(path.suffix.lower(), ".pdf", path)
+
     def test_search_covers_all_published_pages(self):
         index = json.loads((self.output / "assets/search.json").read_text())
         self.assertEqual({page["path"] for page in index}, {page.route for page in self.pages})
