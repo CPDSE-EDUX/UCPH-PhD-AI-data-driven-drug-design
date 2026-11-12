@@ -8,6 +8,18 @@ You will make the scientific decisions; the notebook handles the infrastructure.
 
 The receptor is GLP-1R, and we start from the cryo-EM structure [6X18](https://www.rcsb.org/structure/6X18), which holds GLP-1 on the receptor together with the G-protein. The structure shows where GLP-1 sits in the receptor, and we will try to exploit that same region during the *de novo* design.
 
+## Run it in Google Colab
+
+The whole workshop is one Jupyter notebook. Open it in Google Colab (nothing to install) and save your own copy:
+
+<p><a class="button primary" href="https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb" target="_blank" rel="noopener">Open the notebook in Google Colab ↗</a></p>
+
+1. **[Open the notebook in Google Colab](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb)**
+2. Sign in with a Google account.
+3. **File → Save a copy in Drive**, and work in that copy. Use the default **CPU** runtime and do not request a GPU, because the models run on the course server.
+
+Prefer to run it on your own machine? Get the [notebook file on GitHub](https://github.com/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb) and open it in Jupyter.
+
 ## What you will do
 
 1. Look at how GLP-1 sits in the receptor in 6X18 and identify hotspots.
@@ -43,7 +55,7 @@ The receptor is GLP-1R, and we start from the cryo-EM structure [6X18](https://w
 
 ## Before you begin
 
-1. **Open the notebook.** [Open Workshop3_GLP1R_binder_design.ipynb in Google Colab](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb) or [view it on GitHub](https://github.com/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb). Use the default Colab **CPU** runtime and do not request a GPU, because the models run on the course server.
+1. **Open the notebook** in Google Colab with the link above, and save your own copy in Drive.
 2. **Join your group.** Your group number (1 to 10) is given by the instructors. The token and the server address you need in cell 0.2 are on the screen.
 3. **Get the mutagenesis handout.** [GLP-1 / GLP-1R alanine-scanning handout (PDF)](assets/GLP1_GLP1R_alanine_scanning_handout.pdf) summarises the literature data on GLP-1 and the receptor. You use it in cell 1.4, so keep it open.
 4. **Have a Google account ready.** The notebook saves your work to Google Drive, so that a disconnected session does not lose it.

@@ -29,6 +29,9 @@ Every number is a computed prediction, not a measured affinity. The workshop is 
 
 **Start here: [Workshop guide](workshop_content/index.md)**
 
+- [Open the notebook in Google Colab](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb)
+- [View the notebook on GitHub](https://github.com/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb)
+
 **Tools:** the [workshop notebook](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day03/workshop_content/Workshop3_GLP1R_binder_design.ipynb) in Google Colab, with RFD4-Proteina (binder design), ProteinMPNN (sequence redesign) and OpenFold3 (independent structure prediction) running on the course server.
 
 ### Timetable
