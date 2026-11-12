@@ -1,0 +1,8 @@
+#!/sessions/rcw-01fpht6tq4ffx4sfpdsltmt8/mnt/UCPH-PhD-AI-data-driven-drug-design/.venv-site/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from pip._internal.cli.main import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
