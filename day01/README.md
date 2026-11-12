@@ -22,3 +22,9 @@ Explore drug, target and disease databases, then practise finding data for works
 - [Open the notebook in Google Colab](https://colab.research.google.com/github/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/blob/main/day01/workshop_content/downloads/Workshop1_hunt_for_data.ipynb)
 - [Download the notebook](workshop_content/downloads/Workshop1_hunt_for_data.ipynb)
 
+
+## Lectures
+
+Download the lecture slides (PDF):
+
+- [Lecture 2 – Drug, target and disease databases](lectures/Lecture2.pdf)
