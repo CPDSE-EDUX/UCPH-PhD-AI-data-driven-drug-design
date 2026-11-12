@@ -84,6 +84,13 @@
       <h2>What you will practise</h2>
       <ul><li>Find and interpret drug, target and disease data.</li><li>Turn molecular interactions into ligand design hypotheses.</li><li>Explore AI/ML tools for protein and peptide design.</li><li>Choose visual representations and analyse molecular data.</li><li>Critically assess AI suggestions and computational predictions.</li></ul>
     </section>
+    <section class="connect-section">
+      <h2>Stay connected</h2>
+      <div>
+        <p>The Center for Pharmaceutical Data Science Education (CPDSE) works to build data science skills across the pharmaceutical value chain.</p>
+        <div class="button-row"><a class="button secondary" href="https://cpdse.dk/" target="_blank" rel="noopener">Visit cpdse.dk ↗</a><a class="button secondary" href="https://www.linkedin.com/company/cpdse/" target="_blank" rel="noopener">Follow CPDSE on LinkedIn ↗</a></div>
+      </div>
+    </section>
   {% else %}
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ url('index.html') }}">Course</a>{% if page.day %}<span>/</span><a href="{{ url(day_info.page.route) }}">Day {{ page.day }}</a>{% endif %}{% if page.kind in ['lesson', 'resource'] and day_info.workshop %}<span>/</span><a href="{{ url(day_info.workshop.route) }}">Workshop</a>{% endif %}</nav>
     {% if page.kind == 'day' %}<figure class="day-banner"><img src="{{ url('assets/brand/' ~ day_info.image) }}" alt="{{ day_info.alt }}" width="2000" height="667" decoding="async"></figure>{% endif %}
