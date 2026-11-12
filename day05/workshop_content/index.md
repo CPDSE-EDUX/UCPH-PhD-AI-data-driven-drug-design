@@ -21,7 +21,9 @@ You'll be working in the Claude code app (or VScode if you are already familiar)
 
 Open the Claude app, and prepare the working folder. For this, download the following set up:
 
-[Workshop data (ZIP)](downloads/workshop_day5.zip)
+|  |
+| --- |
+| [Workshop data (ZIP)](downloads/workshop_day5.zip) |
 
 It contains a `requirements.txt` to load all the necessery libraries, the LIT-PCBA ALDH1 data, a folder containing the molecules you designed on day 2 under `data/your_designs/`, and the seed scripts. Once the folder is downloaded and added to Claude, you (or Claude) can set up the virtual environment with the following command:
 
