@@ -16,6 +16,12 @@ Explore data preparation, molecular features and descriptors, and predictive mac
 | Workshop 5 | Data analysis workshop<br>Using Claude | [Arnault-Quentin Vermillet](https://www.linkedin.com/in/arnault-vermillet-080284381/), [Jascha Henseler](https://www.linkedin.com/in/jascha-henseler-746ba925a/), [Jacob Fredegaard Hansen](https://www.linkedin.com/in/jacobfh/), [Lykke Pedersen](https://www.linkedin.com/in/lykkepedersen/), [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 | Wrap-up | Wrapping up the course<br>Tips of next-level courses and course evaluation. | [David Gloriam](https://www.linkedin.com/in/david-gloriam-35761a8/) | ILF, UCPH |
 
+## Lectures
+
+Download the lecture slides (PDF):
+- [Lecture 13 – Data processing / preparation](lectures/lecture13.pdf)
+- [Lecture 14 – Predictive ML](lectures/05112026_Predictive_ML.pdf)
+
 ## Workshop
 
 [Workshop guide](workshop_content/index.md)
