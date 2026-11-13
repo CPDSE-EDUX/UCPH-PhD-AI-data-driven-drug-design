@@ -17,7 +17,30 @@ Learn how visual properties shape the interpretation of data, how to choose grap
 
 ## Slides and materials
 
-Slides and other materials for this day are on GitHub: [Day 4 materials on GitHub](https://github.com/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/tree/main/day04). Lecture slides are in the `lectures` folder and workshop slides in `workshop_content`.
+<div class="materials-panel">
+<p>Download the teaching materials for this day. The PowerPoint files are editable source decks; the workshop board is provided as a ready-to-print PDF.</p>
+<div class="materials-grid">
+<a class="material-card" href="lectures/Data_Visualization_Basics_PhD_School_45min.pptx" download>
+<span class="material-type">Lecture slides</span>
+<strong>Data visualization basics</strong>
+<span class="material-format">PowerPoint presentation · .pptx</span>
+<span class="material-download">Download presentation ↓</span>
+</a>
+<a class="material-card" href="workshop_content/Data_Visualization_Workshop.pptx" download>
+<span class="material-type">Workshop slides</span>
+<strong>Data visualization workshop</strong>
+<span class="material-format">PowerPoint presentation · .pptx</span>
+<span class="material-download">Download presentation ↓</span>
+</a>
+<a class="material-card" href="workshop_content/workshopboard.pdf" download>
+<span class="material-type">Workshop board</span>
+<strong>Workshop board</strong>
+<span class="material-format">Printable document · .pdf</span>
+<span class="material-download">Download PDF ↓</span>
+</a>
+</div>
+<p class="materials-source">More course materials are available in the <a href="https://github.com/CPDSE-EDUX/UCPH-PhD-AI-data-driven-drug-design/tree/main/day04">Day 4 folder on GitHub ↗</a>.</p>
+</div>
 
 ## Workshop & timetable
 

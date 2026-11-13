@@ -199,6 +199,17 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .workshop-banner strong { display: block; font-size: 18px; color: var(--ink); }
 .workshop-banner span { display: block; font-size: 16px; color: var(--muted); }
 
+.materials-panel { max-width: 1040px; margin: 24px 0 36px; padding: 28px; background: var(--pale); border: 1px solid #d5e0d1; border-radius: var(--radius); }
+.materials-panel > p:first-child { margin-top: 0; max-width: 48em; }
+.materials-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 18px; }
+.material-card { display: flex; flex-direction: column; min-height: 172px; padding: 20px; color: var(--text); text-decoration: none; background: white; border: 1px solid #c9d6c8; border-radius: 8px; transition: border-color .15s, box-shadow .15s, transform .15s; }
+.material-card:hover { border-color: var(--green); box-shadow: 0 5px 16px rgba(20, 66, 58, .12); transform: translateY(-2px); }
+.material-type { color: var(--green); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.material-card strong { margin: 12px 0 6px; color: var(--ink); font: 600 21px/1.2 var(--serif); }
+.material-format { color: var(--muted); font-size: 15px; line-height: 1.4; }
+.material-download { margin-top: auto; padding-top: 18px; color: var(--green-dark); font-size: 15px; font-weight: 700; }
+.materials-source { margin-bottom: 0; color: var(--muted); font-size: 15px; }
+
 .reading-layout { display: grid; grid-template-columns: minmax(0, 46em) 200px; gap: 56px; max-width: 1140px; }
 .reading-layout.full-reading { display: block; max-width: 1000px; }
 
@@ -331,6 +342,7 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 @media (max-width: 1000px) {
   .home-hero { grid-template-columns: 1fr; }
   .hero-figure { display: none; }
+  .materials-grid { grid-template-columns: 1fr; }
   .section-heading { display: block; }
   .section-heading > p { margin-top: 8px; }
   .learning-section { grid-template-columns: 1fr; gap: 16px; }
@@ -373,6 +385,7 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
   .week-topic p { font-size: 16px; }
   .week-arrow { display: none; }
   .featured-workshop { margin: 44px auto; padding: 24px 20px; }
+  .materials-panel { padding: 22px 18px; }
   .page-heading { padding-bottom: 22px; margin-bottom: 24px; }
   .page-heading h1 { font-size: 32px; letter-spacing: -.5px; }
   .page-description { font-size: 18px; }

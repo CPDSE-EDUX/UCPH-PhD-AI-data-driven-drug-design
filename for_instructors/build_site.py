@@ -231,15 +231,20 @@ def published_files(navigation=None):
                 if source.is_file() and not source.name.startswith("."):
                     relative = source.relative_to(content / folder).as_posix()
                     files[source.resolve()] = f"day{day['number']:02d}/workshop/{folder}/{relative}"
-        # Lecture slides are published as PDF. Other formats, such as PowerPoint,
-        # stay in the repository, and a day page can point to them on GitHub.
+        # Publish lecture decks in the formats used for teaching. Other source
+        # files stay in the repository unless a day explicitly links to them.
         lectures = day_folder(day["number"]) / "lectures"
         if lectures.is_dir():
             for source in sorted(lectures.rglob("*")):
                 if (source.is_file() and not source.name.startswith(".")
-                        and source.suffix.lower() == ".pdf"):
+                        and source.suffix.lower() in {".pdf", ".pptx"}):
                     relative = source.relative_to(lectures).as_posix()
                     files[source.resolve()] = f"day{day['number']:02d}/lectures/{relative}"
+        # Workshop decks and handouts kept beside the workshop Markdown are
+        # published when they are linked from a day page.
+        for source in sorted(content.iterdir()):
+            if source.is_file() and not source.name.startswith(".") and source.suffix.lower() in {".pdf", ".pptx"}:
+                files[source.resolve()] = f"day{day['number']:02d}/workshop/materials/{source.name}"
         for app in day["features"]:
             for source in sorted(app.directory.rglob("*")):
                 if not source.is_file() or source.name in {"app.json", ".DS_Store"}:
