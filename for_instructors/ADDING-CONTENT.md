@@ -14,7 +14,7 @@ The course website is built from the Markdown each day keeps in `dayNN/workshop_
 | `dayNN/workshop_content/assets/` | Images at `/dayNN/workshop/assets/`, linked from Markdown as `assets/your-file.png`; subfolders are preserved |
 | `dayNN/workshop_content/downloads/` | Student downloads, linked as `downloads/your-file.docx`; subfolders are preserved (for example, `downloads/Round_1/data.csv`) |
 | `dayNN/apps/<name>/` | A browser app at `/dayNN/apps/<name>/`, plus a course page that embeds it |
-| `dayNN/photos/` with `photos.json` | Photos at the end of the day page and in the course gallery at `/gallery/`; one per day also appears on the home page |
+| `dayNN/photos/` with `photos.json` | Small photo thumbnails at the end of the day page and, for the whole week, on the home page; selecting one opens a viewer |
 
 Day 2 is a worked example of all of these.
 
@@ -77,8 +77,7 @@ Put the photos in `dayNN/photos/` and list them, in the order to show them, in `
     "file": "lecture-08-1.jpg",
     "caption": "Lecture 8 · Rodrigo Alonso Ochoa, Novo Nordisk A/S",
     "detail": "Modelling and cheminformatics approaches for peptide analysis and design",
-    "alt": "The speaker beside the blue title slide of the lecture.",
-    "cover": true
+    "alt": "The speaker beside the blue title slide of the lecture."
   }
 ]
 ```
@@ -86,10 +85,9 @@ Put the photos in `dayNN/photos/` and list them, in the order to show them, in `
 | Key | Meaning |
 | --- | --- |
 | `file` | A JPEG, PNG or WebP file in the same folder |
-| `caption` | First line under the photo, usually the session and speaker |
-| `detail` | Optional second line, such as the talk title |
+| `caption` | Shown in the viewer and on hover, usually the session and speaker |
+| `detail` | Optional second line in the viewer, such as the talk title |
 | `alt` | What the photo shows, for someone who cannot see it |
-| `cover` | Optional: the day's photo on the home page; without it, the first photo is used |
 
 Export each photo as an upright JPEG about **1600 px** on its long side with all metadata removed, for example with squoosh.app. Phone photos carry GPS coordinates, so the checks fail if a published photo still has EXIF or XMP metadata. Keep the original files out of the repository, and only publish photos of people who have agreed to be on the website.
 

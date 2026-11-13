@@ -17,8 +17,8 @@
   <a class="skip-link" href="#main">Skip to content</a>
   {#- Links to the centre: in the masthead on wide screens, at the foot of the sidebar on narrow ones. -#}
   {%- macro centre_links() %}<a href="https://cpdse.dk/" target="_blank" rel="noopener" title="Center for Pharmaceutical Data Science Education">cpdse.dk ↗</a><a href="https://www.linkedin.com/company/cpdse/" target="_blank" rel="noopener" title="Follow the Center for Pharmaceutical Data Science Education on LinkedIn"><span class="centre-long">Follow CPDSE on </span>LinkedIn ↗</a>{% endmacro %}
-  {#- Captioned photos that link to the full image; site.js opens them in a viewer that pages through the same data-lightbox group. -#}
-  {%- macro photo_grid(photos, group) %}<ul class="photo-grid">{% for photo in photos %}<li><figure><a href="{{ url(photo.route) }}" data-lightbox="{{ group }}"><img src="{{ url(photo.route) }}" alt="{{ photo.alt }}" loading="lazy" decoding="async"></a><figcaption><strong>{{ photo.caption }}</strong>{% if photo.detail %}<span>{{ photo.detail }}</span>{% endif %}</figcaption></figure></li>{% endfor %}</ul>{% endmacro %}
+  {#- A row of small thumbnails that link to the full image; site.js opens them in a viewer that pages through the same data-lightbox group and shows the caption. -#}
+  {%- macro photo_strip(photos, group) %}<ul class="photo-thumbs">{% for photo in photos %}<li><figure><a href="{{ url(photo.route) }}" data-lightbox="{{ group }}" title="{{ photo.caption }}"><img src="{{ url(photo.route) }}" alt="{{ photo.alt }}" loading="lazy" decoding="async"></a><figcaption class="sr-only"><strong>{{ photo.caption }}</strong>{% if photo.detail %}<span>{{ photo.detail }}</span>{% endif %}</figcaption></figure></li>{% endfor %}</ul>{% endmacro %}
   <header class="masthead">
     <a class="identity" href="{{ url('index.html') }}" aria-label="Course home">
       <img src="{{ url('assets/brand/logo_ku.png') }}" alt="University of Copenhagen" width="112" height="40">
@@ -86,11 +86,10 @@
       <div class="button-row">{% for day in guides %}<a class="button secondary" href="{{ url(day.workshop.route) }}">Day {{ day.number }}{% if day.steps %} · {{ day.steps|length }} steps{% endif %}</a>{% endfor %}</div>
     </section>
     {% endif %}
-    {% if photo_covers %}
+    {% set week_photos = days|map(attribute="photos")|sum(start=[]) %}{% if week_photos %}
     <section class="photos-section" aria-labelledby="photos-title">
-      <div class="section-heading"><h2 id="photos-title">The week in pictures</h2><p>Speakers and workshops from each course day.</p></div>
-      <ul class="photo-strip">{% for item in photo_covers %}<li><a href="{{ url('gallery/index.html') }}#day-{{ item.day.number }}"><img src="{{ url(item.photo.route) }}" alt="" loading="lazy" decoding="async"><span><small>Day {{ item.day.number }}</small>{{ item.day.topic }}</span></a></li>{% endfor %}</ul>
-      <div class="button-row"><a class="button secondary" href="{{ url('gallery/index.html') }}">See all {{ photo_count }} photos →</a></div>
+      <div class="section-heading"><h2 id="photos-title">The week in pictures</h2><p>Select a photo to browse all {{ week_photos|length }}.</p></div>
+      {{ photo_strip(week_photos, "week") }}
     </section>
     {% endif %}
     <section class="learning-section">
@@ -105,7 +104,7 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ url('index.html') }}">Course</a>{% if page.day %}<span>/</span><a href="{{ url(day_info.page.route) }}">Day {{ page.day }}</a>{% endif %}{% if page.kind in ['lesson', 'resource'] and day_info.workshop %}<span>/</span><a href="{{ url(day_info.workshop.route) }}">Workshop</a>{% endif %}</nav>
     {% if page.kind == 'day' %}<figure class="day-banner"><img src="{{ url('assets/brand/' ~ day_info.image) }}" alt="{{ day_info.alt }}" width="2000" height="667" decoding="async"></figure>{% endif %}
     <header class="page-heading{% if page.kind == 'app' %} submission-heading{% endif %}">
-      <p class="page-kicker">{% if page.step %}Step {{ page.step }} of {{ steps|length }}{% elif page.kind == 'day' %}Day {{ page.day }} · {{ day_info.date }}{% elif page.kind == 'workshop' %}Day {{ page.day }} workshop{% elif page.kind == 'app' %}Day {{ page.day }} · {{ day_info.topic }}{% elif page.kind in ['program', 'gallery'] %}9–13 November 2026{% elif page.kind == 'follow-up' %}After the course{% else %}Day {{ page.day }} · Workshop resources{% endif %}</p>
+      <p class="page-kicker">{% if page.step %}Step {{ page.step }} of {{ steps|length }}{% elif page.kind == 'day' %}Day {{ page.day }} · {{ day_info.date }}{% elif page.kind == 'workshop' %}Day {{ page.day }} workshop{% elif page.kind == 'app' %}Day {{ page.day }} · {{ day_info.topic }}{% elif page.kind == 'program' %}9–13 November 2026{% elif page.kind == 'follow-up' %}After the course{% else %}Day {{ page.day }} · Workshop resources{% endif %}</p>
       <h1>{{ page.title }}</h1>
       {% if page.step %}<button class="completion-toggle" aria-pressed="false" type="button">○ Mark step complete</button>{% endif %}
       {% if page.kind == 'day' %}<p class="page-description">{{ day_info.summary }}</p>{% endif %}
@@ -114,9 +113,8 @@
     {% if page.kind == 'app' %}
     <section class="submission-panel" aria-labelledby="app-panel-title"><div class="submission-panel-header"><div><h2 id="app-panel-title">{{ page.app.heading or page.title }}</h2>{% if page.app.blurb %}<p>{{ page.app.blurb }}</p>{% endif %}</div><a class="button secondary" href="{{ url(page.app.entry_route) }}" target="_blank" rel="noopener">Open in a new tab ↗</a></div><iframe id="app-frame" src="{{ url(page.app.entry_route) }}" title="{{ page.title }}" loading="eager"></iframe><noscript><p>Open the app in a new tab to use it. The app requires JavaScript.</p></noscript></section>
     {% endif %}
-    <div class="reading-layout{% if page.kind in ['app', 'gallery'] %} full-reading{% endif %}"><article class="prose">{{ content|safe }}
-    {%- if page.kind == 'day' and day_info.photos %}<section class="day-photos" id="day-photos" aria-labelledby="day-photos-title"><h2 id="day-photos-title">Day {{ page.day }} in pictures</h2>{{ photo_grid(day_info.photos, 'day' ~ page.day) }}<p class="photos-more"><a href="{{ url('gallery/index.html') }}">See photos from the whole week →</a></p></section>{% endif %}
-    {%- if page.kind == 'gallery' %}<nav class="gallery-jump" aria-label="Days in the gallery">{% for day in days if day.photos %}<a href="#day-{{ day.number }}">Day {{ day.number }}</a>{% endfor %}</nav>{% for day in days if day.photos %}<section class="gallery-day" id="day-{{ day.number }}" aria-labelledby="gallery-day-{{ day.number }}"><div class="gallery-day-heading"><h2 id="gallery-day-{{ day.number }}">Day {{ day.number }} · {{ day.topic }}</h2><a href="{{ url(day.page.route) }}">{{ day.date }} · Day page →</a></div>{{ photo_grid(day.photos, 'week') }}</section>{% endfor %}{% endif %}
+    <div class="reading-layout{% if page.kind == 'app' %} full-reading{% endif %}"><article class="prose">{{ content|safe }}
+    {%- if page.kind == 'day' and day_info.photos %}<section class="day-photos" id="day-photos" aria-labelledby="day-photos-title"><h2 id="day-photos-title">Day {{ page.day }} in pictures</h2>{{ photo_strip(day_info.photos, 'day' ~ page.day) }}</section>{% endif %}
     {%- if page.step %}<div class="lesson-pagination">{% if previous %}<a href="{{ url(previous.route) }}"><small>← Step {{ previous.step }}</small><strong>{{ previous.title }}</strong></a>{% else %}<a href="{{ url(day_info.workshop.route) }}"><small>← Overview</small><strong>{{ day_info.workshop.title }}</strong></a>{% endif %}{% if following %}<a class="next-lesson" href="{{ url(following.route) }}"><small>Step {{ following.step }} →</small><strong>{{ following.title }}</strong></a>{% else %}<a class="next-lesson" href="{{ url(day_info.workshop.route) }}"><small>Last step →</small><strong>Back to the overview</strong></a>{% endif %}</div>{% endif %}</article>{% if toc and page.kind != 'app' %}<aside class="page-toc" aria-label="On this page"><span class="label">On this page</span>{{ toc|safe }}{% if day_info and day_info.apps %}<div class="toc-apps"><span class="label">Apps</span>{% for app in day_info.apps %}<a href="{{ url(app.route) }}"{% if page.route == app.route %} aria-current="page"{% endif %}>{{ app.app.nav_label }} →</a>{% endfor %}</div>{% endif %}{% if page.kind == 'day' and day_info.photos %}<div class="toc-apps"><span class="label">Photos</span><a href="#day-photos">Day {{ page.day }} in pictures →</a></div>{% endif %}</aside>{% endif %}</div>
   {% endif %}
     <footer class="site-footer"><div><strong>AI &amp; data-driven drug design</strong><span>University of Copenhagen · Center for Pharmaceutical Data Science Education</span></div><div><a href="{{ url('licenses/LICENSE.txt') }}">Content: CC BY 4.0</a><a href="{{ url('licenses/LICENSE-code.txt') }}">Code: MIT</a></div></footer>

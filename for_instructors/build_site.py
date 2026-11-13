@@ -161,8 +161,7 @@ def read_photos(number):
     """Photos a day lists in `dayNN/photos/photos.json`, in the order given.
 
     Each entry names an image in that folder and gives its caption and alt text; it
-    may add a "detail" line and mark one photo as the day's "cover" for the home
-    page. Files that are not listed are not published.
+    may add a "detail" line, shown with the caption in the photo viewer. Files that are not listed are not published.
     """
     listing = day_folder(number) / PHOTOS / "photos.json"
     if not listing.is_file():
@@ -232,8 +231,7 @@ def page_manifest(navigation=None):
     pages = [Page(REPO / "README.md", "index.html", "AI & data-driven drug design", "home"),
              Page(REPO / "PROGRAM.md", "program/index.html", "Course program", "program"),
              Page(REPO / "FOLLOW-UP-COURSES.md", "follow-up-courses/index.html",
-                  "Suggested follow-up courses", "follow-up"),
-             Page(REPO / "GALLERY.md", "gallery/index.html", "The week in pictures", "gallery")]
+                  "Suggested follow-up courses", "follow-up")]
     for day in navigation:
         pages.append(day["page"])
         if day["workshop"]:
@@ -418,11 +416,6 @@ def build(output):
             aliases[(SITE_URL + posixpath.dirname(app.entry_route)).rstrip("/")] = page_route
             aliases[(SITE_URL + f"day{day['number']:02d}/{CONTENT}").rstrip("/")] = page_route
 
-    # The home page shows one photo per day: the one marked "cover", else the day's first.
-    photo_covers = [{"day": day, "photo": next((photo for photo in day["photos"] if photo.get("cover")), day["photos"][0])}
-                    for day in navigation if day["photos"]]
-    captions = " ".join(f"{photo['caption']} {photo.get('detail', '')}" for day in navigation for photo in day["photos"])
-
     env = Environment(loader=FileSystemLoader(SITE_SOURCE), autoescape=select_autoescape(["html"]))
     template = env.get_template("page.html")
     search = []
@@ -458,7 +451,6 @@ def build(output):
                 previous=steps[page.step - 2] if page.step > 1 else None,
                 following=steps[page.step] if page.step and page.step < len(steps) else None,
                 day_info=day, site_url=SITE_URL, home_banner=HOME_BANNER,
-                photo_covers=photo_covers, photo_count=sum(len(day["photos"]) for day in navigation),
             )
             destination = staging / page.route
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -466,7 +458,7 @@ def build(output):
             search.append({
                 "title": page.title, "path": page.route,
                 "section": f"Day {page.day}" if page.day else "Course",
-                "text": (f"{body_text} {captions}" if page.kind == "gallery" else body_text) if page.kind != "home" else
+                "text": body_text if page.kind != "home" else
                         "AI data-driven drug design PhD University Copenhagen course overview November 2026",
             })
         (staging / "assets/search.json").write_text(json.dumps(search, ensure_ascii=False), encoding="utf-8")

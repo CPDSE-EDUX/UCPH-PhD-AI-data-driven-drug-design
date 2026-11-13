@@ -125,10 +125,10 @@ class CourseSiteTests(unittest.TestCase):
                 self.assertIn(path.suffix.lower(), {".pdf", ".pptx"}, path)
 
     def test_photos_are_listed_shown_and_free_of_metadata(self):
-        """A day's photos appear on its day page and in the gallery, without EXIF or XMP data such as location."""
+        """A day's photos appear on its day page and on the home page, without EXIF or XMP data such as location."""
         def targets(route):
             return {urljoin("https://course.example/" + route, reference) for reference in self.documents[route].references}
-        gallery = targets("gallery/index.html")
+        home = targets("index.html")
         for day in self.navigation:
             folder = day_folder(day["number"]) / PHOTOS
             listed = {photo["source"].resolve() for photo in day["photos"]}
@@ -141,7 +141,7 @@ class CourseSiteTests(unittest.TestCase):
                 self.assertEqual(photo["source"].read_bytes(), data)
                 self.assertNotIn(b"Exif\x00", data[:65536], f"{photo['route']} still has EXIF data")
                 self.assertNotIn(b"ns.adobe.com/xap", data[:65536], f"{photo['route']} still has XMP data")
-                self.assertIn("https://course.example/" + photo["route"], gallery)
+                self.assertIn("https://course.example/" + photo["route"], home)
                 self.assertIn("https://course.example/" + photo["route"], day_page)
 
     def test_search_covers_all_published_pages(self):

@@ -329,36 +329,17 @@ progress::-moz-progress-bar { background: var(--green); border-radius: 4px; }
 .search-help kbd { padding: 1px 5px; border: 1px solid var(--line); border-radius: 3px; font-family: var(--mono); }
 
 /* ------------------------------------------------------------------
-   Photos: the home page strip, the day page and gallery grids, and the viewer
+   Photos: a row of small thumbnails on the home and day pages, and the viewer
 ------------------------------------------------------------------ */
-.photos-section { margin-top: 64px; margin-bottom: 72px; }
-.photos-section .button-row { margin-top: 22px; }
-.photo-strip { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 14px; }
-.photo-strip a { position: relative; display: block; overflow: hidden; border-radius: var(--radius); background: var(--pale); color: white; text-decoration: none; }
-.photo-strip img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .3s; }
-.photo-strip a:hover img { transform: scale(1.04); }
-.photo-strip span { position: absolute; inset: auto 0 0; padding: 32px 12px 10px; background: linear-gradient(#0d242000, #0d2420d9); font-size: 15px; font-weight: 600; line-height: 1.25; }
-.photo-strip small { display: block; font-size: 13px; font-weight: 400; opacity: .85; }
-
-.photo-grid, .prose .photo-grid { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 24px 18px; }
-.prose .photo-grid li { margin: 0; padding: 0; }
-.prose .photo-grid figure { margin: 0; }
-.photo-grid a { display: block; overflow: hidden; border-radius: 6px; background: var(--pale); }
-.photo-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .3s; }
-.photo-grid a:hover img { transform: scale(1.03); }
-.prose .photo-grid figcaption { margin-top: 8px; text-align: left; font-size: 14px; line-height: 1.4; color: var(--muted); }
-.photo-grid figcaption strong { display: block; color: var(--ink); font-weight: 600; }
-.day-photos { margin-top: 52px; border-top: 1px solid var(--line); }
-.prose .day-photos h2 { margin-top: 36px; }
-.photos-more { margin: 22px 0 0; font-size: 16px; font-weight: 600; }
-.photos-more a { text-decoration: none; }
-.gallery-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.gallery-jump a { padding: 5px 14px; border: 1px solid #c9d6c8; border-radius: 999px; background: white; color: var(--green-dark); font-size: 15px; font-weight: 600; text-decoration: none; }
-.gallery-jump a:hover { background: var(--pale); }
-.gallery-day { margin-top: 44px; }
-.gallery-day-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 24px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-.prose .gallery-day-heading h2 { margin: 0; }
-.gallery-day-heading a { font-size: 15px; font-weight: 600; text-decoration: none; }
+.photos-section { margin-top: 56px; margin-bottom: 64px; }
+.photo-thumbs, .prose .photo-thumbs { list-style: none; margin: 14px 0 0; padding: 0 0 8px; display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; }
+.photo-thumbs li, .prose .photo-thumbs li { flex: none; position: relative; margin: 0; padding: 0; scroll-snap-align: start; }
+.prose .photo-thumbs figure, .photo-thumbs figure { margin: 0; }
+.photo-thumbs a { display: block; overflow: hidden; border-radius: 6px; background: var(--pale); }
+.photo-thumbs img { display: block; width: 112px; height: 84px; object-fit: cover; transition: opacity .2s; }
+.photo-thumbs a:hover img { opacity: .82; }
+.day-photos { margin-top: 44px; }
+.prose .day-photos h2 { font-size: 22px; margin: 0; }
 
 /* The viewer fills the window; site.js creates it on pages that have photos. */
 .lightbox { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 64px 76px 40px; border: 0; background: #0b1d1af2; color: white; }
@@ -413,8 +394,6 @@ body:has(.lightbox[open]) { overflow: hidden; }
   .identity-title > span { display: none; }
   .centre-nav { display: none; }
   .sidebar-centre { display: flex; }
-  .photo-strip { grid-auto-columns: 200px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
-  .photo-strip li { scroll-snap-align: start; }
 }
 
 @media (max-width: 760px) {
@@ -469,9 +448,7 @@ body:has(.lightbox[open]) { overflow: hidden; }
   .submission-panel { margin-left: -8px; margin-right: -8px; }
   #app-frame { height: 1370px; }
   .search-dialog { margin-top: 72px; }
-  .photos-section { margin-top: 44px; margin-bottom: 48px; }
-  .photo-grid, .prose .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 12px; }
-  .prose .photo-grid figcaption { font-size: 13px; }
+  .photos-section { margin-top: 40px; margin-bottom: 44px; }
   .lightbox { padding: 60px 12px 92px; }
   .lightbox img { max-height: calc(100vh - 250px); }
   .lightbox-prev, .lightbox-next { top: auto; bottom: 24px; transform: none; }

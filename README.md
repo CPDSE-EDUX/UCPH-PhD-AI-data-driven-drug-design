@@ -37,7 +37,6 @@ Teaching teams: see [adding your day's content](for_instructors/ADDING-CONTENT.m
 ├── assets/brand/          Logos and the day banner illustrations
 ├── PROGRAM.md             Full course program
 ├── FOLLOW-UP-COURSES.md   Suggested courses to take after this one
-├── GALLERY.md             Intro text for the photo gallery
 └── README.md              Course overview
 ```
 
