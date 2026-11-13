@@ -16,6 +16,11 @@ Want to go further after this week? These courses build on the topics we covered
 ## Protein modeling and peptide binder design
 
 - [Advanced Methods in Protein Design](https://phdcourses.ku.dk/DetailKursus.aspx?id=114557): offered in February at the Center for Protein Design, UCPH. The next run is 1–12 February 2027; sign up by 3 January 2027.
+- [Protein Design Primer: Principles and Tools for Protein Design and Engineering](https://cpd.ku.dk/events/2026/protein-design-primer-principles-and-tools-for-protein-design-and-engineering/): a PhD course by the Center for Protein Design (CPD), UCPH. The first run is under way (1 September – 8 December 2026), so watch for the next one.
+- Keep learning RFD4-Proteina, the binder design tool from the [Day 3 workshop](day03/workshop_content/index.md), for protein design, antibody design and more:
+    - [RFD4-Proteina: Next-generation biomolecular design](https://www.youtube.com/watch?v=3g7QW5_Gujc), a lecture from RosettaCommons on YouTube
+    - [Examples and tutorials](https://rfd4-proteina.org/latest/examples/index.html)
+    - [How-to guides](https://rfd4-proteina.org/latest/how-to/index.html)
 
 ## Data visualization
 
