@@ -14,7 +14,7 @@ A one-week University of Copenhagen PhD course introducing AI- and data-driven a
 | [Day 4](day04/README.md) | Thursday, 12 November | Data visualization | Data visualization using Claude. |
 | [Day 5](day05/README.md) | Friday, 13 November | Data analysis using AI/ML | Data analysis using Claude, followed by the course wrap-up. |
 
-Start with the [full course program](PROGRAM.md) for sessions, teachers and affiliations, or follow a day link for its description and materials.
+Start with the [full course program](PROGRAM.md) for sessions, teachers and affiliations, or follow a day link for its description and materials. After the course, see the [suggested follow-up courses](FOLLOW-UP-COURSES.md).
 
 ## Course website
 
@@ -35,6 +35,7 @@ Teaching teams: see [adding your day's content](for_instructors/ADDING-CONTENT.m
 ├── for_instructors/       Site builder, publishing guides and per-day teaching notes
 ├── assets/brand/          Logos and the day banner illustrations
 ├── PROGRAM.md             Full course program
+├── FOLLOW-UP-COURSES.md   Suggested courses to take after this one
 └── README.md              Course overview
 ```
 

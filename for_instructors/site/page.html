@@ -26,6 +26,7 @@
     <nav class="top-nav" aria-label="Main navigation">
       <a href="{{ url('index.html') }}"{% if page.kind == 'home' %} aria-current="page"{% endif %}>Overview</a>
       <a href="{{ url('program/index.html') }}"{% if page.kind == 'program' %} aria-current="page"{% endif %}>Program</a>
+      <a href="{{ url('follow-up-courses/index.html') }}"{% if page.kind == 'follow-up' %} aria-current="page"{% endif %}>Follow-up<span class="nav-long"> courses</span></a>
     </nav>
     <nav class="centre-nav" aria-label="Center for Pharmaceutical Data Science Education">{{ centre_links() }}</nav>
     <div class="header-actions">
@@ -87,11 +88,15 @@
       <h2>What you will practise</h2>
       <ul><li>Find and interpret drug, target and disease data.</li><li>Turn molecular interactions into ligand design hypotheses.</li><li>Explore AI/ML tools for protein and peptide design.</li><li>Choose visual representations and analyse molecular data.</li><li>Critically assess AI suggestions and computational predictions.</li></ul>
     </section>
+    <section class="follow-up-section">
+      <h2>After the course</h2>
+      <div><p>Want to go further? We have collected courses that build on the topics of the week, from databases to data visualization, and the organizations that run courses in Copenhagen and Denmark.</p><div class="button-row"><a class="button secondary" href="{{ url('follow-up-courses/index.html') }}">Suggested follow-up courses →</a></div></div>
+    </section>
   {% else %}
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="{{ url('index.html') }}">Course</a>{% if page.day %}<span>/</span><a href="{{ url(day_info.page.route) }}">Day {{ page.day }}</a>{% endif %}{% if page.kind in ['lesson', 'resource'] and day_info.workshop %}<span>/</span><a href="{{ url(day_info.workshop.route) }}">Workshop</a>{% endif %}</nav>
     {% if page.kind == 'day' %}<figure class="day-banner"><img src="{{ url('assets/brand/' ~ day_info.image) }}" alt="{{ day_info.alt }}" width="2000" height="667" decoding="async"></figure>{% endif %}
     <header class="page-heading{% if page.kind == 'app' %} submission-heading{% endif %}">
-      <p class="page-kicker">{% if page.step %}Step {{ page.step }} of {{ steps|length }}{% elif page.kind == 'day' %}Day {{ page.day }} · {{ day_info.date }}{% elif page.kind == 'workshop' %}Day {{ page.day }} workshop{% elif page.kind == 'app' %}Day {{ page.day }} · {{ day_info.topic }}{% elif page.kind == 'program' %}9–13 November 2026{% else %}Day {{ page.day }} · Workshop resources{% endif %}</p>
+      <p class="page-kicker">{% if page.step %}Step {{ page.step }} of {{ steps|length }}{% elif page.kind == 'day' %}Day {{ page.day }} · {{ day_info.date }}{% elif page.kind == 'workshop' %}Day {{ page.day }} workshop{% elif page.kind == 'app' %}Day {{ page.day }} · {{ day_info.topic }}{% elif page.kind == 'program' %}9–13 November 2026{% elif page.kind == 'follow-up' %}After the course{% else %}Day {{ page.day }} · Workshop resources{% endif %}</p>
       <h1>{{ page.title }}</h1>
       {% if page.step %}<button class="completion-toggle" aria-pressed="false" type="button">○ Mark step complete</button>{% endif %}
       {% if page.kind == 'day' %}<p class="page-description">{{ day_info.summary }}</p>{% endif %}

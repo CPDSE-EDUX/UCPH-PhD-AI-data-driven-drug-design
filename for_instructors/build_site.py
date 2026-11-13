@@ -205,7 +205,9 @@ def course_navigation():
 def page_manifest(navigation=None):
     navigation = navigation or course_navigation()
     pages = [Page(REPO / "README.md", "index.html", "AI & data-driven drug design", "home"),
-             Page(REPO / "PROGRAM.md", "program/index.html", "Course program", "program")]
+             Page(REPO / "PROGRAM.md", "program/index.html", "Course program", "program"),
+             Page(REPO / "FOLLOW-UP-COURSES.md", "follow-up-courses/index.html",
+                  "Suggested follow-up courses", "follow-up")]
     for day in navigation:
         pages.append(day["page"])
         if day["workshop"]:
