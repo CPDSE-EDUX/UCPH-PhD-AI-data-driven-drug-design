@@ -1,0 +1,45 @@
+[
+  {
+    "file": "lecture-10-1.jpg",
+    "caption": "Lecture 10 · Sarah Mittenentzwei, IST, SDU",
+    "detail": "Data visualization theory",
+    "alt": "The title slide “Introduction to Data Visualization” on the screen, with two people at the front of the room."
+  },
+  {
+    "file": "lecture-10-2.jpg",
+    "caption": "Lecture 10 · Sarah Mittenentzwei, IST, SDU",
+    "detail": "Data visualization theory",
+    "alt": "The speaker beside an introductory slide titled “Who am I”."
+  },
+  {
+    "file": "lecture-11-1.jpg",
+    "caption": "Lecture 11 · Karen Grubbe, Illustreret Videnskab",
+    "detail": "Visualization in popular science",
+    "alt": "The speaker at the lectern beside a slide introducing the magazine Science Illustrated (Illustreret Videnskab)."
+  },
+  {
+    "file": "lecture-11-2.jpg",
+    "caption": "Lecture 11 · Karen Grubbe, Illustreret Videnskab",
+    "detail": "Visualization in popular science",
+    "alt": "The speaker pointing at a slide titled “How it started”, next to a cover of Illustreret Videnskab.",
+    "cover": true
+  },
+  {
+    "file": "lecture-12-1.jpg",
+    "caption": "Lecture 12 · Alexander Hauser, ILF, UCPH",
+    "detail": "Scripting tools for data visualization",
+    "alt": "The speaker in front of a “Thank You” slide with a group photo, at the end of the lecture."
+  },
+  {
+    "file": "lecture-12-2.jpg",
+    "caption": "Lecture 12 · Alexander Hauser, ILF, UCPH",
+    "detail": "Scripting tools for data visualization",
+    "alt": "A wider view of the room at the end of Lecture 12, with the “Thank You” slide on the screen."
+  },
+  {
+    "file": "workshop-04-1.jpg",
+    "caption": "Workshop 4 · Data visualization workshop",
+    "detail": "Using Claude",
+    "alt": "A speaker presenting a slide titled “How to Make Charts with AI” at the start of the workshop."
+  }
+]

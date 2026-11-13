@@ -9,7 +9,8 @@ import tempfile
 import unittest
 from urllib.parse import unquote, urljoin, urlsplit
 
-from build_site import CONTENT, DAYS, REPO, build, course_navigation, day_folder, page_manifest, published_files
+from build_site import (CONTENT, DAYS, PHOTO_FORMATS, PHOTOS, REPO, build, course_navigation, day_folder,
+                        page_manifest, published_files)
 
 
 class Document(HTMLParser):
@@ -122,6 +123,26 @@ class CourseSiteTests(unittest.TestCase):
         for path in self.output.glob("day*/lectures/**/*"):
             if path.is_file():
                 self.assertIn(path.suffix.lower(), {".pdf", ".pptx"}, path)
+
+    def test_photos_are_listed_shown_and_free_of_metadata(self):
+        """A day's photos appear on its day page and in the gallery, without EXIF or XMP data such as location."""
+        def targets(route):
+            return {urljoin("https://course.example/" + route, reference) for reference in self.documents[route].references}
+        gallery = targets("gallery/index.html")
+        for day in self.navigation:
+            folder = day_folder(day["number"]) / PHOTOS
+            listed = {photo["source"].resolve() for photo in day["photos"]}
+            for source in folder.iterdir() if folder.is_dir() else []:
+                if source.suffix.lower() in PHOTO_FORMATS | {".heic", ".heif", ".tif", ".tiff"}:
+                    self.assertIn(source.resolve(), listed, f"{source} is not listed in photos.json")
+            day_page = targets(day["page"].route)
+            for photo in day["photos"]:
+                data = (self.output / photo["route"]).read_bytes()
+                self.assertEqual(photo["source"].read_bytes(), data)
+                self.assertNotIn(b"Exif\x00", data[:65536], f"{photo['route']} still has EXIF data")
+                self.assertNotIn(b"ns.adobe.com/xap", data[:65536], f"{photo['route']} still has XMP data")
+                self.assertIn("https://course.example/" + photo["route"], gallery)
+                self.assertIn("https://course.example/" + photo["route"], day_page)
 
     def test_search_covers_all_published_pages(self):
         index = json.loads((self.output / "assets/search.json").read_text())

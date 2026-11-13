@@ -1,0 +1,51 @@
+[
+  {
+    "file": "lecture-13-1.jpg",
+    "caption": "Lecture 13 · Wouter Boomsma, DIKU, UCPH",
+    "detail": "Data processing and preparation",
+    "alt": "A slide titled “Two take-aways” on preparing molecules for machine learning, with the speaker beside it."
+  },
+  {
+    "file": "lecture-14-1.jpg",
+    "caption": "Lecture 14 · Jakob Madsen, ILF, UCPH",
+    "detail": "Predictive ML",
+    "alt": "The speaker gesturing beside the title slide “Predictive Machine Learning”.",
+    "cover": true
+  },
+  {
+    "file": "lecture-14-2.jpg",
+    "caption": "Lecture 14 · Jakob Madsen, ILF, UCPH",
+    "detail": "Predictive ML",
+    "alt": "The speaker in front of a slide titled “What are we going to learn?”, next to a photo of a forest stream."
+  },
+  {
+    "file": "lecture-14-3.jpg",
+    "caption": "Lecture 14 · Jakob Madsen, ILF, UCPH",
+    "detail": "Predictive ML",
+    "alt": "A wide view of the room during Lecture 14, with a slide of example images on the screen."
+  },
+  {
+    "file": "lecture-15-1.jpg",
+    "caption": "Lecture 15 · Lars Juhl Jensen, ZS Discovery",
+    "detail": "Industrial data analysis and case story",
+    "alt": "A slide titled “Network biology at the intersection of academia and industry”, with a small network diagram, seen past participants."
+  },
+  {
+    "file": "lecture-15-2.jpg",
+    "caption": "Lecture 15 · Lars Juhl Jensen, ZS Discovery",
+    "detail": "Industrial data analysis and case story",
+    "alt": "The speaker at the lectern beside a slide reading “ZS Discovery”."
+  },
+  {
+    "file": "workshop-05-1.jpg",
+    "caption": "Workshop 5 · Data analysis workshop",
+    "detail": "Using Claude",
+    "alt": "A wide view of the room at the start of Workshop 5, with the workshop title on the screen."
+  },
+  {
+    "file": "workshop-05-2.jpg",
+    "caption": "Workshop 5 · Data analysis workshop",
+    "detail": "Using Claude",
+    "alt": "Two instructors at the front beside the title slide “Workshop 5: Data analysis using AI/ML”."
+  }
+]

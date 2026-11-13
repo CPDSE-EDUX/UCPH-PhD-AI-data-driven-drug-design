@@ -31,11 +31,13 @@ Teaching teams: see [adding your day's content](for_instructors/ADDING-CONTENT.m
 │   ├── README.md          Day description and session table
 │   ├── lectures/          Slides for that day's lectures; the website publishes the PDFs
 │   ├── workshop_content/  Markdown pages, images and downloads for that day's workshop
-│   └── apps/              Optional browser features (Day 2: SMILES submission)
+│   ├── apps/              Optional browser features (Day 2: SMILES submission)
+│   └── photos/            Photos from the day, listed with captions in photos.json
 ├── for_instructors/       Site builder, publishing guides and per-day teaching notes
 ├── assets/brand/          Logos and the day banner illustrations
 ├── PROGRAM.md             Full course program
 ├── FOLLOW-UP-COURSES.md   Suggested courses to take after this one
+├── GALLERY.md             Intro text for the photo gallery
 └── README.md              Course overview
 ```
 

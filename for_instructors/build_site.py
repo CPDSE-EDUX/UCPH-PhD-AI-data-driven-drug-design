@@ -41,6 +41,8 @@ SITE_SOURCE = Path(__file__).resolve().parent / "site"
 BRAND_SOURCE = REPO / "assets/brand"
 CONTENT = "workshop_content"
 APPS = "apps"
+PHOTOS = "photos"
+PHOTO_FORMATS = {".jpg", ".jpeg", ".png", ".webp"}
 SITE_URL = "https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/"
 MARKER = ".course-site-build"
 
@@ -155,6 +157,29 @@ def read_apps(number):
     return [app for _order, _name, app in sorted(apps, key=lambda item: item[:2])]
 
 
+def read_photos(number):
+    """Photos a day lists in `dayNN/photos/photos.json`, in the order given.
+
+    Each entry names an image in that folder and gives its caption and alt text; it
+    may add a "detail" line and mark one photo as the day's "cover" for the home
+    page. Files that are not listed are not published.
+    """
+    listing = day_folder(number) / PHOTOS / "photos.json"
+    if not listing.is_file():
+        return []
+    photos = []
+    for entry in json.loads(listing.read_text(encoding="utf-8")):
+        source = listing.parent / entry["file"]
+        if not source.is_file():
+            raise ValueError(f"Photo missing: {source.relative_to(REPO)}")
+        if source.suffix.lower() not in PHOTO_FORMATS:
+            raise ValueError(f"Photos must be JPEG, PNG or WebP for browsers to show them: {source.relative_to(REPO)}")
+        if not entry.get("caption") or not entry.get("alt"):
+            raise ValueError(f"Photo needs a caption and alt text: {source.relative_to(REPO)}")
+        photos.append({**entry, "source": source, "route": f"day{number:02d}/{PHOTOS}/{entry['file']}"})
+    return photos
+
+
 def day_pages(number):
     """Pages, steps, resources and apps contributed by one day, in reading order."""
     content = day_folder(number) / CONTENT
@@ -196,7 +221,7 @@ def course_navigation():
         source = day_folder(day["number"]) / "README.md"
         if not source.is_file():
             raise ValueError(f"Missing day description: {source.relative_to(REPO)}")
-        navigation.append({**day, **day_pages(day["number"]),
+        navigation.append({**day, **day_pages(day["number"]), "photos": read_photos(day["number"]),
                            "page": Page(source, f"day{day['number']:02d}/index.html",
                                         day["topic"], "day", day["number"])})
     return navigation
@@ -207,7 +232,8 @@ def page_manifest(navigation=None):
     pages = [Page(REPO / "README.md", "index.html", "AI & data-driven drug design", "home"),
              Page(REPO / "PROGRAM.md", "program/index.html", "Course program", "program"),
              Page(REPO / "FOLLOW-UP-COURSES.md", "follow-up-courses/index.html",
-                  "Suggested follow-up courses", "follow-up")]
+                  "Suggested follow-up courses", "follow-up"),
+             Page(REPO / "GALLERY.md", "gallery/index.html", "The week in pictures", "gallery")]
     for day in navigation:
         pages.append(day["page"])
         if day["workshop"]:
@@ -247,6 +273,8 @@ def published_files(navigation=None):
         for source in sorted(content.iterdir()):
             if source.is_file() and not source.name.startswith(".") and source.suffix.lower() in {".pdf", ".pptx"}:
                 files[source.resolve()] = f"day{day['number']:02d}/workshop/materials/{source.name}"
+        for photo in day["photos"]:
+            files[photo["source"].resolve()] = photo["route"]
         for app in day["features"]:
             for source in sorted(app.directory.rglob("*")):
                 if not source.is_file() or source.name in {"app.json", ".DS_Store"}:
@@ -390,6 +418,11 @@ def build(output):
             aliases[(SITE_URL + posixpath.dirname(app.entry_route)).rstrip("/")] = page_route
             aliases[(SITE_URL + f"day{day['number']:02d}/{CONTENT}").rstrip("/")] = page_route
 
+    # The home page shows one photo per day: the one marked "cover", else the day's first.
+    photo_covers = [{"day": day, "photo": next((photo for photo in day["photos"] if photo.get("cover")), day["photos"][0])}
+                    for day in navigation if day["photos"]]
+    captions = " ".join(f"{photo['caption']} {photo.get('detail', '')}" for day in navigation for photo in day["photos"])
+
     env = Environment(loader=FileSystemLoader(SITE_SOURCE), autoescape=select_autoescape(["html"]))
     template = env.get_template("page.html")
     search = []
@@ -425,6 +458,7 @@ def build(output):
                 previous=steps[page.step - 2] if page.step > 1 else None,
                 following=steps[page.step] if page.step and page.step < len(steps) else None,
                 day_info=day, site_url=SITE_URL, home_banner=HOME_BANNER,
+                photo_covers=photo_covers, photo_count=sum(len(day["photos"]) for day in navigation),
             )
             destination = staging / page.route
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -432,7 +466,7 @@ def build(output):
             search.append({
                 "title": page.title, "path": page.route,
                 "section": f"Day {page.day}" if page.day else "Course",
-                "text": body_text if page.kind != "home" else
+                "text": (f"{body_text} {captions}" if page.kind == "gallery" else body_text) if page.kind != "home" else
                         "AI data-driven drug design PhD University Copenhagen course overview November 2026",
             })
         (staging / "assets/search.json").write_text(json.dumps(search, ensure_ascii=False), encoding="utf-8")

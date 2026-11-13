@@ -1,0 +1,45 @@
+[
+  {
+    "file": "lecture-01-1.jpg",
+    "caption": "Lecture 1 · David Gloriam, ILF, UCPH",
+    "detail": "Course introduction",
+    "alt": "The lecture room seen from the back on the first morning, with participants at their laptops."
+  },
+  {
+    "file": "lecture-01-2.jpg",
+    "caption": "Lecture 1 · David Gloriam, ILF, UCPH",
+    "detail": "Course introduction",
+    "alt": "A speaker at the front of the room beside the projected course program, seen past participants in the foreground."
+  },
+  {
+    "file": "lecture-02-1.jpg",
+    "caption": "Lecture 2 · Javier Lorente, ILF, UCPH",
+    "detail": "Drug, target and disease databases",
+    "alt": "The opening slide of Lecture 2, “Drug, target and disease databases”, with two people at the front of the room."
+  },
+  {
+    "file": "lecture-02-2.jpg",
+    "caption": "Lecture 2 · Javier Lorente, ILF, UCPH",
+    "detail": "Drug, target and disease databases",
+    "alt": "Participants raising their hands in answer to a slide titled “A database”, with the speaker at the lectern."
+  },
+  {
+    "file": "lecture-02-3.jpg",
+    "caption": "Lecture 2 · Javier Lorente, ILF, UCPH",
+    "detail": "Drug, target and disease databases",
+    "alt": "The speaker pointing to a slide titled “Types of databases”, a table comparing compound, target, disease and association databases."
+  },
+  {
+    "file": "lecture-03-1.jpg",
+    "caption": "Lecture 3 · Jörn Petersen, Amass",
+    "detail": "From Databases to Knowledge: Integrating Biomedical Data at Amass",
+    "alt": "The speaker beside a pink and purple title slide reading “From Databases to Knowledge”.",
+    "cover": true
+  },
+  {
+    "file": "lecture-03-2.jpg",
+    "caption": "Lecture 3 · Jörn Petersen, Amass",
+    "detail": "From Databases to Knowledge: Integrating Biomedical Data at Amass",
+    "alt": "A wider view of the room during Lecture 3, with the title slide “From Databases to Knowledge” on the screen."
+  }
+]

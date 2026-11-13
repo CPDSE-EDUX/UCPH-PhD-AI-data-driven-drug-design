@@ -1,6 +1,6 @@
 # Publish the course with GitHub Pages
 
-The website is built from this repository and deployed through GitHub Actions. It covers the course overview, the full program, the suggested follow-up courses, all five day pages, and each day's workshop content and apps.
+The website is built from this repository and deployed through GitHub Actions. It covers the course overview, the full program, the suggested follow-up courses, the photo gallery, all five day pages, and each day's workshop content and apps.
 
 **Publication target:** <https://cpdse-edux.github.io/UCPH-PhD-AI-data-driven-drug-design/>
 
@@ -11,6 +11,7 @@ The website is built from this repository and deployed through GitHub Actions. I
 | Course description and home page copy | [Course README](../README.md), [page.html](site/page.html) |
 | Full schedule and teaching staff | [PROGRAM.md](../PROGRAM.md) |
 | Suggested follow-up courses | [FOLLOW-UP-COURSES.md](../FOLLOW-UP-COURSES.md) |
+| Photos from the week | That day's `photos/` folder and `photos.json`; the gallery's intro text is in [GALLERY.md](../GALLERY.md) |
 | A day's description and session table | That day's `README.md` |
 | A day's workshop pages, images and downloads | That day's `workshop_content/` |
 | A day's browser app | That day's `apps/<name>/` |

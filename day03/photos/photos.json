@@ -1,0 +1,33 @@
+[
+  {
+    "file": "lecture-07-1.jpg",
+    "caption": "Lecture 7 · Albert Kooistra, ILF, UCPH",
+    "detail": "Software for protein modeling & peptide drug design",
+    "alt": "The speaker pointing at a slide titled “Diffusion: learn to remove noise, then start from pure noise”, with protein structures emerging from noise."
+  },
+  {
+    "file": "lecture-08-1.jpg",
+    "caption": "Lecture 8 · Rodrigo Alonso Ochoa, Novo Nordisk A/S",
+    "detail": "Modelling and cheminformatics approaches for peptide analysis and design",
+    "alt": "The speaker beside the blue title slide “Modelling and cheminformatics approaches for peptide analysis and design”.",
+    "cover": true
+  },
+  {
+    "file": "lecture-08-2.jpg",
+    "caption": "Lecture 8 · Rodrigo Alonso Ochoa, Novo Nordisk A/S",
+    "detail": "Modelling and cheminformatics approaches for peptide analysis and design",
+    "alt": "The speaker pointing at a slide titled “Fuelling R&D Transformation Through Generative AI”."
+  },
+  {
+    "file": "lecture-09-1.jpg",
+    "caption": "Lecture 9 · Kasper Einarson, Gubra",
+    "detail": "AI-/ML-based peptide design at Gubra",
+    "alt": "A wide view of the full lecture room from the back during Lecture 9."
+  },
+  {
+    "file": "lecture-09-2.jpg",
+    "caption": "Lecture 9 · Kasper Einarson, Gubra",
+    "detail": "AI-/ML-based peptide design at Gubra",
+    "alt": "The speaker beside a slide titled “Machine learning guided peptide drug discovery”, outlining data, peptide representation, ML algorithm and evaluation."
+  }
+]

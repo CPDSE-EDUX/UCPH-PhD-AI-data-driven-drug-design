@@ -1,0 +1,27 @@
+[
+  {
+    "file": "lecture-05-1.jpg",
+    "caption": "Lecture 5 · Henrik Daver, Lundbeck A/S",
+    "detail": "Computational hit identification & hit-to-lead optimization",
+    "alt": "The speaker at the lectern beside an orange slide titled “FEP-guided drug design”."
+  },
+  {
+    "file": "lecture-05-2.jpg",
+    "caption": "Lecture 5 · Henrik Daver, Lundbeck A/S",
+    "detail": "Computational hit identification & hit-to-lead optimization",
+    "alt": "The speaker pointing at a slide titled “LRRK2 AlphaFold FEP”, showing a protein binding pocket and a set of molecules.",
+    "cover": true
+  },
+  {
+    "file": "workshop-02-1.jpg",
+    "caption": "Workshop 2 · Winners of the competition to build the best drug",
+    "detail": "Structure-based ligand optimization",
+    "alt": "Two competition winners standing in the workshop room, holding their prize water bottles."
+  },
+  {
+    "file": "workshop-02-2.jpg",
+    "caption": "Workshop 2 · Winners of the competition to build the best drug",
+    "detail": "Structure-based ligand optimization",
+    "alt": "Three competition winners at their laptops, smiling and raising their prize mugs, with the rest of the class behind them."
+  }
+]

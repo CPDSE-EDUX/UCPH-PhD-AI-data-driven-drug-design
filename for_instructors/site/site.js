@@ -176,6 +176,52 @@
   });
   dialog.addEventListener("click", event => { if (event.target === dialog) { const box = dialog.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close(); } });
 
+  // Photos open in a viewer that pages through their data-lightbox group; without JavaScript the link opens the image.
+  const photoLinks = [...document.querySelectorAll("a[data-lightbox]")];
+  if (photoLinks.length) {
+    const viewer = document.createElement("dialog");
+    viewer.className = "lightbox";
+    viewer.setAttribute("aria-label", "Photo viewer");
+    viewer.innerHTML = '<p class="lightbox-count" aria-live="polite"></p><figure><img alt=""><figcaption></figcaption></figure>'
+      + '<button class="lightbox-prev" type="button" aria-label="Previous photo">←</button>'
+      + '<button class="lightbox-next" type="button" aria-label="Next photo">→</button>'
+      + '<button class="lightbox-close" type="button" aria-label="Close photo viewer" autofocus>✕</button>';
+    body.append(viewer);
+    const image = viewer.querySelector("img");
+    const caption = viewer.querySelector("figcaption");
+    const count = viewer.querySelector(".lightbox-count");
+    let group = [];
+    let index = 0;
+    function showPhoto(position) {
+      index = (position + group.length) % group.length;
+      const link = group[index];
+      image.src = link.href;
+      image.alt = link.querySelector("img")?.alt || "";
+      const source = link.closest("figure")?.querySelector("figcaption");
+      caption.replaceChildren(...(source ? [...source.childNodes].map(node => node.cloneNode(true)) : []));
+      count.textContent = `${index + 1} / ${group.length}`;
+      viewer.querySelectorAll(".lightbox-prev, .lightbox-next").forEach(button => { button.hidden = group.length < 2; });
+    }
+    photoLinks.forEach(link => link.addEventListener("click", event => {
+      if (event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;  // A new tab or window opens the image itself.
+      event.preventDefault();
+      group = photoLinks.filter(other => other.dataset.lightbox === link.dataset.lightbox);
+      showPhoto(group.indexOf(link));
+      viewer.showModal();
+    }));
+    viewer.querySelector(".lightbox-prev").addEventListener("click", () => showPhoto(index - 1));
+    viewer.querySelector(".lightbox-next").addEventListener("click", () => showPhoto(index + 1));
+    viewer.querySelector(".lightbox-close").addEventListener("click", () => viewer.close());
+    viewer.addEventListener("keydown", event => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      showPhoto(index + (event.key === "ArrowLeft" ? -1 : 1));
+    });
+    // A click on the dark surround closes the viewer; clicks on the photo, caption or buttons do not.
+    viewer.addEventListener("click", event => { if (event.target === viewer) viewer.close(); });
+    viewer.addEventListener("close", () => { image.removeAttribute("src"); group[index]?.focus(); });
+  }
+
   // A day's embedded app is published unchanged and also runs at its own URL.
   const frame = document.querySelector("#app-frame");
   if (frame) frame.addEventListener("load", () => {
